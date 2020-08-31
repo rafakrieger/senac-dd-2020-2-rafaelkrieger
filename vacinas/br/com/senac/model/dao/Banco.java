@@ -10,13 +10,11 @@ import java.sql.Statement;
 public class Banco {
 
 	private static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver"; 
-	private static final String DRIVER_POSTGRES = "org.postgresql.Driver";
 	private static final String BANCODADOS = "exemplos";
 	private static final String URL_MYSQL = "jdbc:mysql://localhost:3306/";
-	private static final String URL_POSTGRES = "jdbc:postgres://localhost:5432/";	
 	private static final String CONEXAO = URL_MYSQL + BANCODADOS;
-	private static final String USER = "postgres";
-	private static final String PASSWORD = "1234";
+	private static final String USER = "root";
+	private static final String PASSWORD = "";
 	
 	public static final int CODIGO_RETORNO_SUCESSO = 1;
 	

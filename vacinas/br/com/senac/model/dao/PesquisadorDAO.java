@@ -28,7 +28,7 @@ public class PesquisadorDAO {
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
 				ResultSet resultado = query.getGeneratedKeys();
-				int chaveGerada = resultado.getInt("ID");
+				int chaveGerada = resultado.getInt(1);
 				
 				pesquisador.setIdPesquisador(chaveGerada);
 			}

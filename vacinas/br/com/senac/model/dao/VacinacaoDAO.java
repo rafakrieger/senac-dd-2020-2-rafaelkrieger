@@ -31,7 +31,7 @@ public class VacinacaoDAO {
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
 				ResultSet resultado = query.getGeneratedKeys();
-				int chaveGerada = resultado.getInt("ID");
+				int chaveGerada = resultado.getInt(1);
 				
 				vacinacao.setIdVacinacao(chaveGerada);
 			}
@@ -49,7 +49,7 @@ public class VacinacaoDAO {
 	public boolean atualizar(VacinacaoVO vacinacao) {
 		Connection conexao = Banco.getConnection();
 		
-		String sql = " UPDATE VACINAcao "
+		String sql = " UPDATE VACINACAO "
 				   + " SET IDVACINA=?, IDPESSOA, DT_VACINACAO=?, AVALIACAO? "
 				   + " WHERE IDVACINACAO=? ";
 		
