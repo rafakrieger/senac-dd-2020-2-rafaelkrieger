@@ -6,7 +6,6 @@ import br.com.senac.model.dao.PesquisadorDAO;
 import br.com.senac.model.dao.PessoaDAO;
 import br.com.senac.model.vo.PesquisadorVO;
 import br.com.senac.model.vo.PessoaVO;
-import br.com.senac.model.vo.VacinaVO;
 
 public class Principal {
 
@@ -44,9 +43,6 @@ public class Principal {
 		PesquisadorDAO pesquisador = new PesquisadorDAO();		
 		pesquisador.inserir(pesquisador1);
 		
-		VacinaVO vacina1 = new VacinaVO();
-		vacina1.setDataInicio(LocalDate.parse("2020-08-08"));
-		vacina1.setEstagioPesquisa(1);
 	}
 
 }
