@@ -9,18 +9,20 @@ public class PessoaVO {
 	private LocalDate dataNascimento;
 	private String sexo;
 	private String cpf;
+	private boolean voluntario;
 	
 	public PessoaVO() {
 		super();
 	}
 
-	public PessoaVO(int idPessoa, String nome, LocalDate dataNascimento, String sexo, String cpf) {
+	public PessoaVO(int idPessoa, String nome, LocalDate dataNascimento, String sexo, String cpf, boolean voluntario) {
 		super();
 		this.idPessoa = idPessoa;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.cpf = cpf;
+		this.voluntario = voluntario;
 	}
 
 	public int getIdPessoa() {
@@ -62,7 +64,14 @@ public class PessoaVO {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
+	public boolean isVoluntario() {
+		return voluntario;
+	}
+
+	public void setVoluntario(boolean voluntario) {
+		this.voluntario = voluntario;
+	}
 	
-		
 	
 }

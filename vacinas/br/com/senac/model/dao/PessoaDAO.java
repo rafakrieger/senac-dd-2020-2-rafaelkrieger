@@ -14,8 +14,8 @@ public class PessoaDAO {
 	public PessoaVO inserir(PessoaVO novaPessoa) {
 		Connection conexao = Banco.getConnection();
 		
-		String sql = " INSERT INTO PESSOA (NOME, DT_NASCIMENTO, SEXO, CPF) " 
-					+ " VALUES (?,?,?,?) ";
+		String sql = " INSERT INTO PESSOA (NOME, DT_NASCIMENTO, SEXO, CPF, VOLUNTARIO) " 
+					+ " VALUES (?,?,?,?, ?) ";
 		
 		PreparedStatement query = Banco.getPreparedStatementWithGeneratedKeys(conexao, sql);
 
@@ -24,6 +24,7 @@ public class PessoaDAO {
 			query.setObject(2, novaPessoa.getDataNascimento());
 			query.setString(3, novaPessoa.getSexo());
 			query.setString(4, novaPessoa.getCpf());
+			query.setBoolean(5, novaPessoa.isVoluntario());
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
@@ -48,7 +49,7 @@ public class PessoaDAO {
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " UPDATE PESSOA "
-				   + " SET NOME=?, DT_NASCIMENTO=?, SEXO=?, CPF=? "
+				   + " SET NOME=?, DT_NASCIMENTO=?, SEXO=?, CPF=?, VOLUNTARIO=? "
 				   + " WHERE IDPESSOA=? ";
 		
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
@@ -59,6 +60,8 @@ public class PessoaDAO {
 			query.setObject(2, pessoa.getDataNascimento());
 			query.setString(3, pessoa.getSexo());
 			query.setString(4, pessoa.getCpf());
+			query.setBoolean(5, pessoa.isVoluntario());
+
 			
 			int codigoRetorno = query.executeUpdate();
 			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
@@ -154,6 +157,7 @@ public class PessoaDAO {
 		pessoa.setDataNascimento((LocalDate) pessoaConsultada.getObject("dt_nascimento"));
 		pessoa.setSexo(pessoaConsultada.getString("sexo"));
 		pessoa.setCpf(pessoaConsultada.getString("cpf"));
+		pessoa.setVoluntario(pessoaConsultada.getBoolean("voluntario"));
 		
 		return pessoa;
 	}
