@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.senac.model.vo.PesquisadorVO;
-import br.com.senac.model.vo.PessoaVO;
 
 public class PesquisadorDAO {
 	
@@ -20,6 +19,7 @@ public class PesquisadorDAO {
 					+ " VALUES (?,?) ";
 		
 		PreparedStatement query = Banco.getPreparedStatementWithGeneratedKeys(conexao, sql);
+		ResultSet resultado = null;
 
 		try {
 			query.setInt(1, pesquisador.getIdPessoa());
@@ -27,15 +27,18 @@ public class PesquisadorDAO {
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
-				ResultSet resultado = query.getGeneratedKeys();
-				int chaveGerada = resultado.getInt(1);
+				resultado = query.getGeneratedKeys();
+				if (resultado.first()) {
+					int chaveGerada = resultado.getInt(1);
+					pesquisador.setIdPesquisador(chaveGerada);
+				}		
 				
-				pesquisador.setIdPesquisador(chaveGerada);
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Erro ao cadastrar pesquisador.\nCausa: " + e.getMessage());
 		} finally {
+			Banco.closeResultSet(resultado);
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
 		}

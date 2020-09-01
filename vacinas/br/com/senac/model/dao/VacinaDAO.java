@@ -20,6 +20,7 @@ public class VacinaDAO {
 					+ " VALUES (?,?,?,?) ";
 		
 		PreparedStatement query = Banco.getPreparedStatementWithGeneratedKeys(conexao, sql);
+		ResultSet resultado = null;
 
 		try {
 			query.setInt(1, novaVacina.getPesquisador().getIdPesquisador());
@@ -29,15 +30,17 @@ public class VacinaDAO {
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
-				ResultSet resultado = query.getGeneratedKeys();
-				int chaveGerada = resultado.getInt(1);
-				
-				novaVacina.setIdVacina(chaveGerada);
+				resultado = query.getGeneratedKeys();
+				if (resultado.first()) {
+					int chaveGerada = resultado.getInt(1);
+					novaVacina.setIdVacina(chaveGerada);
+				}						
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Erro ao cadastrar vacina.\nCausa: " + e.getMessage());
 		} finally {
+			Banco.closeResultSet(resultado);
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
 		}

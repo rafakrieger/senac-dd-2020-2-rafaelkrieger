@@ -18,6 +18,7 @@ public class PessoaDAO {
 					+ " VALUES (?,?,?,?, ?) ";
 		
 		PreparedStatement query = Banco.getPreparedStatementWithGeneratedKeys(conexao, sql);
+		ResultSet resultado = null;
 
 		try {
 			query.setString(1, novaPessoa.getNome());
@@ -28,16 +29,18 @@ public class PessoaDAO {
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
-				ResultSet resultado = query.getGeneratedKeys();
-				int chaveGerada = resultado.getInt(1);
-				
-				novaPessoa.setIdPessoa(chaveGerada);
+				resultado = query.getGeneratedKeys();
+				if (resultado.first()) {
+					int chaveGerada = resultado.getInt(1);
+					novaPessoa.setIdPessoa(chaveGerada);
+				}				
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Erro ao cadastrar pessoa.\nCausa: " + e.getMessage());
 		} finally {
-			Banco.closeStatement(query);
+			Banco.closeResultSet(resultado);
+			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
 		}
 				

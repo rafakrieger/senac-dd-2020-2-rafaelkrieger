@@ -11,9 +11,9 @@ public class PesquisadorVO extends PessoaVO{
 		super();
 	}
 
-	public PesquisadorVO(int idPessoa, String nome, LocalDate dataNascimento, String sexo, String cpf,
+	public PesquisadorVO(int idPessoa, String nome, LocalDate dataNascimento, String sexo, String cpf, boolean voluntario,
 			String instituicao, int idPesquisador) {
-		super(idPessoa, nome, dataNascimento, sexo, cpf);
+		super(idPessoa, nome, dataNascimento, sexo, cpf, voluntario);
 		this.instituicao = instituicao;
 		this.idPesquisador = idPesquisador;
 	}
