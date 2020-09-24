@@ -4,26 +4,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.senac.vacinas.model.vo.PessoaVO;
 
 public class PessoaDAO {
-	
+		
 	public PessoaVO inserir(PessoaVO novaPessoa) {
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " INSERT INTO PESSOA (NOME, DT_NASCIMENTO, SEXO, CPF, VOLUNTARIO) " 
-					+ " VALUES (?,?,?,?, ?) ";
+					+ " VALUES (?,?,?,?,?) ";
 		
 		PreparedStatement query = Banco.getPreparedStatementWithGeneratedKeys(conexao, sql);
 		ResultSet resultado = null;
 
 		try {
 			query.setString(1, novaPessoa.getNome());
-			query.setObject(2, novaPessoa.getDataNascimento());
+			query.setDate(2, java.sql.Date.valueOf(novaPessoa.getDataNascimento()));
 			query.setString(3, novaPessoa.getSexo());
 			query.setString(4, novaPessoa.getCpf());
 			query.setBoolean(5, novaPessoa.isVoluntario());
@@ -61,7 +60,7 @@ public class PessoaDAO {
 		boolean atualizou = false;
 		try {
 			query.setString(1, pessoa.getNome());
-			query.setObject(2, pessoa.getDataNascimento());
+			query.setDate(2, java.sql.Date.valueOf(pessoa.getDataNascimento()));
 			query.setString(3, pessoa.getSexo());
 			query.setString(4, pessoa.getCpf());
 			query.setBoolean(5, pessoa.isVoluntario());
@@ -158,7 +157,7 @@ public class PessoaDAO {
 		PessoaVO pessoa = new PessoaVO();
 		pessoa.setIdPessoa(pessoaConsultada.getInt("idpessoa"));
 		pessoa.setNome(pessoaConsultada.getString("nome"));
-		pessoa.setDataNascimento((LocalDate) pessoaConsultada.getObject("dt_nascimento"));
+		pessoa.setDataNascimento(pessoaConsultada.getDate("dt_nascimento").toLocalDate());
 		pessoa.setSexo(pessoaConsultada.getString("sexo"));
 		pessoa.setCpf(pessoaConsultada.getString("cpf"));
 		pessoa.setVoluntario(pessoaConsultada.getBoolean("voluntario"));

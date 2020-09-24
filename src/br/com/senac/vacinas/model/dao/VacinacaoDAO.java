@@ -26,7 +26,7 @@ public class VacinacaoDAO {
 		try {
 			query.setInt(1, vacinacao.getVacina().getIdVacina());
 			query.setInt(2, vacinacao.getPessoa().getIdPessoa());
-			query.setObject(3, vacinacao.getDataVacinacao());
+			query.setDate(3, java.sql.Date.valueOf(vacinacao.getDataVacinacao()));
 			query.setInt(4, vacinacao.getAvaliacao());
 			
 			int codigoRetorno = query.executeUpdate();
@@ -39,7 +39,7 @@ public class VacinacaoDAO {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Erro ao cadastrar vacinação.\nCausa: " + e.getMessage());
+			System.out.println("Erro ao cadastrar vacinaï¿½ï¿½o.\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(query);
@@ -62,14 +62,14 @@ public class VacinacaoDAO {
 		try {
 			query.setInt(1, vacinacao.getVacina().getIdVacina());
 			query.setInt(2, vacinacao.getPessoa().getIdPessoa());
-			query.setObject(3, vacinacao.getDataVacinacao());
+			query.setDate(3, java.sql.Date.valueOf(vacinacao.getDataVacinacao()));
 			query.setInt(4, vacinacao.getAvaliacao());
 			
 			int codigoRetorno = query.executeUpdate();
 			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
 			
 		} catch (SQLException e) {
-			System.out.println("Erro ao atualizar vacinação.\nCausa: " + e.getMessage());
+			System.out.println("Erro ao atualizar vacinaï¿½ï¿½o.\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -94,7 +94,7 @@ public class VacinacaoDAO {
 			excluiu = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
 			
 		} catch (SQLException e) {
-			System.out.println("Erro ao excluir vacinação.\nCausa: " + e.getMessage());
+			System.out.println("Erro ao excluir vacinaï¿½ï¿½o.\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -119,7 +119,7 @@ public class VacinacaoDAO {
 				vacinacao = this.construirDoResultSet(rs);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao consultar vacinação por id (Id: " + id + ").\nCausa: " + e.getMessage());
+			System.out.println("Erro ao consultar vacinaï¿½ï¿½o por id (Id: " + id + ").\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -143,7 +143,7 @@ public class VacinacaoDAO {
 				vacinacoes.add(vacinacao);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao consultar vacinações.\nCausa: " + e.getMessage());
+			System.out.println("Erro ao consultar vacinaï¿½ï¿½es.\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -153,7 +153,7 @@ public class VacinacaoDAO {
 		
 	}
 	
-	// TODO Listar vacinações por grupo (voluntários, pesquisadores e público em geral)
+	// TODO Listar vacinaï¿½ï¿½es por grupo (voluntï¿½rios, pesquisadores e pï¿½blico em geral)
 	
 	
 	private VacinacaoVO construirDoResultSet(ResultSet vacinacaoConsultada) throws SQLException {
@@ -161,7 +161,7 @@ public class VacinacaoDAO {
 		vacinacao.setIdVacinacao(vacinacaoConsultada.getInt("idvacinacao"));
 		vacinacao.setVacina((VacinaVO) vacinacaoConsultada.getObject("idvacina"));
 		vacinacao.setPessoa((PessoaVO) vacinacaoConsultada.getObject("idpessoa"));
-		vacinacao.setDataVacinacao((LocalDate) vacinacaoConsultada.getObject("dt_vacinacao"));
+		vacinacao.setDataVacinacao(vacinacaoConsultada.getDate("dt_vacinacao").toLocalDate());
 		vacinacao.setAvaliacao(vacinacaoConsultada.getInt("avaliacao"));
 		
 		return vacinacao;

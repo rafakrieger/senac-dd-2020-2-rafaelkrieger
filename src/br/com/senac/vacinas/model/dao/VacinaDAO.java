@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class VacinaDAO {
 			query.setInt(1, novaVacina.getPesquisador().getIdPesquisador());
 			query.setString(2, novaVacina.getPaisOrigem());
 			query.setInt(3, novaVacina.getEstagioPesquisa());
-			query.setObject(4, novaVacina.getDataInicio());
+			query.setDate(4, java.sql.Date.valueOf(novaVacina.getDataInicio()));
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
@@ -62,7 +61,7 @@ public class VacinaDAO {
 			query.setInt(1, vacina.getPesquisador().getIdPesquisador());
 			query.setString(2, vacina.getPaisOrigem());
 			query.setInt(3, vacina.getEstagioPesquisa());
-			query.setObject(4, vacina.getDataInicio());
+			query.setDate(4, java.sql.Date.valueOf(vacina.getDataInicio()));
 			
 			int codigoRetorno = query.executeUpdate();
 			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
@@ -168,7 +167,7 @@ public class VacinaDAO {
 				vacinas.add(vacina);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao consultar vacinas do estágio: " + estagioPesquisa + ".\nCausa: " + e.getMessage());
+			System.out.println("Erro ao consultar vacinas do estï¿½gio: " + estagioPesquisa + ".\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -183,7 +182,7 @@ public class VacinaDAO {
 		vacina.setPesquisador((PesquisadorVO) vacinaConsultada.getObject("idpesquisador"));
 		vacina.setPaisOrigem(vacinaConsultada.getString("pais_origem"));
 		vacina.setEstagioPesquisa(vacinaConsultada.getInt("estagio_pesquisa"));
-		vacina.setDataInicio((LocalDate) vacinaConsultada.getObject("dt_inicio"));
+		vacina.setDataInicio(vacinaConsultada.getDate("dt_inicio").toLocalDate());
 		
 		return vacina;
 	}
