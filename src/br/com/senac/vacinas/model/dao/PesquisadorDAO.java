@@ -14,15 +14,14 @@ public class PesquisadorDAO {
 	public PesquisadorVO inserir(PesquisadorVO pesquisador) {
 		Connection conexao = Banco.getConnection();
 		
-		String sql = " INSERT INTO PESQUISADOR (IDPESSOA, INSTITUICAO) " 
-					+ " VALUES (?,?) ";
+		String sql = " INSERT INTO PESQUISADOR (INSTITUICAO) " 
+					+ " VALUES (?) ";
 		
 		PreparedStatement query = Banco.getPreparedStatementWithGeneratedKeys(conexao, sql);
 		ResultSet resultado = null;
 
-		try {
-			query.setInt(1, pesquisador.getIdPessoa());
-			query.setString(2, pesquisador.getInstituicao());
+		try {			
+			query.setString(1, pesquisador.getInstituicao());
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
@@ -49,15 +48,14 @@ public class PesquisadorDAO {
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " UPDATE PESQUISADOR "
-				   + " SET IDPESSOA=?, INSTITUICAO=? "
+				   + " SET INSTITUICAO=? "
 				   + " WHERE IDPESQUISADOR=? ";
 		
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 
 		boolean atualizou = false;
-		try {
-			query.setInt(1, pesquisador.getIdPessoa());
-			query.setString(2, pesquisador.getInstituicao());
+		try {			
+			query.setString(1, pesquisador.getInstituicao());
 			
 			int codigoRetorno = query.executeUpdate();
 			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
@@ -149,13 +147,7 @@ public class PesquisadorDAO {
 	private PesquisadorVO construirDoResultSet(ResultSet pesquisadorConsultado) throws SQLException {
 		PesquisadorVO pesquisador = new PesquisadorVO();
 		pesquisador.setIdPesquisador(pesquisadorConsultado.getInt("idpesquisador"));
-		pesquisador.setIdPessoa(pesquisadorConsultado.getInt("idpessoa"));
 		pesquisador.setInstituicao(pesquisadorConsultado.getString("instituicao"));
-		pesquisador.setNome(pesquisadorConsultado.getString("nome"));
-		pesquisador.setDataNascimento(pesquisadorConsultado.getDate("dt_nascimento").toLocalDate());
-		pesquisador.setSexo(pesquisadorConsultado.getString("sexo"));
-		pesquisador.setCpf(pesquisadorConsultado.getString("cpf"));
-		
 		return pesquisador;
 	}
 	
