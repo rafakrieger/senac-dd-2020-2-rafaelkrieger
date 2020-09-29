@@ -28,8 +28,7 @@ public class PessoaController {
 		
 		mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();
 		
-		return mensagem;
-		
+		return mensagem;		
 	}
 
 	private void validarSexo(String sexo) throws SexoInvalidoException {

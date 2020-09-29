@@ -9,6 +9,7 @@ public class PessoaBO {
 		PessoaDAO novaPessoa = new PessoaDAO();
 		novaPessoa.inserir(pessoa);		
 		return pessoa;
+		
 	}
 
 }

@@ -20,8 +20,7 @@ public class PesquisadorController {
 		
 		mensagem = "Salvo com sucesso! Id gerado: " + pesquisador.getIdPesquisador();
 		
-		return mensagem;
-		
+		return mensagem;		
 	}
 
 	private void validarInstituicao(String instituicao) throws InstituicaoInvalidaException {

@@ -24,8 +24,7 @@ public class VacinaController {
 			
 			mensagem = "Salvo com sucesso! Id gerado: " + vacina.getIdVacina();
 			
-			return mensagem;
-			
+			return mensagem;			
 		}
 
 		private void validarCampos(VacinaVO vacina) throws CamposVaziosException {

@@ -8,6 +8,7 @@ public class VacinaBO {
 	public VacinaVO salvar(VacinaVO vacina) {
 		VacinaDAO novaVacina = new VacinaDAO();
 		return novaVacina.inserir(vacina);	
+		
 	}
 
 }

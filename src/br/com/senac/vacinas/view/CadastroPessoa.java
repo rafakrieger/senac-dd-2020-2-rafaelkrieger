@@ -217,7 +217,6 @@ public class CadastroPessoa extends JFrame {
 		});
 		btnSalvarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnSalvarPessoa.setBounds(123, 349, 177, 35);
-		contentPane.add(btnSalvarPessoa);
-		
+		contentPane.add(btnSalvarPessoa);		
 	}
 }

@@ -125,8 +125,7 @@ public class CadastroVacina extends JFrame {
 				
 				VacinaController vacinaController = new VacinaController();
 				String mensagem = vacinaController.salvar(vacina);
-				JOptionPane.showMessageDialog(contentPane, mensagem);
-				
+				JOptionPane.showMessageDialog(contentPane, mensagem);				
 			}
 		});
 		btnSalvarVacina.setFont(new Font("Dialog", Font.BOLD, 14));
