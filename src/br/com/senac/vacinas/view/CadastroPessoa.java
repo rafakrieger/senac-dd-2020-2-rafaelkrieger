@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
@@ -41,6 +42,7 @@ public class CadastroPessoa extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private String sexoSelecionado;
 	private boolean isVoluntario = false;
+	DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	/**
 	 * Launch the application.
@@ -183,7 +185,7 @@ public class CadastroPessoa extends JFrame {
 				PesquisadorVO pesquisador = new PesquisadorVO();
 				pessoa.setNome(textFieldNome.getText());
 				pessoa.setCpf(formattedTextFieldCpf.getText());
-				pessoa.setDataNascimento(LocalDate.parse(formattedTextFieldData.getText()));
+				pessoa.setDataNascimento(LocalDate.parse(formattedTextFieldData.getText(), dateFormatter));
 				
 				if (rdbtnMasc.isSelected()) {
 					sexoSelecionado = "M";
@@ -208,7 +210,8 @@ public class CadastroPessoa extends JFrame {
 				}
 				
 				PessoaController pessoaController = new PessoaController();
-				pessoaController.salvar(pessoa);
+				String mensagem = pessoaController.salvar(pessoa);
+				JOptionPane.showMessageDialog(contentPane, mensagem);
 				
 			}
 		});

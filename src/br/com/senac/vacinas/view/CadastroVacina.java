@@ -6,17 +6,35 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.com.senac.vacinas.controller.PessoaController;
+import br.com.senac.vacinas.controller.VacinaController;
+import br.com.senac.vacinas.model.dao.PesquisadorDAO;
+import br.com.senac.vacinas.model.vo.PesquisadorVO;
+import br.com.senac.vacinas.model.vo.VacinaVO;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.awt.event.ActionEvent;
 
 public class CadastroVacina extends JFrame {
 
 	private JPanel contentPane;
+	private JComboBox comboBoxPais;
+	private JComboBox comboBoxEstagio;
+	private JComboBox comboBoxPesq;
 
 	/**
 	 * Launch the application.
@@ -53,7 +71,9 @@ public class CadastroVacina extends JFrame {
 		lblPais.setBounds(10, 0, 134, 25);
 		contentPane.add(lblPais);
 		
-		JComboBox comboBoxPais = new JComboBox();
+		String[] paises = {"China", "Rússia"};
+		comboBoxPais = new JComboBox(paises);
+		comboBoxPais.setSelectedIndex(-1);
 		comboBoxPais.setFont(new Font("Dialog", Font.PLAIN, 14));
 		comboBoxPais.setBounds(10, 25, 294, 30);
 		contentPane.add(comboBoxPais);
@@ -64,15 +84,19 @@ public class CadastroVacina extends JFrame {
 		lblEstagio.setBounds(10, 62, 179, 25);
 		contentPane.add(lblEstagio);
 		
-		JComboBox comboBoxPais_1 = new JComboBox();
-		comboBoxPais_1.setFont(new Font("Dialog", Font.PLAIN, 14));
-		comboBoxPais_1.setBounds(10, 85, 294, 30);
-		contentPane.add(comboBoxPais_1);
+		String[] estagio = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
+		comboBoxEstagio = new JComboBox(estagio);
+		comboBoxEstagio.setSelectedIndex(-1);
+		comboBoxEstagio.setFont(new Font("Dialog", Font.PLAIN, 14));
+		comboBoxEstagio.setBounds(10, 85, 294, 30);
+		contentPane.add(comboBoxEstagio);
 		
-		JComboBox comboBoxPais_1_1 = new JComboBox();
-		comboBoxPais_1_1.setFont(new Font("Dialog", Font.PLAIN, 14));
-		comboBoxPais_1_1.setBounds(10, 151, 294, 30);
-		contentPane.add(comboBoxPais_1_1);
+		PesquisadorDAO dao = new PesquisadorDAO();
+		List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
+		comboBoxPesq = new JComboBox(pesquisadores.toArray());
+		comboBoxPesq.setFont(new Font("Dialog", Font.PLAIN, 14));
+		comboBoxPesq.setBounds(10, 151, 294, 30);
+		contentPane.add(comboBoxPesq);
 		
 		JLabel lblPesqResp = new JLabel("PESQUISADOR RESPONSÁVEL");
 		lblPesqResp.setForeground(Color.DARK_GRAY);
@@ -86,13 +110,29 @@ public class CadastroVacina extends JFrame {
 		lblDataInicio.setBounds(10, 192, 230, 25);
 		contentPane.add(lblDataInicio);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(10, 216, 294, 30);
-		contentPane.add(formattedTextField);
+		final JFormattedTextField formattedTextFieldData = new JFormattedTextField();
+		formattedTextFieldData.setBounds(10, 216, 294, 30);
+		contentPane.add(formattedTextFieldData);
 		
 		JButton btnSalvarVacina = new JButton("SALVAR");
+		btnSalvarVacina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VacinaVO vacina = new VacinaVO();
+				vacina.setPaisOrigem((String) comboBoxPais.getSelectedItem());
+				vacina.setEstagioPesquisa(comboBoxEstagio.getSelectedIndex());
+				vacina.setPesquisador((PesquisadorVO) comboBoxPesq.getSelectedItem());
+				vacina.setDataInicio(LocalDate.parse(formattedTextFieldData.getText()));
+				
+				VacinaController vacinaController = new VacinaController();
+				String mensagem = vacinaController.salvar(vacina);
+				JOptionPane.showMessageDialog(contentPane, mensagem);
+				
+			}
+		});
 		btnSalvarVacina.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnSalvarVacina.setBounds(66, 262, 185, 38);
 		contentPane.add(btnSalvarVacina);
 	}
+
+
 }
