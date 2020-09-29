@@ -12,27 +12,40 @@ public class PessoaController {
 
 	public String salvar(PessoaVO pessoa) {
 		String mensagem = "";
+		boolean valido = true;
 		
 		try {
-			this.validarCPF(pessoa.getCpf());
-			this.validarNome(pessoa.getNome());
-			this.validarSexo(pessoa.getSexo());
-			pessoa = bo.salvar(pessoa);
+			this.validarCPF(pessoa.getCpf());			
 		} catch (CpfInvalidoException excecao) {
+			valido = false;
 			mensagem = excecao.getMessage();
+		}
+		
+		try {
+			this.validarNome(pessoa.getNome());
 		} catch (NomeInvalidoException excecao) {
+			valido = false;
 			mensagem = excecao.getMessage();
+		}
+		
+		try {
+			this.validarSexo(pessoa.getSexo());				
 		} catch (SexoInvalidoException excecao) {
+			valido = false;
 			mensagem = excecao.getMessage();
 		} 
 		
-		mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();
+		if (valido) {
+			pessoa = bo.salvar(pessoa);
+			mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();		
+		}		
 		
 		return mensagem;		
 	}
 
+
 	private void validarSexo(String sexo) throws SexoInvalidoException {
-		if (sexo == null || sexo.isEmpty()) {
+		if (sexo == null) {
 			throw new SexoInvalidoException("Preencher sexo");
 		}
 		

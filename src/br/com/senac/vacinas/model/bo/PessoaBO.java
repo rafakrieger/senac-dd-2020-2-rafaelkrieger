@@ -6,10 +6,8 @@ import br.com.senac.vacinas.model.vo.PessoaVO;
 public class PessoaBO {
 
 	public PessoaVO salvar(PessoaVO pessoa) {
-		PessoaDAO novaPessoa = new PessoaDAO();
-		novaPessoa.inserir(pessoa);		
-		return pessoa;
-		
+		PessoaDAO novaPessoa = new PessoaDAO();			
+		return novaPessoa.inserir(pessoa);	
 	}
 
 }

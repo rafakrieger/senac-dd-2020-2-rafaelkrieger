@@ -10,6 +10,7 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.senac.vacinas.controller.PesquisadorController;
 import br.com.senac.vacinas.controller.PessoaController;
+import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 
@@ -177,22 +178,25 @@ public class CadastroPessoa extends JFrame {
 		contentPane.add(textFieldInst);		
 		textFieldInst.setVisible(false);
 		
-		
 		JButton btnSalvarPessoa = new JButton("SALVAR");
 		btnSalvarPessoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaVO pessoa = new PessoaVO();
 				PesquisadorVO pesquisador = new PesquisadorVO();
 				pessoa.setNome(textFieldNome.getText());
-				pessoa.setCpf(formattedTextFieldCpf.getText());
-				pessoa.setDataNascimento(LocalDate.parse(formattedTextFieldData.getText(), dateFormatter));
+				pessoa.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
+				try {
+					pessoa.setDataNascimento(validarData(formattedTextFieldData.getText()));
+				} catch (DataVaziaException e1) {					
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 				
 				if (rdbtnMasc.isSelected()) {
 					sexoSelecionado = "M";
 				}else if (rdbtnFem.isSelected()){
 					sexoSelecionado = "F";
 				}else {
-					sexoSelecionado = "null";
+					sexoSelecionado = null;
 				}
 				pessoa.setSexo(sexoSelecionado);
 				
@@ -214,6 +218,34 @@ public class CadastroPessoa extends JFrame {
 				JOptionPane.showMessageDialog(contentPane, mensagem);
 				
 			}
+
+			private String obterNumerosCpf(String cpf) {
+				String digito = cpf.replace(".", "");
+				String novoCpf = digito.replace("-", "");
+				return novoCpf;				
+			}
+			
+			private LocalDate validarData(String dataNascimento) throws DataVaziaException {
+				LocalDate data;				
+				if (dataNascimento == null || dataNascimento.indexOf(" ") >= 0
+						|| dataNascimento.isEmpty()) {
+					throw new DataVaziaException("Preencher data");
+				} else {
+					data = LocalDate.parse(dataNascimento, dateFormatter);
+				}								
+				
+				if (data.getMonthValue() > 12 || data.getMonthValue() < 1) {
+					throw new DataVaziaException("Mês inválido");
+				}
+				if (data.getDayOfMonth() > 31 || data.getDayOfMonth() < 1) {
+					throw new DataVaziaException("Dia inválido");
+				}
+				if (data.isAfter(LocalDate.now())) {
+					throw new DataVaziaException("Data inválida");
+				}
+				return data;
+			}
+				
 		});
 		btnSalvarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnSalvarPessoa.setBounds(123, 349, 177, 35);
