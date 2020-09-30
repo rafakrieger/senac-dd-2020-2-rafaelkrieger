@@ -14,14 +14,16 @@ public class PesquisadorDAO {
 	public PesquisadorVO inserir(PesquisadorVO pesquisador) {
 		Connection conexao = Banco.getConnection();
 		
-		String sql = " INSERT INTO PESQUISADOR (INSTITUICAO) " 
-					+ " VALUES (?) ";
+		String sql = " INSERT INTO PESQUISADOR (INSTITUICAO, IDPESSOA, NOME) " 
+					+ " VALUES (?, ?, ?) ";
 		
 		PreparedStatement query = Banco.getPreparedStatementWithGeneratedKeys(conexao, sql);
 		ResultSet resultado = null;
 
 		try {			
 			query.setString(1, pesquisador.getInstituicao());
+			query.setInt(2, pesquisador.getIdPessoa());
+			query.setString(3, pesquisador.getNome());
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {
@@ -148,6 +150,8 @@ public class PesquisadorDAO {
 		PesquisadorVO pesquisador = new PesquisadorVO();
 		pesquisador.setIdPesquisador(pesquisadorConsultado.getInt("idpesquisador"));
 		pesquisador.setInstituicao(pesquisadorConsultado.getString("instituicao"));
+		pesquisador.setIdPessoa(pesquisadorConsultado.getInt("idpessoa"));
+		pesquisador.setNome(pesquisadorConsultado.getString("nome"));
 		return pesquisador;
 	}
 	

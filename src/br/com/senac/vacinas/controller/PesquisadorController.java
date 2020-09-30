@@ -1,6 +1,6 @@
 package br.com.senac.vacinas.controller;
 
-import br.com.senac.controlegastos.model.bo.PesquisadorBO;
+import br.com.senac.vacinas.model.bo.PesquisadorBO;
 import br.com.senac.vacinas.model.exception.InstituicaoInvalidaException;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 

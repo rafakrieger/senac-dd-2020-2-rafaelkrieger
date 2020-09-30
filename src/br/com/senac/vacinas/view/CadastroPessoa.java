@@ -22,6 +22,8 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
@@ -43,7 +45,7 @@ public class CadastroPessoa extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private String sexoSelecionado;
 	private boolean isVoluntario = false;
-	DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
 	/**
 	 * Launch the application.
@@ -185,11 +187,7 @@ public class CadastroPessoa extends JFrame {
 				PesquisadorVO pesquisador = new PesquisadorVO();
 				pessoa.setNome(textFieldNome.getText());
 				pessoa.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
-				try {
-					pessoa.setDataNascimento(validarData(formattedTextFieldData.getText()));
-				} catch (DataVaziaException e1) {					
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-				}
+				pessoa.setDataNascimento(obterData(formattedTextFieldData.getText()));				
 				
 				if (rdbtnMasc.isSelected()) {
 					sexoSelecionado = "M";
@@ -205,17 +203,29 @@ public class CadastroPessoa extends JFrame {
 				} else {
 					isVoluntario = false;
 				}
-				pessoa.setVoluntario(isVoluntario);
+				pessoa.setVoluntario(isVoluntario);				
+							
+				PessoaController pessoaController = new PessoaController();
+				String mensagem = pessoaController.salvar(pessoa);
+				JOptionPane.showMessageDialog(contentPane, mensagem);
 				
 				if (chckbxPesq.isSelected()) {
-					pesquisador.setInstituicao(textFieldNome.getText());
+					pesquisador.setInstituicao(textFieldInst.getText());
+					pesquisador.setIdPessoa(pessoa.getIdPessoa());
+					pesquisador.setNome(pessoa.getNome());
 					PesquisadorController pesquisadorController = new PesquisadorController();
 					pesquisadorController.salvar(pesquisador);	
 				}
 				
-				PessoaController pessoaController = new PessoaController();
-				String mensagem = pessoaController.salvar(pessoa);
-				JOptionPane.showMessageDialog(contentPane, mensagem);
+				textFieldNome.setText("");
+				formattedTextFieldCpf.setText("");
+				formattedTextFieldData.setText("");
+				rdbtnFem.setSelected(false);
+				rdbtnMasc.setSelected(false);
+				chckbxPesq.setSelected(false);
+				chckbxVoluntario.setSelected(false);
+				textFieldInst.setVisible(false);
+				lblInst.setVisible(false);
 				
 			}
 
@@ -225,24 +235,21 @@ public class CadastroPessoa extends JFrame {
 				return novoCpf;				
 			}
 			
-			private LocalDate validarData(String dataNascimento) throws DataVaziaException {
-				LocalDate data;				
-				if (dataNascimento == null || dataNascimento.indexOf(" ") >= 0
-						|| dataNascimento.isEmpty()) {
-					throw new DataVaziaException("Preencher data");
-				} else {
-					data = LocalDate.parse(dataNascimento, dateFormatter);
-				}								
-				
-				if (data.getMonthValue() > 12 || data.getMonthValue() < 1) {
-					throw new DataVaziaException("Mês inválido");
-				}
-				if (data.getDayOfMonth() > 31 || data.getDayOfMonth() < 1) {
-					throw new DataVaziaException("Dia inválido");
-				}
-				if (data.isAfter(LocalDate.now())) {
-					throw new DataVaziaException("Data inválida");
-				}
+			private boolean validarData(String strDate) {
+				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);				
+			    try {
+			    	LocalDate date = LocalDate.parse(strDate, dateFormatter);
+			        return true;
+			    } catch (DateTimeParseException e) {			    	
+			    	return false;			       
+			    } 
+			}
+			
+			private LocalDate obterData(String dataNascimento) {
+				LocalDate data = null;				
+				if (validarData(dataNascimento)) {
+					data = LocalDate.parse(dataNascimento, dateFormat);
+				}	
 				return data;
 			}
 				

@@ -1,7 +1,10 @@
 package br.com.senac.vacinas.controller;
 
+import java.time.LocalDate;
+
 import br.com.senac.vacinas.model.bo.PessoaBO;
 import br.com.senac.vacinas.model.exception.CpfInvalidoException;
+import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.exception.NomeInvalidoException;
 import br.com.senac.vacinas.model.exception.SexoInvalidoException;
 import br.com.senac.vacinas.model.vo.PessoaVO;
@@ -35,12 +38,26 @@ public class PessoaController {
 			mensagem = excecao.getMessage();
 		} 
 		
+		try {
+			this.validarData(pessoa.getDataNascimento());
+		} catch (DataVaziaException excecao) {
+			valido = false;
+			mensagem = excecao.getMessage();
+		}
+		
 		if (valido) {
 			pessoa = bo.salvar(pessoa);
 			mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();		
 		}		
 		
 		return mensagem;		
+	}
+
+
+	private void validarData(LocalDate dataNascimento) throws DataVaziaException {
+		if (dataNascimento == null) {
+			throw new DataVaziaException("Data inválida");
+		}
 	}
 
 
@@ -67,12 +84,6 @@ public class PessoaController {
 		if(cpf == null || cpf.isEmpty()
 				|| cpf.length() != 11) {
 			throw new CpfInvalidoException("CPF deve possuir 11 caracteres");
-		}
-		
-		try {
-			Integer.parseInt(cpf);
-		} catch (NumberFormatException ex) {
-			throw new CpfInvalidoException("CPF deve possuir 11 caracteres numéricos");
 		}
 	}
 
