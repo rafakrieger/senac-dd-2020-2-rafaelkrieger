@@ -1,103 +1,75 @@
 package br.com.senac.vacinas.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
-
-import br.com.senac.vacinas.controller.PessoaController;
-import br.com.senac.vacinas.controller.VacinaController;
-import br.com.senac.vacinas.model.dao.PesquisadorDAO;
-import br.com.senac.vacinas.model.vo.PesquisadorVO;
-import br.com.senac.vacinas.model.vo.VacinaVO;
-
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
+import java.util.List;
 
-public class CadastroVacina extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.text.MaskFormatter;
 
-	private JPanel contentPane;
+import br.com.senac.vacinas.controller.VacinaController;
+import br.com.senac.vacinas.model.dao.PesquisadorDAO;
+import br.com.senac.vacinas.model.vo.PesquisadorVO;
+import br.com.senac.vacinas.model.vo.VacinaVO;
+
+public class AddVacina extends JPanel {
+	
 	private JComboBox comboBoxPais;
 	private JComboBox comboBoxEstagio;
 	private JComboBox comboBoxPesq;
 	private JFormattedTextField formattedTextFieldData;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroVacina frame = new CadastroVacina();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
-	 * Create the frame.
+	 * Create the panel.
 	 */
-	public CadastroVacina() {
-		setTitle("Cadastro de vacinas");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
-		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.menu);
-		contentPane.setBorder(null);
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	public AddVacina() {
+		
+		setBounds(100, 100, 450, 450);		
+		this.setBackground(SystemColor.menu);
+		this.setBorder(null);		
+		this.setLayout(null);
 		
 		JLabel lblPais = new JLabel("PAÍS DE ORIGEM");
 		lblPais.setForeground(Color.DARK_GRAY);
 		lblPais.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblPais.setBounds(10, 36, 134, 25);
-		contentPane.add(lblPais);
+		this.add(lblPais);
 		
 		String[] paises = {"China", "Rússia"};
 		comboBoxPais = new JComboBox(paises);
 		comboBoxPais.setSelectedIndex(-1);
 		comboBoxPais.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPais.setBounds(10, 61, 414, 30);
-		contentPane.add(comboBoxPais);
+		this.add(comboBoxPais);
 		
 		JLabel lblEstagio = new JLabel("ESTÁGIO DE PESQUISA");
 		lblEstagio.setForeground(Color.DARK_GRAY);
 		lblEstagio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblEstagio.setBounds(10, 98, 179, 25);
-		contentPane.add(lblEstagio);
+		this.add(lblEstagio);
 		
 		String[] estagio = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
 		comboBoxEstagio = new JComboBox(estagio);
 		comboBoxEstagio.setSelectedIndex(-1);
 		comboBoxEstagio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxEstagio.setBounds(10, 121, 414, 30);
-		contentPane.add(comboBoxEstagio);
+		this.add(comboBoxEstagio);
 		
 		PesquisadorDAO dao = new PesquisadorDAO();
 		List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
@@ -105,26 +77,26 @@ public class CadastroVacina extends JFrame {
 		comboBoxPesq.setSelectedIndex(-1);
 		comboBoxPesq.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPesq.setBounds(10, 187, 414, 30);
-		contentPane.add(comboBoxPesq);
+		this.add(comboBoxPesq);
 		
 		JLabel lblPesqResp = new JLabel("PESQUISADOR RESPONSÁVEL");
 		lblPesqResp.setForeground(Color.DARK_GRAY);
 		lblPesqResp.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblPesqResp.setBounds(10, 162, 230, 25);
-		contentPane.add(lblPesqResp);
+		this.add(lblPesqResp);
 		
 		JLabel lblDataInicio = new JLabel("DATA DE INÍCIO DA PESQUISA");
 		lblDataInicio.setForeground(Color.DARK_GRAY);
 		lblDataInicio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblDataInicio.setBounds(10, 228, 230, 25);
-		contentPane.add(lblDataInicio);
+		this.add(lblDataInicio);
 		
 		try {
 			MaskFormatter mascaraData = new MaskFormatter("##/##/####");		
 			formattedTextFieldData = new JFormattedTextField(mascaraData);
 			formattedTextFieldData.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			formattedTextFieldData.setBounds(10, 252, 414, 30);
-			contentPane.add(formattedTextFieldData);
+			this.add(formattedTextFieldData);
 		
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
@@ -144,14 +116,14 @@ public class CadastroVacina extends JFrame {
 				
 				VacinaController vacinaController = new VacinaController();
 				String mensagem = vacinaController.salvar(vacina);
-				JOptionPane.showMessageDialog(contentPane, mensagem);				
+				JOptionPane.showMessageDialog(null, mensagem);				
 			}
 		});
 		btnSalvarVacina.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnSalvarVacina.setBounds(64, 324, 296, 38);
-		contentPane.add(btnSalvarVacina);
+		this.add(btnSalvarVacina);
 	}
-	
+
 	private boolean validarData(String strDate) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);				
 	    try {
@@ -161,14 +133,14 @@ public class CadastroVacina extends JFrame {
 	    	return false;			       
 	    } 
 	}
-	
+
 	private LocalDate obterData(String dataNascimento) {
 		LocalDate data = null;				
 		if (validarData(dataNascimento)) {
 			data = LocalDate.parse(dataNascimento, dateFormat);
 		}	
 		return data;
-	}
 
+	}
 
 }
