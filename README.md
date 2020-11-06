@@ -4,37 +4,32 @@
 
 ![Tela principal](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/main.jpg)
 
-- [x] Menus "Pessoas", "Vacinas" e "Aplicações", com submenus "Cadastrar" e "Consultar" que chamam JPanels
-- [x] Menus de cadastro de "Pessoas" e "Vacinas" já estão pré-estruturados
-- [ ] Falta fazer "Aplicações" e também  as telas de consultas (onde será possível aplicar filtros, além de editar e excluir os registros retornados)
-- [ ] Demais ajustes de design e experiência de usuário (se é que é possível com Java Swing)
+- [x] Menus PESSOAS, VACINAS e APLICAÇÕES, com submenus "Cadastrar" e "Consultar"
+- [x] Painel de cadastro de PESSOAS
+- [x] Painel de cadastro de VACINAS
+- [ ] Painel de cadastro de APLICAÇÕES
+- [ ] Painel para consultar com filtros, editar e excluir PESSOAS
+- [ ] Painel para consultar com filtros, editar e excluir VACINAS
+- [ ] Painel para consultar com filtros, editar e excluir APLICAÇÕES
+- [ ] Painel inicial com dashboard de resumos de relatórios
 - [ ] Prototipação das telas e definição das regras de negócio para o dia 11 (pode ser via arquivo JAR, com as regras em PDF)
 
 ## Cadastro de Pessoas
 
 ![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/pessoas.jpg)
 
-- [x] Campo "Instituição" so aparece caso o checkbox "Pesquisador" esteja selecionado
-- [x] Validações dos campos (inclusive data) já ativadas
+- [x] Campo "Instituição" só aparece caso o checkbox "Pesquisador" esteja selecionado
+- [x] Validações dos campos (inclusive data)
 
 ## Cadastro de Vacinas
 
 ![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/vacina.jpg)
 
 - [x] Combobox via banco de dados para selecionar estágio e pesquisador
-- [x] Combobox via array Java para selecionar país de origem (possibilidade de mudar para o banco de dados também)
-- [x] Validações dos campos (inclusive data) já ativadas
-
-## Telas pendentes
-
-- [ ] Cadastro de aplicação
-- [ ] Consulta de pessoas
-- [ ] Consulta de vacinas
-- [ ] Consulta de aplicações
+- [x] Combobox via array Java para selecionar país de origem
+- [x] Validações dos campos (inclusive data)
 
 ## Regras de Negócio
-
-(Se tiverem outras sugestões, fiquem à vontade)
 
 * Uma vacina pode ser aplicada em pessoas conforme a fase: 1 - Somente pesquisadores; 2 - Voluntários; 3 - Público em geral
 
@@ -45,6 +40,8 @@
 * Todas as pessoas devem possuir nome e um sobrenome com pelo menos três caracteres (OK)
 
 * Não podem ser cadastradas duas pessoas com o mesmo CPF 
+
+* Outras?
 
 ## Banco de dados
 
