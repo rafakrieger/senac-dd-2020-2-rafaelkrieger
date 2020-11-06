@@ -94,22 +94,28 @@ public class Principal extends JFrame {
 		mntmConsultarVacina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnVacinas.add(mntmConsultarVacina);
 		
-		JMenu mnAplicaes = new JMenu("Aplicações");
-		mnAplicaes.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-insulin-pen-60.png")));
-		mnAplicaes.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		menuBar.add(mnAplicaes);
+		JMenu mnAplicacoes = new JMenu("Aplicações");
+		mnAplicacoes.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-insulin-pen-60.png")));
+		mnAplicacoes.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		menuBar.add(mnAplicacoes);
 		
 		JMenuItem mntmCadastrarAplicacao = new JMenuItem("Cadastrar");
+		mntmCadastrarAplicacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddVacinacao addVacinacao = new AddVacinacao();
+				setContentPane(addVacinacao);
+			}
+		});
 		mntmCadastrarAplicacao.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
 		mntmCadastrarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-add-folder-48 (1).png")));
 		mntmCadastrarAplicacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		mnAplicaes.add(mntmCadastrarAplicacao);
+		mnAplicacoes.add(mntmCadastrarAplicacao);
 		
 		JMenuItem mntmConsultarAplicacao = new JMenuItem("Consultar");
 		mntmConsultarAplicacao.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
 		mntmConsultarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
 		mntmConsultarAplicacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		mnAplicaes.add(mntmConsultarAplicacao);
+		mnAplicacoes.add(mntmConsultarAplicacao);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

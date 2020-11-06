@@ -33,6 +33,8 @@ public class AddVacina extends JPanel {
 	private JComboBox comboBoxEstagio;
 	private JComboBox comboBoxPesq;
 	private JFormattedTextField formattedTextFieldData;
+	private static final String[] PAISES = {"China", "Rússia"};
+	private static final String[] ESTAGIO = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
 	/**
@@ -49,10 +51,9 @@ public class AddVacina extends JPanel {
 		lblPais.setForeground(Color.DARK_GRAY);
 		lblPais.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblPais.setBounds(10, 36, 134, 25);
-		this.add(lblPais);
+		this.add(lblPais);		
 		
-		String[] paises = {"China", "Rússia"};
-		comboBoxPais = new JComboBox(paises);
+		comboBoxPais = new JComboBox(PAISES);
 		comboBoxPais.setSelectedIndex(-1);
 		comboBoxPais.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPais.setBounds(10, 61, 414, 30);
@@ -63,9 +64,8 @@ public class AddVacina extends JPanel {
 		lblEstagio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblEstagio.setBounds(10, 98, 179, 25);
 		this.add(lblEstagio);
-		
-		String[] estagio = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
-		comboBoxEstagio = new JComboBox(estagio);
+				
+		comboBoxEstagio = new JComboBox(ESTAGIO);
 		comboBoxEstagio.setSelectedIndex(-1);
 		comboBoxEstagio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxEstagio.setBounds(10, 121, 414, 30);

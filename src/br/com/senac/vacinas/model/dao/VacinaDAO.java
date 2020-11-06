@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
+import br.com.senac.vacinas.model.dao.PesquisadorDAO;
 import br.com.senac.vacinas.model.vo.VacinaVO;
 
 public class VacinaDAO {
@@ -167,7 +168,7 @@ public class VacinaDAO {
 				vacinas.add(vacina);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao consultar vacinas do est�gio: " + estagioPesquisa + ".\nCausa: " + e.getMessage());
+			System.out.println("Erro ao consultar vacinas do estágio: " + estagioPesquisa + ".\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -179,7 +180,8 @@ public class VacinaDAO {
 	private VacinaVO construirDoResultSet(ResultSet vacinaConsultada) throws SQLException {
 		VacinaVO vacina = new VacinaVO();
 		vacina.setIdVacina(vacinaConsultada.getInt("idvacina"));
-		vacina.setPesquisador((PesquisadorVO) vacinaConsultada.getObject("idpesquisador"));
+		PesquisadorDAO pesquisadorDAO = new PesquisadorDAO();
+		vacina.setPesquisador(pesquisadorDAO.pesquisarPorId(vacinaConsultada.getInt("idpesquisador")));
 		vacina.setPaisOrigem(vacinaConsultada.getString("pais_origem"));
 		vacina.setEstagioPesquisa(vacinaConsultada.getInt("estagio_pesquisa"));
 		vacina.setDataInicio(vacinaConsultada.getDate("dt_inicio").toLocalDate());
