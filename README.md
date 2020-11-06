@@ -7,6 +7,8 @@
 - [x] Menus "Pessoas", "Vacinas" e "Aplicações", com submenus "Cadastrar" e "Consultar" que chamam JPanels
 - [x] Menus de cadastro de "Pessoas" e "Vacinas" já estão pré-estruturados
 - [ ] Falta fazer "Aplicações" e também  as telas de consultas (onde será possível aplicar filtros, além de editar e excluir os registros retornados)
+- [ ] Demais ajustes de design e experiência de usuário (se é que é possível com Java Swing)
+- [ ] Prototipação das telas e definição das regras de negócio para o dia 11 (pode ser via arquivo JAR, com as regras em PDF)
 
 ## Cadastro de Pessoas
 
