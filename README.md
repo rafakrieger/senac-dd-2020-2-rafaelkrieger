@@ -1,6 +1,8 @@
-# Aplicação de controle de vacinas para covid-19: checklist
+# Aplicação de controle de vacinas para covid-19
 
-## Tela principal
+## Checklist
+
+### Tela principal
 
 ![Tela principal](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/main.jpg)
 
@@ -14,14 +16,14 @@
 - [ ] Painel inicial com dashboard de resumos de relatórios
 - [ ] Prototipação das telas e definição das regras de negócio para o dia 11 (pode ser via arquivo JAR, com as regras em PDF)
 
-## Cadastro de Pessoas
+### Cadastro de Pessoas
 
 ![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/pessoas.jpg)
 
 - [x] Campo "Instituição" só aparece caso o checkbox "Pesquisador" esteja selecionado
 - [x] Validações dos campos (inclusive data)
 
-## Cadastro de Vacinas
+### Cadastro de Vacinas
 
 ![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/vacina.jpg)
 
