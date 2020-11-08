@@ -34,8 +34,9 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import javax.swing.JTable;
 
-public class CadastroVacina extends JFrame {
+public class ConsultaVacina extends JFrame {
 
 	private JPanel contentPane;
 	private JComboBox comboBoxPais;
@@ -43,6 +44,7 @@ public class CadastroVacina extends JFrame {
 	private JComboBox comboBoxPesq;
 	private JFormattedTextField formattedTextFieldData;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+	private JTable tableResultadoVacinas;
 	
 	/**
 	 * Launch the application.
@@ -51,7 +53,7 @@ public class CadastroVacina extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroVacina frame = new CadastroVacina();
+					ConsultaVacina frame = new ConsultaVacina();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,8 +65,8 @@ public class CadastroVacina extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroVacina() {
-		setTitle("Cadastro de vacinas");
+	public ConsultaVacina() {
+		setTitle("Consulta de vacinas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
 		contentPane = new JPanel();
@@ -83,20 +85,20 @@ public class CadastroVacina extends JFrame {
 		comboBoxPais = new JComboBox(paises);
 		comboBoxPais.setSelectedIndex(-1);
 		comboBoxPais.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBoxPais.setBounds(10, 61, 414, 30);
+		comboBoxPais.setBounds(10, 61, 179, 30);
 		contentPane.add(comboBoxPais);
 		
 		JLabel lblEstagio = new JLabel("ESTÁGIO DE PESQUISA");
 		lblEstagio.setForeground(Color.DARK_GRAY);
 		lblEstagio.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblEstagio.setBounds(10, 98, 179, 25);
+		lblEstagio.setBounds(214, 36, 179, 25);
 		contentPane.add(lblEstagio);
 		
 		String[] estagio = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
 		comboBoxEstagio = new JComboBox(estagio);
 		comboBoxEstagio.setSelectedIndex(-1);
 		comboBoxEstagio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBoxEstagio.setBounds(10, 121, 414, 30);
+		comboBoxEstagio.setBounds(214, 61, 210, 30);
 		contentPane.add(comboBoxEstagio);
 		
 		PesquisadorDAO dao = new PesquisadorDAO();
@@ -104,26 +106,26 @@ public class CadastroVacina extends JFrame {
 		comboBoxPesq = new JComboBox(pesquisadores.toArray());
 		comboBoxPesq.setSelectedIndex(-1);
 		comboBoxPesq.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBoxPesq.setBounds(10, 187, 414, 30);
+		comboBoxPesq.setBounds(10, 126, 179, 30);
 		contentPane.add(comboBoxPesq);
 		
 		JLabel lblPesqResp = new JLabel("PESQUISADOR RESPONSÁVEL");
 		lblPesqResp.setForeground(Color.DARK_GRAY);
 		lblPesqResp.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblPesqResp.setBounds(10, 162, 230, 25);
+		lblPesqResp.setBounds(10, 102, 210, 25);
 		contentPane.add(lblPesqResp);
 		
 		JLabel lblDataInicio = new JLabel("DATA DE INÍCIO DA PESQUISA");
 		lblDataInicio.setForeground(Color.DARK_GRAY);
 		lblDataInicio.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblDataInicio.setBounds(10, 228, 230, 25);
+		lblDataInicio.setBounds(214, 102, 230, 25);
 		contentPane.add(lblDataInicio);
 		
 		try {
 			MaskFormatter mascaraData = new MaskFormatter("##/##/####");		
 			formattedTextFieldData = new JFormattedTextField(mascaraData);
 			formattedTextFieldData.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			formattedTextFieldData.setBounds(10, 252, 414, 30);
+			formattedTextFieldData.setBounds(214, 126, 210, 30);
 			contentPane.add(formattedTextFieldData);
 		
 		} catch (ParseException e) {
@@ -133,42 +135,41 @@ public class CadastroVacina extends JFrame {
 		
 
 		
-		JButton btnSalvarVacina = new JButton("SALVAR");
-		btnSalvarVacina.addActionListener(new ActionListener() {
+		JButton btnPesquisarVacina = new JButton("PESQUISAR");
+		btnPesquisarVacina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VacinaVO vacina = new VacinaVO();
 				vacina.setPaisOrigem((String) comboBoxPais.getSelectedItem());
 				vacina.setEstagioPesquisa(comboBoxEstagio.getSelectedIndex()+1);
 				vacina.setPesquisador((PesquisadorVO) comboBoxPesq.getSelectedItem());
-				vacina.setDataInicio(obterData(formattedTextFieldData.getText()));
-				
+			
 				VacinaController vacinaController = new VacinaController();
 				String mensagem = vacinaController.salvar(vacina);
 				JOptionPane.showMessageDialog(contentPane, mensagem);				
 			}
 		});
-		btnSalvarVacina.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnSalvarVacina.setBounds(64, 324, 296, 38);
-		contentPane.add(btnSalvarVacina);
+		btnPesquisarVacina.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnPesquisarVacina.setBounds(10, 167, 134, 38);
+		contentPane.add(btnPesquisarVacina);
+		
+		JButton btnExcluir = new JButton("EXCLUIR");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnExcluir.setBounds(290, 167, 134, 38);
+		contentPane.add(btnExcluir);
+		
+		tableResultadoVacinas = new JTable();
+		tableResultadoVacinas.setBounds(10, 222, 414, 178);
+		contentPane.add(tableResultadoVacinas);
+		
+		JButton btnEditar = new JButton("EDITAR");
+		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnEditar.setBounds(150, 167, 134, 38);
+		contentPane.add(btnEditar);
 	}
 	
-	private boolean validarData(String strDate) {
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);				
-	    try {
-	    	LocalDate date = LocalDate.parse(strDate, dateFormatter);
-	        return true;
-	    } catch (DateTimeParseException e) {			    	
-	    	return false;			       
-	    } 
-	}
-	
-	private LocalDate obterData(String dataNascimento) {
-		LocalDate data = null;				
-		if (validarData(dataNascimento)) {
-			data = LocalDate.parse(dataNascimento, dateFormat);
-		}	
-		return data;
-	}
-
 
 }

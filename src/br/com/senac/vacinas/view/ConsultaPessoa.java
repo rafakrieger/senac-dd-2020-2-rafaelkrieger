@@ -34,18 +34,19 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
+import javax.swing.JTable;
 
-public class CadastroPessoa extends JFrame {	
+public class ConsultaPessoa extends JFrame {	
 	
 	private JPanel contentPane;
 	private JTextField textFieldNome;
 	private JTextField textFieldInst;
 	private JFormattedTextField formattedTextFieldCpf;
-	private JFormattedTextField formattedTextFieldData;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private String sexoSelecionado;
 	private boolean isVoluntario = false;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+	private JTable tablerResultado;
 
 	/**
 	 * Launch the application.
@@ -54,7 +55,7 @@ public class CadastroPessoa extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroPessoa frame = new CadastroPessoa();
+					ConsultaPessoa frame = new ConsultaPessoa();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,12 +67,12 @@ public class CadastroPessoa extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroPessoa() {
-		setTitle("Vacinação covid-19 - Cadastro de pessoas");
+	public ConsultaPessoa() {
+		setTitle("Consulta de Pessoas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(64, 224, 208));
+		contentPane.setBackground(new Color(32, 178, 170));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -88,23 +89,17 @@ public class CadastroPessoa extends JFrame {
 		lblCpf.setBounds(10, 58, 375, 24);
 		contentPane.add(lblCpf);
 		
-		JLabel lbDataNasc = new JLabel("DATA DE NASCIMENTO");
-		lbDataNasc.setForeground(Color.DARK_GRAY);
-		lbDataNasc.setFont(new Font("Dialog", Font.BOLD, 14));
-		lbDataNasc.setBounds(10, 115, 363, 24);
-		contentPane.add(lbDataNasc);
-		
 		final JLabel lblInst = new JLabel("INSTITUIÇÃO");
 		lblInst.setForeground(Color.DARK_GRAY);
 		lblInst.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblInst.setBounds(10, 270, 424, 24);
+		lblInst.setBounds(10, 154, 381, 24);
 		contentPane.add(lblInst);
 		lblInst.setVisible(false);
 		
 		JLabel lblSexo = new JLabel("SEXO");
 		lblSexo.setForeground(Color.DARK_GRAY);
 		lblSexo.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblSexo.setBounds(10, 170, 363, 24);
+		lblSexo.setBounds(297, 0, 50, 24);
 		contentPane.add(lblSexo);
 		
 		final JRadioButton rdbtnMasc = new JRadioButton("MASCULINO");
@@ -112,7 +107,7 @@ public class CadastroPessoa extends JFrame {
 		rdbtnMasc.setForeground(Color.DARK_GRAY);
 		rdbtnMasc.setFont(new Font("Dialog", Font.BOLD, 12));
 		rdbtnMasc.setBackground(new Color(224, 255, 255));
-		rdbtnMasc.setBounds(10, 200, 109, 23);
+		rdbtnMasc.setBounds(212, 26, 109, 23);
 		contentPane.add(rdbtnMasc);
 		
 		final JRadioButton rdbtnFem = new JRadioButton("FEMININO");
@@ -120,12 +115,12 @@ public class CadastroPessoa extends JFrame {
 		rdbtnFem.setForeground(Color.DARK_GRAY);
 		rdbtnFem.setFont(new Font("Dialog", Font.BOLD, 12));
 		rdbtnFem.setBackground(new Color(224, 255, 255));
-		rdbtnFem.setBounds(123, 201, 109, 23);
+		rdbtnFem.setBounds(325, 27, 109, 23);
 		contentPane.add(rdbtnFem);
 		
 		textFieldNome = new JTextField();
 		textFieldNome.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textFieldNome.setBounds(10, 26, 414, 30);
+		textFieldNome.setBounds(10, 26, 192, 30);
 		contentPane.add(textFieldNome);
 		textFieldNome.setColumns(10);
 		
@@ -138,11 +133,6 @@ public class CadastroPessoa extends JFrame {
 		formattedTextFieldCpf.setBounds(10, 81, 414, 30);
 		contentPane.add(formattedTextFieldCpf);
 		
-		formattedTextFieldData = new JFormattedTextField(mascaraData);
-		formattedTextFieldData.setFont(new Font("Dialog", Font.PLAIN, 14));
-		formattedTextFieldData.setBounds(10, 140, 414, 30);		
-		contentPane.add(formattedTextFieldData);
-		
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 			System.out.println("Causa da exceção: " + e.getMessage());
@@ -152,7 +142,7 @@ public class CadastroPessoa extends JFrame {
 		chckbxVoluntario.setForeground(Color.DARK_GRAY);
 		chckbxVoluntario.setBackground(new Color(224, 255, 255));
 		chckbxVoluntario.setFont(new Font("Dialog", Font.BOLD, 14));
-		chckbxVoluntario.setBounds(84, 240, 148, 23);
+		chckbxVoluntario.setBounds(58, 124, 148, 23);
 		contentPane.add(chckbxVoluntario);		
 		
 		final JCheckBox chckbxPesq = new JCheckBox("PESQUISADOR");		
@@ -170,24 +160,24 @@ public class CadastroPessoa extends JFrame {
 		chckbxPesq.setForeground(Color.DARK_GRAY);
 		chckbxPesq.setFont(new Font("Dialog", Font.BOLD, 14));
 		chckbxPesq.setBackground(new Color(224, 255, 255));
-		chckbxPesq.setBounds(243, 240, 148, 23);
+		chckbxPesq.setBounds(250, 124, 148, 23);
 		contentPane.add(chckbxPesq);		
 			
 		textFieldInst = new JTextField();
 		textFieldInst.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textFieldInst.setColumns(10);
-		textFieldInst.setBounds(10, 301, 414, 30);
+		textFieldInst.setBounds(10, 178, 414, 30);
 		contentPane.add(textFieldInst);		
 		textFieldInst.setVisible(false);
 		
-		JButton btnSalvarPessoa = new JButton("SALVAR");
-		btnSalvarPessoa.addActionListener(new ActionListener() {
+		JButton btnExcluir = new JButton("EXCLUIR");
+		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaVO pessoa = new PessoaVO();
 				PesquisadorVO pesquisador = new PesquisadorVO();
 				pessoa.setNome(textFieldNome.getText());
 				pessoa.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
-				pessoa.setDataNascimento(obterData(formattedTextFieldData.getText()));				
+						
 				
 				if (rdbtnMasc.isSelected()) {
 					sexoSelecionado = "M";
@@ -219,7 +209,6 @@ public class CadastroPessoa extends JFrame {
 				
 				textFieldNome.setText("");
 				formattedTextFieldCpf.setText("");
-				formattedTextFieldData.setText("");
 				rdbtnFem.setSelected(false);
 				rdbtnMasc.setSelected(false);
 				chckbxPesq.setSelected(false);
@@ -254,8 +243,30 @@ public class CadastroPessoa extends JFrame {
 			}
 				
 		});
-		btnSalvarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnSalvarPessoa.setBounds(123, 349, 177, 35);
-		contentPane.add(btnSalvarPessoa);		
+		btnExcluir.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnExcluir.setBounds(290, 219, 134, 35);
+		contentPane.add(btnExcluir);		
+		
+		tablerResultado = new JTable();
+		tablerResultado.setBounds(10, 273, 414, 127);
+		contentPane.add(tablerResultado);
+		
+		JButton btnpPesquisar = new JButton("PESQUISAR");
+		btnpPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnpPesquisar.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnpPesquisar.setBounds(10, 219, 134, 35);
+		contentPane.add(btnpPesquisar);
+		
+		JButton btnpEditar = new JButton("EDITAR");
+		btnpEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnpEditar.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnpEditar.setBounds(150, 219, 134, 35);
+		contentPane.add(btnpEditar);
 	}
 }
