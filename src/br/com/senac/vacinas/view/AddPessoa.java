@@ -48,7 +48,7 @@ public class AddPessoa extends JPanel {
 	public AddPessoa() {
 		
 		setBounds(100, 100, 450, 450);		
-		this.setBackground(SystemColor.menu);
+		this.setBackground(new Color(32, 178, 170));
 		this.setBorder(null);		
 		this.setLayout(null);
 		
