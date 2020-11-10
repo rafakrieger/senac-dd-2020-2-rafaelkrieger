@@ -1,6 +1,7 @@
 package br.com.senac.vacinas.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +17,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
 
 public class Principal extends JFrame {
 
@@ -29,7 +32,6 @@ public class Principal extends JFrame {
 			public void run() {
 				try {
 					Principal frame = new Principal();
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,8 +44,11 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setResizable(false);
+		setTitle("Controle de vacinas   ||   Covid-19");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 600);
+		setBackground(new Color(32, 178, 170));
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -56,7 +61,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmCadastrarPessoa = new JMenuItem("Cadastrar");
 		mntmCadastrarPessoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddPessoa addPessoa = new AddPessoa();
+				AddPessoa addPessoa = new AddPessoa();				
 				setContentPane(addPessoa);
 			}
 		});
@@ -66,6 +71,12 @@ public class Principal extends JFrame {
 		mnPessoas.add(mntmCadastrarPessoa);
 		
 		JMenuItem mntmConsultarPessoa = new JMenuItem("Consultar");
+		mntmConsultarPessoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscaPessoa buscaPessoa = new BuscaPessoa();
+				setContentPane(buscaPessoa);
+			}
+		});
 		mntmConsultarPessoa.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
 		mntmConsultarPessoa.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
 		mntmConsultarPessoa.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -89,6 +100,12 @@ public class Principal extends JFrame {
 		mnVacinas.add(mntmCadastrarVacina);
 		
 		JMenuItem mntmConsultarVacina = new JMenuItem("Consultar");
+		mntmConsultarVacina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscaVacina buscaVacina = new BuscaVacina();
+				setContentPane(buscaVacina);
+			}
+		});
 		mntmConsultarVacina.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
 		mntmConsultarVacina.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
 		mntmConsultarVacina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -116,11 +133,12 @@ public class Principal extends JFrame {
 		mntmConsultarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
 		mntmConsultarAplicacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnAplicacoes.add(mntmConsultarAplicacao);
+		
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.menu);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setBackground(new Color(32, 178, 170));
+		contentPane.setBorder(null);
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 	}
 
 }

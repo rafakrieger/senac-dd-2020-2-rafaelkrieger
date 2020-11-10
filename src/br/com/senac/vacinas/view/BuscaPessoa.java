@@ -1,26 +1,6 @@
 package br.com.senac.vacinas.view;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -28,30 +8,48 @@ import br.com.senac.vacinas.controller.PesquisadorController;
 import br.com.senac.vacinas.controller.PessoaController;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.PessoaVO;
-import java.awt.SystemColor;
 
-public class AddPessoa extends JPanel {
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import java.awt.Font;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+
+import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.ButtonGroup;
+import javax.swing.JTable;
+
+public class BuscaPessoa extends JPanel {	
+	
 	private JTextField textFieldNome;
 	private JTextField textFieldInst;
 	private JFormattedTextField formattedTextFieldCpf;
-	private JFormattedTextField formattedTextFieldData;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private String sexoSelecionado;
 	private boolean isVoluntario = false;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-	
-	
+	private JTable tablerResultado;
+
 	/**
 	 * Create the panel.
 	 */
-	public AddPessoa() {
+	public BuscaPessoa() {				
 		
-		this.setBounds(100, 100, 450, 450);		
+		setBounds(100, 100, 450, 450);		
 		this.setBackground(new Color(32, 178, 170));
-		this.setBorder(null);		
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));		
 		this.setLayout(null);
-
 		
 		JLabel lblNome = new JLabel("NOME");
 		lblNome.setBounds(10, 0, 381, 24);
@@ -65,23 +63,17 @@ public class AddPessoa extends JPanel {
 		lblCpf.setBounds(10, 58, 375, 24);
 		this.add(lblCpf);
 		
-		JLabel lbDataNasc = new JLabel("DATA DE NASCIMENTO");
-		lbDataNasc.setForeground(Color.DARK_GRAY);
-		lbDataNasc.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lbDataNasc.setBounds(10, 115, 363, 24);
-		this.add(lbDataNasc);
-		
 		final JLabel lblInst = new JLabel("INSTITUIÇÃO");
 		lblInst.setForeground(Color.DARK_GRAY);
 		lblInst.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblInst.setBounds(10, 270, 424, 24);
+		lblInst.setBounds(10, 154, 381, 24);
 		this.add(lblInst);
 		lblInst.setVisible(false);
 		
 		JLabel lblSexo = new JLabel("SEXO");
 		lblSexo.setForeground(Color.DARK_GRAY);
 		lblSexo.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblSexo.setBounds(10, 170, 363, 24);
+		lblSexo.setBounds(297, 0, 50, 24);
 		this.add(lblSexo);
 		
 		final JRadioButton rdbtnMasc = new JRadioButton("MASCULINO");
@@ -89,7 +81,7 @@ public class AddPessoa extends JPanel {
 		rdbtnMasc.setForeground(Color.DARK_GRAY);
 		rdbtnMasc.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		rdbtnMasc.setBackground(new Color(32, 178, 170));
-		rdbtnMasc.setBounds(10, 200, 109, 23);
+		rdbtnMasc.setBounds(212, 26, 109, 23);
 		this.add(rdbtnMasc);
 		
 		final JRadioButton rdbtnFem = new JRadioButton("FEMININO");
@@ -97,12 +89,12 @@ public class AddPessoa extends JPanel {
 		rdbtnFem.setForeground(Color.DARK_GRAY);
 		rdbtnFem.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		rdbtnFem.setBackground(new Color(32, 178, 170));
-		rdbtnFem.setBounds(123, 201, 109, 23);
+		rdbtnFem.setBounds(325, 27, 109, 23);
 		this.add(rdbtnFem);
 		
 		textFieldNome = new JTextField();
-		textFieldNome.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textFieldNome.setBounds(10, 26, 414, 30);
+		textFieldNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		textFieldNome.setBounds(10, 26, 192, 30);
 		this.add(textFieldNome);
 		textFieldNome.setColumns(10);
 		
@@ -111,14 +103,9 @@ public class AddPessoa extends JPanel {
 			MaskFormatter mascaraData = new MaskFormatter("##/##/####");
 		
 		formattedTextFieldCpf = new JFormattedTextField(mascaraCpf);
-		formattedTextFieldCpf.setFont(new Font("Dialog", Font.PLAIN, 14));
+		formattedTextFieldCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		formattedTextFieldCpf.setBounds(10, 81, 414, 30);
 		this.add(formattedTextFieldCpf);
-		
-		formattedTextFieldData = new JFormattedTextField(mascaraData);
-		formattedTextFieldData.setFont(new Font("Dialog", Font.PLAIN, 14));
-		formattedTextFieldData.setBounds(10, 140, 414, 30);		
-		this.add(formattedTextFieldData);
 		
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
@@ -129,7 +116,7 @@ public class AddPessoa extends JPanel {
 		chckbxVoluntario.setForeground(Color.DARK_GRAY);
 		chckbxVoluntario.setBackground(new Color(32, 178, 170));
 		chckbxVoluntario.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		chckbxVoluntario.setBounds(84, 240, 148, 23);
+		chckbxVoluntario.setBounds(58, 124, 148, 23);
 		this.add(chckbxVoluntario);		
 		
 		final JCheckBox chckbxPesq = new JCheckBox("PESQUISADOR");		
@@ -147,24 +134,24 @@ public class AddPessoa extends JPanel {
 		chckbxPesq.setForeground(Color.DARK_GRAY);
 		chckbxPesq.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		chckbxPesq.setBackground(new Color(32, 178, 170));
-		chckbxPesq.setBounds(243, 240, 148, 23);
+		chckbxPesq.setBounds(250, 124, 148, 23);
 		this.add(chckbxPesq);		
 			
 		textFieldInst = new JTextField();
-		textFieldInst.setFont(new Font("Dialog", Font.PLAIN, 14));
+		textFieldInst.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		textFieldInst.setColumns(10);
-		textFieldInst.setBounds(10, 301, 414, 30);
+		textFieldInst.setBounds(10, 178, 414, 30);
 		this.add(textFieldInst);		
 		textFieldInst.setVisible(false);
 		
-		JButton btnSalvarPessoa = new JButton("SALVAR");
-		btnSalvarPessoa.addActionListener(new ActionListener() {
+		JButton btnExcluir = new JButton("EXCLUIR");
+		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaVO pessoa = new PessoaVO();
 				PesquisadorVO pesquisador = new PesquisadorVO();
 				pessoa.setNome(textFieldNome.getText());
 				pessoa.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
-				pessoa.setDataNascimento(obterData(formattedTextFieldData.getText()));				
+						
 				
 				if (rdbtnMasc.isSelected()) {
 					sexoSelecionado = "M";
@@ -196,7 +183,6 @@ public class AddPessoa extends JPanel {
 				
 				textFieldNome.setText("");
 				formattedTextFieldCpf.setText("");
-				formattedTextFieldData.setText("");
 				rdbtnFem.setSelected(false);
 				rdbtnMasc.setSelected(false);
 				chckbxPesq.setSelected(false);
@@ -231,9 +217,31 @@ public class AddPessoa extends JPanel {
 			}
 				
 		});
-		btnSalvarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnSalvarPessoa.setBounds(123, 349, 177, 35);
-		this.add(btnSalvarPessoa);		
+		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnExcluir.setBounds(290, 219, 134, 35);
+		this.add(btnExcluir);		
+		
+		tablerResultado = new JTable();
+		tablerResultado.setBounds(10, 273, 414, 127);
+		this.add(tablerResultado);
+		
+		JButton btnpPesquisar = new JButton("PESQUISAR");
+		btnpPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnpPesquisar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnpPesquisar.setBounds(10, 219, 134, 35);
+		this.add(btnpPesquisar);
+		
+		JButton btnpEditar = new JButton("EDITAR");
+		btnpEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnpEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnpEditar.setBounds(150, 219, 134, 35);
+		this.add(btnpEditar);
 
 	}
 
