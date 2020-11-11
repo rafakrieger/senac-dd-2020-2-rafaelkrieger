@@ -1,12 +1,10 @@
 package br.com.senac.vacinas.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -16,13 +14,18 @@ import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	private JTable tableTotalVacinas;
+	private JTable tableMasculino;
+	private JTable tableFeminino;
+	private JTable tableVoluntario;
+	private JTable tableMediaAvaliacao;
 
 	/**
 	 * Launch the application.
@@ -129,6 +132,12 @@ public class Principal extends JFrame {
 		mnAplicacoes.add(mntmCadastrarAplicacao);
 		
 		JMenuItem mntmConsultarAplicacao = new JMenuItem("Consultar");
+		mntmConsultarAplicacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscaVacinacao buscaVacinacao = new BuscaVacinacao();
+				setContentPane(buscaVacinacao);
+			}
+		});
 		mntmConsultarAplicacao.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
 		mntmConsultarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
 		mntmConsultarAplicacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -139,6 +148,74 @@ public class Principal extends JFrame {
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lblTotalVacinas = new JLabel("Total de Vacinas Cadastradas");
+		lblTotalVacinas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTotalVacinas.setForeground(Color.DARK_GRAY);
+		lblTotalVacinas.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblTotalVacinas.setBounds(12, 81, 576, 25);
+		contentPane.add(lblTotalVacinas);
+		
+		tableTotalVacinas = new JTable();
+		tableTotalVacinas.setBounds(227, 107, 147, 40);
+		contentPane.add(tableTotalVacinas);
+		
+		JLabel lblTotalAplicaes = new JLabel("Total de Aplicações");
+		lblTotalAplicaes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTotalAplicaes.setForeground(Color.DARK_GRAY);
+		lblTotalAplicaes.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblTotalAplicaes.setBounds(12, 192, 576, 25);
+		contentPane.add(lblTotalAplicaes);
+		
+		JLabel lblMasculino = new JLabel("Sexo Masculino");
+		lblMasculino.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMasculino.setForeground(Color.DARK_GRAY);
+		lblMasculino.setFont(new Font("Dialog", Font.BOLD, 13));
+		lblMasculino.setBounds(-15, 229, 242, 25);
+		contentPane.add(lblMasculino);
+		
+		JLabel lblFeminino = new JLabel("Sexo Feminino");
+		lblFeminino.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFeminino.setForeground(Color.DARK_GRAY);
+		lblFeminino.setFont(new Font("Dialog", Font.BOLD, 13));
+		lblFeminino.setBounds(175, 229, 242, 25);
+		contentPane.add(lblFeminino);
+		
+		tableMasculino = new JTable();
+		tableMasculino.setBounds(36, 257, 147, 40);
+		contentPane.add(tableMasculino);
+		
+		tableFeminino = new JTable();
+		tableFeminino.setBounds(227, 257, 147, 40);
+		contentPane.add(tableFeminino);
+		
+		JLabel lblVoluntarios = new JLabel("Voluntários\n");
+		lblVoluntarios.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVoluntarios.setForeground(Color.DARK_GRAY);
+		lblVoluntarios.setFont(new Font("Dialog", Font.BOLD, 13));
+		lblVoluntarios.setBounds(358, 229, 242, 25);
+		contentPane.add(lblVoluntarios);
+		
+		tableVoluntario = new JTable();
+		tableVoluntario.setBounds(409, 257, 147, 40);
+		contentPane.add(tableVoluntario);
+		
+		JLabel lblMediaAvaliacao = new JLabel("Média da Avaliação da Vacinação");
+		lblMediaAvaliacao.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMediaAvaliacao.setForeground(Color.DARK_GRAY);
+		lblMediaAvaliacao.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblMediaAvaliacao.setBounds(12, 358, 576, 25);
+		contentPane.add(lblMediaAvaliacao);
+		
+		tableMediaAvaliacao = new JTable();
+		tableMediaAvaliacao.setBounds(227, 387, 147, 40);
+		contentPane.add(tableMediaAvaliacao);
+		
+		JLabel lblRelatrio = new JLabel("Relatório");
+		lblRelatrio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRelatrio.setForeground(Color.DARK_GRAY);
+		lblRelatrio.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblRelatrio.setBounds(12, 0, 576, 68);
+		contentPane.add(lblRelatrio);
 	}
-
 }
