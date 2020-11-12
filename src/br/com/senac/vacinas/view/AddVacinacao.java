@@ -30,9 +30,14 @@ import java.util.List;
 
 public class AddVacinacao extends JPanel {
 
+	private JComboBox comboBoxVacina;
 	private static final String[] AVALIACAO = {"1 - Péssima", "2 - Ruim", "3 - Regular", "4 - Boa", "5 - Ótima"};
 	private JFormattedTextField formattedTextFieldData;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+	private static final String[] TESTE_VACINAS = {"1", "2", "3"};
+	private static final String[] TESTE_PESSOAS = {"Rafael Teste", "Altieste Teste", "Gustavo Teste"};
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -48,9 +53,9 @@ public class AddVacinacao extends JPanel {
 		lblVacina.setBounds(10, 36, 134, 25);
 		this.add(lblVacina);		
 		
-		VacinaDAO vacinaDao = new VacinaDAO();
-		List<VacinaVO> vacinas = vacinaDao.pesquisarTodos();
-		final JComboBox comboBoxVacina = new JComboBox(vacinas.toArray());
+		// VacinaDAO vacinaDao = new VacinaDAO();
+		// List<VacinaVO> vacinas = vacinaDao.pesquisarTodos();
+		comboBoxVacina = new JComboBox(TESTE_VACINAS);
 		comboBoxVacina.setSelectedIndex(-1);
 		comboBoxVacina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxVacina.setBounds(10, 61, 414, 30);
@@ -62,9 +67,9 @@ public class AddVacinacao extends JPanel {
 		lblPessoa.setBounds(10, 98, 179, 25);
 		this.add(lblPessoa);
 		
-		PessoaDAO pessoaDao = new PessoaDAO();
-		List<PessoaVO> pessoas = pessoaDao.pesquisarTodos();
-		final JComboBox comboBoxPessoa= new JComboBox(pessoas.toArray());
+		//PessoaDAO pessoaDao = new PessoaDAO();
+		//<PessoaVO> pessoas = pessoaDao.pesquisarTodos();
+		final JComboBox comboBoxPessoa= new JComboBox(TESTE_PESSOAS);
 		comboBoxPessoa.setSelectedIndex(-1);
 		comboBoxPessoa.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPessoa.setBounds(10, 121, 414, 30);

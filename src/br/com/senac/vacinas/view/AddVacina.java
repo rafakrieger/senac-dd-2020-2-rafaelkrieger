@@ -36,6 +36,7 @@ public class AddVacina extends JPanel {
 	private static final String[] PAISES = {"China", "Rússia"};
 	private static final String[] ESTAGIO = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+	private static final String[] TESTE_PESSOAS = {"Rafael Teste", "Altieste Teste", "Gustavo Teste"};
 
 	/**
 	 * Create the panel.
@@ -71,9 +72,9 @@ public class AddVacina extends JPanel {
 		comboBoxEstagio.setBounds(10, 121, 414, 30);
 		this.add(comboBoxEstagio);
 		
-		PesquisadorDAO dao = new PesquisadorDAO();
-		List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
-		comboBoxPesq = new JComboBox(pesquisadores.toArray());
+		//PesquisadorDAO dao = new PesquisadorDAO();
+		//List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
+		comboBoxPesq = new JComboBox(TESTE_PESSOAS);
 		comboBoxPesq.setSelectedIndex(-1);
 		comboBoxPesq.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPesq.setBounds(10, 187, 414, 30);

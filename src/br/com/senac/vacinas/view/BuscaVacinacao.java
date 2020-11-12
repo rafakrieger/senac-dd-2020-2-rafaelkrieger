@@ -38,6 +38,9 @@ public class BuscaVacinacao extends JPanel {
 	private JFormattedTextField formattedTextFieldData;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	private JTable tableResultadoVacinas;
+	private static final String[] TESTE_PESSOAS = {"Rafael Teste", "Altieste Teste", "Gustavo Teste"};
+	private static final String[] PAISES = {"China", "Rússia"};
+	private static final String[] AVALIACAO = {"1 - Péssima", "2 - Ruim", "3 - Regular", "4 - Boa", "5 - Ótima"};
 
 	/**
 	 * Create the panel.
@@ -55,8 +58,7 @@ public class BuscaVacinacao extends JPanel {
 		lblVacina.setBounds(10, 36, 134, 25);
 		this.add(lblVacina);
 		
-		String[] paises = {"China", "Rússia"};
-		comboBoxVacina = new JComboBox(paises);
+		comboBoxVacina = new JComboBox(PAISES);
 		comboBoxVacina.setSelectedIndex(-1);
 		comboBoxVacina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxVacina.setBounds(10, 61, 179, 30);
@@ -66,18 +68,15 @@ public class BuscaVacinacao extends JPanel {
 		lblPessoa.setForeground(Color.DARK_GRAY);
 		lblPessoa.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblPessoa.setBounds(214, 36, 179, 25);
-		this.add(lblPessoa);
+		this.add(lblPessoa);		
 		
-		String[] estagio = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
-		comboBoxPessoa = new JComboBox(estagio);
+		comboBoxPessoa = new JComboBox(TESTE_PESSOAS);
 		comboBoxPessoa.setSelectedIndex(-1);
 		comboBoxPessoa.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPessoa.setBounds(214, 61, 210, 30);
-		this.add(comboBoxPessoa);
+		this.add(comboBoxPessoa);		
 		
-		PesquisadorDAO dao = new PesquisadorDAO();
-		List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
-		comboBoxAvaliacao = new JComboBox(pesquisadores.toArray());
+		comboBoxAvaliacao = new JComboBox(AVALIACAO);
 		comboBoxAvaliacao.setSelectedIndex(-1);
 		comboBoxAvaliacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxAvaliacao.setBounds(10, 126, 179, 30);

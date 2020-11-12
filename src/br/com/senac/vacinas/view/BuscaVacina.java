@@ -38,7 +38,10 @@ public class BuscaVacina extends JPanel {
 	private JFormattedTextField formattedTextFieldData;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	private JTable tableResultadoVacinas;
-
+	private static final String[] PAISES = {"China", "Rússia"};
+	private static final String[] ESTAGIO = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
+	private static final String[] TESTE_PESSOAS = {"Rafael Teste", "Altieste Teste", "Gustavo Teste"};
+	
 	/**
 	 * Create the panel.
 	 */
@@ -53,10 +56,9 @@ public class BuscaVacina extends JPanel {
 		lblPais.setForeground(Color.DARK_GRAY);
 		lblPais.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblPais.setBounds(10, 36, 134, 25);
-		this.add(lblPais);
+		this.add(lblPais);		
 		
-		String[] paises = {"China", "Rússia"};
-		comboBoxPais = new JComboBox(paises);
+		comboBoxPais = new JComboBox(PAISES);
 		comboBoxPais.setSelectedIndex(-1);
 		comboBoxPais.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPais.setBounds(10, 61, 179, 30);
@@ -66,18 +68,17 @@ public class BuscaVacina extends JPanel {
 		lblEstagio.setForeground(Color.DARK_GRAY);
 		lblEstagio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblEstagio.setBounds(214, 36, 179, 25);
-		this.add(lblEstagio);
+		this.add(lblEstagio);		
 		
-		String[] estagio = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
-		comboBoxEstagio = new JComboBox(estagio);
+		comboBoxEstagio = new JComboBox(ESTAGIO);
 		comboBoxEstagio.setSelectedIndex(-1);
 		comboBoxEstagio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxEstagio.setBounds(214, 61, 210, 30);
 		this.add(comboBoxEstagio);
 		
-		PesquisadorDAO dao = new PesquisadorDAO();
-		List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
-		comboBoxPesq = new JComboBox(pesquisadores.toArray());
+		//PesquisadorDAO dao = new PesquisadorDAO();
+		//List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
+		comboBoxPesq = new JComboBox(TESTE_PESSOAS);
 		comboBoxPesq.setSelectedIndex(-1);
 		comboBoxPesq.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPesq.setBounds(10, 126, 179, 30);
