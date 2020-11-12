@@ -1,35 +1,52 @@
 # Aplicação de controle de vacinas para covid-19
 
-## Checklist
+## Protótipo de telas (não funcional)
+
+_**Autores: Rafael Krieger, Gustavo Martins, Altieste Schmidt**_
 
 ### Tela principal
 
 ![Tela principal](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/main.jpg)
 
-- [x] Menus PESSOAS, VACINAS e APLICAÇÕES, com submenus "Cadastrar" e "Consultar"
-- [x] Painel de cadastro de PESSOAS
-- [x] Painel de cadastro de VACINAS
-- [ ] Painel de cadastro de APLICAÇÕES
-- [ ] Painel para consultar com filtros, editar e excluir PESSOAS
-- [ ] Painel para consultar com filtros, editar e excluir VACINAS
-- [ ] Painel para consultar com filtros, editar e excluir APLICAÇÕES
-- [ ] Painel inicial com dashboard de resumos de relatórios
-- [ ] Prototipação das telas e definição das regras de negócio para o dia 11 (pode ser via arquivo JAR, com as regras em PDF)
+- [X] Painel inicial com dashboard de resumos de relatórios
 
 ### Cadastro de Pessoas
 
 ![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/pessoas.jpg)
 
 - [x] Campo "Instituição" só aparece caso o checkbox "Pesquisador" esteja selecionado
-- [x] Validações dos campos (inclusive data)
+
+### Consulta de pessoas
+
+![Consulta de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-pessoas.jpg)
+
+- [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
 ### Cadastro de Vacinas
 
-![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/vacina.jpg)
+![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/vacinas.jpg)
 
 - [x] Combobox via banco de dados para selecionar estágio e pesquisador
 - [x] Combobox via array Java para selecionar país de origem
-- [x] Validações dos campos (inclusive data)
+
+### Consulta de vacinas
+
+![Consulta de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-vacinas.jpg)
+
+- [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
+
+### Cadastro de Aplicações
+
+![Cadastro de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/aplicacoes.jpg)
+
+- [x] Combobox via banco de dados para selecionar vacina e pessoa
+- [x] Combobox via array Java para selecionar avaliação
+
+### Consulta de aplicações
+
+![Consulta de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-aplicacoes.jpg)
+
+- [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
 ## Regras de Negócio
 
@@ -42,8 +59,6 @@
 * Todas as pessoas devem possuir nome e um sobrenome com pelo menos três caracteres (OK)
 
 * Não podem ser cadastradas duas pessoas com o mesmo CPF 
-
-* Outras?
 
 ## Banco de dados
 
