@@ -148,8 +148,8 @@ public class ConsultaVacina extends JFrame {
 				JOptionPane.showMessageDialog(contentPane, mensagem);				
 			}
 		});
-		btnPesquisarVacina.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnPesquisarVacina.setBounds(10, 167, 134, 38);
+		btnPesquisarVacina.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnPesquisarVacina.setBounds(10, 167, 95, 38);
 		contentPane.add(btnPesquisarVacina);
 		
 		JButton btnExcluir = new JButton("EXCLUIR");
@@ -157,8 +157,8 @@ public class ConsultaVacina extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnExcluir.setBounds(290, 167, 134, 38);
+		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnExcluir.setBounds(224, 167, 95, 38);
 		contentPane.add(btnExcluir);
 		
 		tableResultadoVacinas = new JTable();
@@ -166,9 +166,14 @@ public class ConsultaVacina extends JFrame {
 		contentPane.add(tableResultadoVacinas);
 		
 		JButton btnEditar = new JButton("EDITAR");
-		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnEditar.setBounds(150, 167, 134, 38);
+		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnEditar.setBounds(115, 167, 95, 38);
 		contentPane.add(btnEditar);
+		
+		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnLimpar.setBounds(329, 167, 95, 38);
+		contentPane.add(btnLimpar);
 	}
 	
 

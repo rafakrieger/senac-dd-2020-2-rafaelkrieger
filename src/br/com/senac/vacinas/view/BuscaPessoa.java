@@ -217,8 +217,8 @@ public class BuscaPessoa extends JPanel {
 			}
 				
 		});
-		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnExcluir.setBounds(290, 219, 134, 35);
+		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnExcluir.setBounds(226, 219, 95, 35);
 		this.add(btnExcluir);		
 		
 		tablerResultado = new JTable();
@@ -230,8 +230,8 @@ public class BuscaPessoa extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnpPesquisar.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnpPesquisar.setBounds(10, 219, 134, 35);
+		btnpPesquisar.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnpPesquisar.setBounds(10, 219, 95, 35);
 		this.add(btnpPesquisar);
 		
 		JButton btnpEditar = new JButton("EDITAR");
@@ -239,10 +239,14 @@ public class BuscaPessoa extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnpEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnpEditar.setBounds(150, 219, 134, 35);
+		btnpEditar.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnpEditar.setBounds(115, 219, 95, 35);
 		this.add(btnpEditar);
+		
+		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnLimpar.setBounds(331, 219, 95, 35);
+		add(btnLimpar);
 
 	}
-
 }

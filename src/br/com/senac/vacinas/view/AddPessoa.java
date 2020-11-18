@@ -54,7 +54,7 @@ public class AddPessoa extends JPanel {
 
 		
 		JLabel lblNome = new JLabel("NOME");
-		lblNome.setBounds(10, 0, 381, 24);
+		lblNome.setBounds(10, 60, 381, 24);
 		lblNome.setForeground(Color.DARK_GRAY);
 		lblNome.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		this.add(lblNome);
@@ -62,7 +62,7 @@ public class AddPessoa extends JPanel {
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setForeground(Color.DARK_GRAY);
 		lblCpf.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblCpf.setBounds(10, 58, 375, 24);
+		lblCpf.setBounds(10, 0, 375, 24);
 		this.add(lblCpf);
 		
 		JLabel lbDataNasc = new JLabel("DATA DE NASCIMENTO");
@@ -102,7 +102,7 @@ public class AddPessoa extends JPanel {
 		
 		textFieldNome = new JTextField();
 		textFieldNome.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textFieldNome.setBounds(10, 26, 414, 30);
+		textFieldNome.setBounds(10, 86, 414, 30);
 		this.add(textFieldNome);
 		textFieldNome.setColumns(10);
 		
@@ -112,7 +112,7 @@ public class AddPessoa extends JPanel {
 		
 		formattedTextFieldCpf = new JFormattedTextField(mascaraCpf);
 		formattedTextFieldCpf.setFont(new Font("Dialog", Font.PLAIN, 14));
-		formattedTextFieldCpf.setBounds(10, 81, 414, 30);
+		formattedTextFieldCpf.setBounds(10, 23, 414, 30);
 		this.add(formattedTextFieldCpf);
 		
 		formattedTextFieldData = new JFormattedTextField(mascaraData);
