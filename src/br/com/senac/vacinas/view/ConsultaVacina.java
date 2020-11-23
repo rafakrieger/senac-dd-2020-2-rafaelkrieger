@@ -171,6 +171,14 @@ public class ConsultaVacina extends JFrame {
 		contentPane.add(btnEditar);
 		
 		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxPais.setSelectedIndex(-1);
+				comboBoxEstagio.setSelectedIndex(-1);
+				comboBoxPesq.setSelectedIndex(-1);
+				formattedTextFieldData.setText("");
+			}
+		});
 		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnLimpar.setBounds(329, 167, 95, 38);
 		contentPane.add(btnLimpar);

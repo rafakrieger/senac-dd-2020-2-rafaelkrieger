@@ -144,6 +144,14 @@ public class BuscaVacinacao extends JPanel {
 		this.add(btnEditar);
 		
 		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxVacina.setSelectedIndex(-1);
+				comboBoxPessoa.setSelectedIndex(-1);
+				comboBoxAvaliacao.setSelectedIndex(-1);
+				formattedTextFieldData.setText("");
+			}
+		});
 		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnLimpar.setBounds(329, 167, 95, 38);
 		add(btnLimpar);

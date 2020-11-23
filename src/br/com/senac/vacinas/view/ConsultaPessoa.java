@@ -270,6 +270,16 @@ public class ConsultaPessoa extends JFrame {
 		contentPane.add(btnpEditar);
 		
 		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldNome.setText("");
+				buttonGroup.clearSelection();
+				formattedTextFieldCpf.setText("");
+				textFieldInst.setText("");
+				chckbxPesq.setSelected(false);
+				chckbxVoluntario.setSelected(false);
+			}
+		});
 		btnLimpar.setFont(new Font("Dialog", Font.BOLD, 11));
 		btnLimpar.setBounds(329, 219, 95, 35);
 		contentPane.add(btnLimpar);

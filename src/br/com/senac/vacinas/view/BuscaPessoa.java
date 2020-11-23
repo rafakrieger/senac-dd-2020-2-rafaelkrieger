@@ -40,6 +40,8 @@ public class BuscaPessoa extends JPanel {
 	private boolean isVoluntario = false;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	private JTable tablerResultado;
+	private JLabel formattedTextFieldData;
+
 
 	/**
 	 * Create the panel.
@@ -244,6 +246,17 @@ public class BuscaPessoa extends JPanel {
 		this.add(btnpEditar);
 		
 		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldNome.setText("");
+				formattedTextFieldCpf.setText("");
+				chckbxPesq.setSelected(false);
+				chckbxVoluntario.setSelected(false);
+				textFieldInst.setVisible(false);
+				lblInst.setVisible(false);
+				buttonGroup.clearSelection();
+			}
+		});
 		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnLimpar.setBounds(331, 219, 95, 35);
 		add(btnLimpar);
