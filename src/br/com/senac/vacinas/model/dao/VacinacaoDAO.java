@@ -153,7 +153,30 @@ public class VacinacaoDAO {
 		
 	}
 	
-	// TODO Listar vacina��es por grupo (volunt�rios, pesquisadores e p�blico em geral)
+	public VacinacaoVO pesquisarPorIdPessoa(int id) {
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM VACINACAO "
+				   + " WHERE IDPESSOA=? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		VacinacaoVO vacinacao = null;
+		try {
+			query.setInt(1, id);
+			
+			ResultSet rs = query.executeQuery();
+			if(rs.next()) {
+				vacinacao = this.construirDoResultSet(rs);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar vacinação por id Pessoa. \nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return vacinacao;
+	}
 	
 	
 	private VacinacaoVO construirDoResultSet(ResultSet vacinacaoConsultada) throws SQLException {

@@ -72,6 +72,13 @@ public class PessoaVO {
 	public void setVoluntario(boolean voluntario) {
 		this.voluntario = voluntario;
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
+
 	
 	
 }

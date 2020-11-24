@@ -55,7 +55,7 @@ public class VacinaController {
 	}
 
 		private void validarCampos(VacinaVO vacina) throws CamposVaziosException {
-			if (vacina.getEstagioPesquisa() > 1
+			if (vacina.getEstagioPesquisa() < 1
 					|| vacina.getDataInicio() == null 
 					|| vacina.getPesquisador() == null) {
 				throw new CamposVaziosException("Preencher todos os campos");

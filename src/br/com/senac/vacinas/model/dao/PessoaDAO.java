@@ -153,6 +153,55 @@ public class PessoaDAO {
 		return pessoas;
 	}
 	
+	public List<PessoaVO> pesquisarVoluntarios(){
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM PESSOA WHERE VOLUNTARIO = TRUE ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		List<PessoaVO> pessoas = new ArrayList<PessoaVO>();
+		try {
+			ResultSet rs = query.executeQuery();
+			
+			while(rs.next()) {
+				PessoaVO pessoa = this.construirDoResultSet(rs);
+				pessoas.add(pessoa);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar pessoas.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return pessoas;
+	}
+	
+	
+	public List<PessoaVO> pesquisarPesquisadores(){
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM PESQUISADOR ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		List<PessoaVO> pessoas = new ArrayList<PessoaVO>();
+		try {
+			ResultSet rs = query.executeQuery();
+			
+			while(rs.next()) {
+				PessoaVO pessoa = this.construirPesquisador(rs);
+				pessoas.add(pessoa);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar pessoas.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return pessoas;
+	}
+	
 	private PessoaVO construirDoResultSet(ResultSet pessoaConsultada) throws SQLException {
 		PessoaVO pessoa = new PessoaVO();
 		pessoa.setIdPessoa(pessoaConsultada.getInt("idpessoa"));
@@ -161,6 +210,14 @@ public class PessoaDAO {
 		pessoa.setSexo(pessoaConsultada.getString("sexo"));
 		pessoa.setCpf(pessoaConsultada.getString("cpf"));
 		pessoa.setVoluntario(pessoaConsultada.getBoolean("voluntario"));
+		
+		return pessoa;
+	}
+	
+	private PessoaVO construirPesquisador(ResultSet pessoaConsultada) throws SQLException {
+		PessoaVO pessoa = new PessoaVO();
+		pessoa.setIdPessoa(pessoaConsultada.getInt("idpessoa"));
+		pessoa.setNome(pessoaConsultada.getString("nome"));		
 		
 		return pessoa;
 	}

@@ -120,6 +120,8 @@ public class Principal extends JFrame {
 		JMenuItem mntmCadastrarAplicacao = new JMenuItem("Cadastrar");
 		mntmCadastrarAplicacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Transicao transicao = new Transicao();
+				setContentPane(transicao);
 				AddVacinacao addVacinacao = new AddVacinacao();
 				setContentPane(addVacinacao);
 			}

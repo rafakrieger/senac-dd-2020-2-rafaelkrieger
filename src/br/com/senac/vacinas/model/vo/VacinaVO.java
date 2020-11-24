@@ -63,7 +63,12 @@ public class VacinaVO {
 	public void setDataInicio(LocalDate dataInicio) {
 		this.dataInicio = dataInicio;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "" + idVacina;
+	}
+
 	
 
 }

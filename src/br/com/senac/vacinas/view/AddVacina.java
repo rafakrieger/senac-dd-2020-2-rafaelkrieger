@@ -72,9 +72,9 @@ public class AddVacina extends JPanel {
 		comboBoxEstagio.setBounds(10, 121, 414, 30);
 		this.add(comboBoxEstagio);
 		
-		//PesquisadorDAO dao = new PesquisadorDAO();
-		//List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
-		comboBoxPesq = new JComboBox(TESTE_PESSOAS);
+		PesquisadorDAO dao = new PesquisadorDAO();
+		List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
+		comboBoxPesq = new JComboBox(pesquisadores.toArray());
 		comboBoxPesq.setSelectedIndex(-1);
 		comboBoxPesq.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxPesq.setBounds(10, 187, 414, 30);
@@ -117,7 +117,13 @@ public class AddVacina extends JPanel {
 				
 				VacinaController vacinaController = new VacinaController();
 				String mensagem = vacinaController.salvar(vacina);
-				JOptionPane.showMessageDialog(null, mensagem);				
+				JOptionPane.showMessageDialog(null, mensagem);	
+				
+				comboBoxPais.setSelectedIndex(-1);
+				comboBoxEstagio.setSelectedIndex(-1);
+				comboBoxPesq.setSelectedIndex(-1);
+				formattedTextFieldData.setText("");
+				
 			}
 		});
 		btnSalvarVacina.setFont(new Font("Segoe UI", Font.BOLD, 14));
