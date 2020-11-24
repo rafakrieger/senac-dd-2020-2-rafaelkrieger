@@ -1,8 +1,21 @@
 # Aplicação de controle de vacinas para covid-19
 
-## Protótipo de telas (não funcional)
+<h2 style="color:#393e46">
+Protótipo de telas (não funcional)
+</h2>
 
-_**Autores: Rafael Krieger, Gustavo Martins, Altieste Schmidt**_
+<p align="center">
+  <a href="#tela-principal">Tela principal</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#man_in_tuxedo-cadastro-de-pessoas">Cadastro de Pessoas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#female_detective-consulta-de-pessoas">Consulta de pessoas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#pill-cadastro-de-vacinas">Cadastro de Vacinas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#mag_right-consulta-de-vacinas">Consulta de Vacinas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#syringe-cadastro-de-aplicações">Cadastro de Aplicações</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#mag_right-consulta-de-aplicações">Consulta de Aplicações</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#page_with_curl-regras-de-negócio">Regras de Negócio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#construction_worker-como-rodar">Como Rodar</a>
+</p>
+
+> <strong>Autores:</strong> Rafael Krieger, Gustavo Martins, Altieste Schmidt
 
 ### Tela principal
 
@@ -10,58 +23,73 @@ _**Autores: Rafael Krieger, Gustavo Martins, Altieste Schmidt**_
 
 - [X] Painel inicial com dashboard de resumos de relatórios
 
-### Cadastro de Pessoas
+### :man_in_tuxedo: Cadastro de Pessoas
 
 ![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/pessoas.jpg)
 
 - [x] Campo "Instituição" só aparece caso o checkbox "Pesquisador" esteja selecionado
 
-### Consulta de pessoas
+### :female_detective: Consulta de Pessoas
 
 ![Consulta de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-pessoas.jpg)
 
 - [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
-### Cadastro de Vacinas
+### :pill: Cadastro de Vacinas
 
 ![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/vacinas.jpg)
 
 - [x] Combobox via banco de dados para selecionar estágio e pesquisador
 - [x] Combobox via array Java para selecionar país de origem
 
-### Consulta de vacinas
+### :mag_right: Consulta de Vacinas
 
 ![Consulta de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-vacinas.jpg)
 
 - [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
-### Cadastro de Aplicações
+### :syringe: Cadastro de Aplicações
 
 ![Cadastro de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/aplicacoes.jpg)
 
 - [x] Combobox via banco de dados para selecionar vacina e pessoa
 - [x] Combobox via array Java para selecionar avaliação
 
-### Consulta de aplicações
+### :mag_right: Consulta de Aplicações
 
 ![Consulta de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-aplicacoes.jpg)
 
 - [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
-## Regras de Negócio
+## :page_with_curl: Regras de Negócio
 
-* Uma vacina pode ser aplicada em pessoas conforme a fase: 1 - Somente pesquisadores; 2 - Voluntários; 3 - Público em geral
+- Uma vacina pode ser aplicada em pessoas conforme a fase:
+1 - Somente pesquisadores;
+2 - Voluntários;
+3 - Público em geral.
 
-* Cada pessoa pode tomar apenas uma vacina por ano
+- Cada pessoa pode tomar apenas uma vacina por ano
 
-* Todas as pessoas devem possuir CPF válido com 11 caracteres  numéricos (OK)
+- Todas as pessoas devem possuir CPF válido com 11 caracteres  numéricos (OK)
 
-* Todas as pessoas devem possuir nome e um sobrenome com pelo menos três caracteres (OK)
+- Todas as pessoas devem possuir nome e um sobrenome com pelo menos três caracteres (OK)
 
-* Não podem ser cadastradas duas pessoas com o mesmo CPF 
+- Não podem ser cadastradas duas pessoas com o mesmo CPF
 
-## Banco de dados
+## :construction_worker: Como Rodar
 
+#### :inbox_tray: Importando o Projeto
+
+```bash
+# Clone o Repositório
+> https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger.git
+
+# Em sua IDE converta o projeto para Maven
+```
+
+#### :file_cabinet: Banco de dados
+> Em seu MySQL rode este script abaixo:
+```bash
     SET SQL_SAFE_UPDATES = 0;
     DROP DATABASE IF EXISTS DBVACINA;
     CREATE DATABASE DBVACINA;
@@ -105,3 +133,4 @@ _**Autores: Rafael Krieger, Gustavo Martins, Altieste Schmidt**_
         , FOREIGN KEY (IDVACINA) REFERENCES VACINA (IDVACINA)
         , FOREIGN KEY (IDPESSOA) REFERENCES PESSOA (IDPESSOA)
     );
+```
