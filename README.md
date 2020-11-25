@@ -1,9 +1,5 @@
 # Aplicação de controle de vacinas para covid-19
 
-<h2 style="color:#393e46">
-Protótipo de telas (não funcional)
-</h2>
-
 <p align="center">
   <a href="#tela-principal">Tela principal</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#man_in_tuxedo-cadastro-de-pessoas">Cadastro de Pessoas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -19,45 +15,45 @@ Protótipo de telas (não funcional)
 
 ### Tela principal
 
-![Tela principal](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/main.jpg)
+![Tela principal](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/principal.jpg)
 
 - [X] Painel inicial com dashboard de resumos de relatórios
 
 ### :man_in_tuxedo: Cadastro de Pessoas
 
-![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/pessoas.jpg)
+![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/addpessoas.jpg)
 
 - [x] Campo "Instituição" só aparece caso o checkbox "Pesquisador" esteja selecionado
 
 ### :female_detective: Consulta de Pessoas
 
-![Consulta de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-pessoas.jpg)
+![Consulta de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/consulta-pessoas.jpg)
 
 - [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
 ### :pill: Cadastro de Vacinas
 
-![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/vacinas.jpg)
+![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/addvacinas.jpg)
 
 - [x] Combobox via banco de dados para selecionar estágio e pesquisador
 - [x] Combobox via array Java para selecionar país de origem
 
 ### :mag_right: Consulta de Vacinas
 
-![Consulta de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-vacinas.jpg)
+![Consulta de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/consulta-vacinas.jpg)
 
 - [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
 ### :syringe: Cadastro de Aplicações
 
-![Cadastro de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/aplicacoes.jpg)
+![Cadastro de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/addvacinacao.jpg)
 
 - [x] Combobox via banco de dados para selecionar vacina e pessoa
 - [x] Combobox via array Java para selecionar avaliação
 
 ### :mag_right: Consulta de Aplicações
 
-![Consulta de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/images/consulta-aplicacoes.jpg)
+![Consulta de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/consulta-aplicacoes.jpg)
 
 - [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
