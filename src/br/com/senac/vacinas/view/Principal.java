@@ -54,7 +54,7 @@ public class Principal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnPessoas = new JMenu("Pessoas");
-		mnPessoas.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-fila.png")));
+		mnPessoas.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-fila.png")));
 		mnPessoas.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		menuBar.add(mnPessoas);
 		
@@ -68,24 +68,26 @@ public class Principal extends JFrame {
 			}
 		});
 		mntmCadastrarPessoa.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
-		mntmCadastrarPessoa.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-adicionar-usuário-masculino.png")));
+		mntmCadastrarPessoa.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-add-folder-48.png")));
 		mntmCadastrarPessoa.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnPessoas.add(mntmCadastrarPessoa);
 		
 		JMenuItem mntmConsultarPessoa = new JMenuItem("Consultar");
 		mntmConsultarPessoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Transicao transicao = new Transicao();
+				setContentPane(transicao);
 				BuscaPessoa buscaPessoa = new BuscaPessoa();
 				setContentPane(buscaPessoa);
 			}
 		});
 		mntmConsultarPessoa.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-		mntmConsultarPessoa.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
+		mntmConsultarPessoa.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-search-64.png")));
 		mntmConsultarPessoa.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnPessoas.add(mntmConsultarPessoa);
 		
 		JMenu mnVacinas = new JMenu("Vacinas");
-		mnVacinas.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-dose-64.png")));
+		mnVacinas.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-dose-64.png")));
 		mnVacinas.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		menuBar.add(mnVacinas);
 		
@@ -99,24 +101,26 @@ public class Principal extends JFrame {
 			}
 		});
 		mntmCadastrarVacina.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
-		mntmCadastrarVacina.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-add-folder-48.png")));
+		mntmCadastrarVacina.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-add-folder-48.png")));
 		mntmCadastrarVacina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnVacinas.add(mntmCadastrarVacina);
 		
 		JMenuItem mntmConsultarVacina = new JMenuItem("Consultar");
 		mntmConsultarVacina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Transicao transicao = new Transicao();
+				setContentPane(transicao);
 				BuscaVacina buscaVacina = new BuscaVacina();
 				setContentPane(buscaVacina);
 			}
 		});
 		mntmConsultarVacina.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
-		mntmConsultarVacina.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
+		mntmConsultarVacina.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-search-64.png")));
 		mntmConsultarVacina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnVacinas.add(mntmConsultarVacina);
 		
 		JMenu mnAplicacoes = new JMenu("Aplicações");
-		mnAplicacoes.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-insulin-pen-60.png")));
+		mnAplicacoes.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-insulin-pen-60.png")));
 		mnAplicacoes.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		menuBar.add(mnAplicacoes);
 		
@@ -130,19 +134,21 @@ public class Principal extends JFrame {
 			}
 		});
 		mntmCadastrarAplicacao.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
-		mntmCadastrarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-add-folder-48 (1).png")));
+		mntmCadastrarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-add-folder-48.png")));
 		mntmCadastrarAplicacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnAplicacoes.add(mntmCadastrarAplicacao);
 		
 		JMenuItem mntmConsultarAplicacao = new JMenuItem("Consultar");
 		mntmConsultarAplicacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Transicao transicao = new Transicao();
+				setContentPane(transicao);
 				BuscaVacinacao buscaVacinacao = new BuscaVacinacao();
 				setContentPane(buscaVacinacao);
 			}
 		});
 		mntmConsultarAplicacao.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
-		mntmConsultarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/icons8-cardápio.png")));
+		mntmConsultarAplicacao.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-search-64.png")));
 		mntmConsultarAplicacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnAplicacoes.add(mntmConsultarAplicacao);
 		
@@ -206,7 +212,7 @@ public class Principal extends JFrame {
 		contentPane.add(separator);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/hermes3.png")));
+		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/hermes3.png")));
 		lblNewLabel.setBounds(276, 70, 114, 297);
 		contentPane.add(lblNewLabel);
 		
