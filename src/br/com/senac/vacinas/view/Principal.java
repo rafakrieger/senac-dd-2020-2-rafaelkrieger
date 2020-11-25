@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
 
 public class Principal extends JFrame {
 
@@ -60,6 +61,8 @@ public class Principal extends JFrame {
 		JMenuItem mntmCadastrarPessoa = new JMenuItem("Cadastrar");
 		mntmCadastrarPessoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Transicao transicao = new Transicao();
+				setContentPane(transicao);
 				AddPessoa addPessoa = new AddPessoa();				
 				setContentPane(addPessoa);
 			}
@@ -149,88 +152,70 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTotalVacinas = new JLabel("Total de Vacinas Cadastradas");
-		lblTotalVacinas.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblTotalVacinas = new JLabel("VACINAS CADASTRADAS");
+		lblTotalVacinas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTotalVacinas.setForeground(Color.DARK_GRAY);
 		lblTotalVacinas.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblTotalVacinas.setBounds(12, 81, 576, 25);
+		lblTotalVacinas.setBounds(22, 79, 178, 25);
 		contentPane.add(lblTotalVacinas);
 		
-		JLabel lblTotalAplicaes = new JLabel("Total de Aplicações");
-		lblTotalAplicaes.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblTotalAplicaes = new JLabel("TOTAL DE APLICAÇÕES");
+		lblTotalAplicaes.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTotalAplicaes.setForeground(Color.DARK_GRAY);
 		lblTotalAplicaes.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblTotalAplicaes.setBounds(12, 192, 576, 25);
+		lblTotalAplicaes.setBounds(22, 194, 162, 25);
 		contentPane.add(lblTotalAplicaes);
 		
-		JLabel lblMasculino = new JLabel("Sexo Masculino");
-		lblMasculino.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMasculino.setForeground(Color.DARK_GRAY);
-		lblMasculino.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		lblMasculino.setBounds(-15, 229, 242, 25);
-		contentPane.add(lblMasculino);
-		
-		JLabel lblFeminino = new JLabel("Sexo Feminino");
-		lblFeminino.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFeminino.setForeground(Color.DARK_GRAY);
-		lblFeminino.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		lblFeminino.setBounds(175, 229, 242, 25);
-		contentPane.add(lblFeminino);
-		
-		JLabel lblVoluntarios = new JLabel("Voluntários\n");
-		lblVoluntarios.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVoluntarios.setForeground(Color.DARK_GRAY);
-		lblVoluntarios.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		lblVoluntarios.setBounds(358, 229, 242, 25);
-		contentPane.add(lblVoluntarios);
-		
-		JLabel lblMediaAvaliacao = new JLabel("Média da Avaliação da Vacinação");
-		lblMediaAvaliacao.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblMediaAvaliacao = new JLabel("MÉDIA DE AVALIAÇÃO");
+		lblMediaAvaliacao.setHorizontalAlignment(SwingConstants.LEFT);
 		lblMediaAvaliacao.setForeground(Color.DARK_GRAY);
 		lblMediaAvaliacao.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblMediaAvaliacao.setBounds(12, 358, 576, 25);
+		lblMediaAvaliacao.setBounds(22, 300, 162, 25);
 		contentPane.add(lblMediaAvaliacao);
 		
-		JLabel lblRelatrio = new JLabel("VACINAÇÃO COVID-19");
-		lblRelatrio.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblRelatrio = new JLabel("Vacinação Covid-19");
+		lblRelatrio.setHorizontalAlignment(SwingConstants.LEFT);
 		lblRelatrio.setForeground(Color.WHITE);
-		lblRelatrio.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblRelatrio.setBounds(12, 0, 576, 68);
+		lblRelatrio.setFont(new Font("Segoe UI", Font.BOLD, 24));
+		lblRelatrio.setBounds(12, 0, 261, 68);
 		contentPane.add(lblRelatrio);
 		
 		JLabel lblRelVacinas = new JLabel(DEFAULT_COUNT);
 		lblRelVacinas.setForeground(Color.WHITE);
 		lblRelVacinas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRelVacinas.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblRelVacinas.setBounds(241, 104, 114, 64);
+		lblRelVacinas.setBounds(36, 104, 114, 64);
 		contentPane.add(lblRelVacinas);
 		
 		JLabel lblRelMasc = new JLabel(DEFAULT_COUNT);
 		lblRelMasc.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRelMasc.setForeground(Color.WHITE);
 		lblRelMasc.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblRelMasc.setBounds(47, 254, 114, 64);
+		lblRelMasc.setBounds(36, 215, 114, 64);
 		contentPane.add(lblRelMasc);
-		
-		JLabel lblRelFem = new JLabel(DEFAULT_COUNT);
-		lblRelFem.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRelFem.setForeground(Color.WHITE);
-		lblRelFem.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblRelFem.setBounds(241, 254, 114, 64);
-		contentPane.add(lblRelFem);
-		
-		JLabel lblRelVol = new JLabel(DEFAULT_COUNT);
-		lblRelVol.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRelVol.setForeground(Color.WHITE);
-		lblRelVol.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblRelVol.setBounds(424, 254, 114, 64);
-		contentPane.add(lblRelVol);
 		
 		JLabel lblRelVol_1 = new JLabel(DEFAULT_COUNT);
 		lblRelVol_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRelVol_1.setForeground(Color.WHITE);
 		lblRelVol_1.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblRelVol_1.setBounds(241, 381, 114, 64);
+		lblRelVol_1.setBounds(36, 322, 114, 64);
 		contentPane.add(lblRelVol_1);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(12, 56, 203, 12);
+		contentPane.add(separator);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/icons/hermes3.png")));
+		lblNewLabel.setBounds(276, 70, 114, 297);
+		contentPane.add(lblNewLabel);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(12, 166, 203, 2);
+		contentPane.add(separator_1);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(12, 278, 203, 2);
+		contentPane.add(separator_2);
 	}
 }

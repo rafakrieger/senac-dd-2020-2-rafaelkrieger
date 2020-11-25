@@ -1,9 +1,11 @@
 package br.com.senac.vacinas.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +66,7 @@ public class PessoaDAO {
 			query.setString(3, pessoa.getSexo());
 			query.setString(4, pessoa.getCpf());
 			query.setBoolean(5, pessoa.isVoluntario());
-
+			query.setInt(6, pessoa.getIdPessoa());
 			
 			int codigoRetorno = query.executeUpdate();
 			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
@@ -121,6 +123,31 @@ public class PessoaDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao consultar pessoa por id (Id: " + id + ").\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return pessoa;
+	}
+	
+	public PessoaVO pesquisarPorCpf(String cpf) {
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM PESSOA "
+				   + " WHERE CPF=? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		PessoaVO pessoa = null;
+		try {
+			query.setString(1, cpf);
+			
+			ResultSet rs = query.executeQuery();
+			if(rs.next()) {
+				pessoa = this.construirDoResultSet(rs);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar pessoa por CPF.\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -206,7 +233,11 @@ public class PessoaDAO {
 		PessoaVO pessoa = new PessoaVO();
 		pessoa.setIdPessoa(pessoaConsultada.getInt("idpessoa"));
 		pessoa.setNome(pessoaConsultada.getString("nome"));
-		pessoa.setDataNascimento(pessoaConsultada.getDate("dt_nascimento").toLocalDate());
+		
+		Date dataSQL = pessoaConsultada.getDate("dt_nascimento");
+		LocalDate dataNascimento = dataSQL.toLocalDate();
+		pessoa.setDataNascimento(dataNascimento);
+
 		pessoa.setSexo(pessoaConsultada.getString("sexo"));
 		pessoa.setCpf(pessoaConsultada.getString("cpf"));
 		pessoa.setVoluntario(pessoaConsultada.getBoolean("voluntario"));

@@ -26,9 +26,13 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.senac.vacinas.controller.PesquisadorController;
 import br.com.senac.vacinas.controller.PessoaController;
+import br.com.senac.vacinas.model.dao.PesquisadorDAO;
+import br.com.senac.vacinas.model.dao.PessoaDAO;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 import java.awt.SystemColor;
+import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
 
 public class AddPessoa extends JPanel {
 
@@ -39,100 +43,134 @@ public class AddPessoa extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private String sexoSelecionado;
 	private boolean isVoluntario = false;
+	private JCheckBox chckbxVoluntario;
+	private JCheckBox chckbxPesq;
+	private JButton btnEditarPessoa;
+	private JButton btnSalvarPessoa;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-	
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public AddPessoa() {
-		
-		this.setBounds(100, 100, 450, 450);		
+
+		this.setBounds(0, 60, 450, 450);
 		this.setBackground(new Color(32, 178, 170));
-		this.setBorder(null);		
+		this.setBorder(null);
 		this.setLayout(null);
 
-		
 		JLabel lblNome = new JLabel("NOME");
-		lblNome.setBounds(10, 60, 381, 24);
+		lblNome.setBounds(10, 110, 381, 24);
 		lblNome.setForeground(Color.DARK_GRAY);
 		lblNome.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		this.add(lblNome);
-		
+
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setForeground(Color.DARK_GRAY);
 		lblCpf.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblCpf.setBounds(10, 0, 375, 24);
+		lblCpf.setBounds(10, 50, 375, 24);
 		this.add(lblCpf);
-		
+
 		JLabel lbDataNasc = new JLabel("DATA DE NASCIMENTO");
 		lbDataNasc.setForeground(Color.DARK_GRAY);
 		lbDataNasc.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lbDataNasc.setBounds(10, 115, 363, 24);
+		lbDataNasc.setBounds(10, 165, 363, 24);
 		this.add(lbDataNasc);
-		
+
 		final JLabel lblInst = new JLabel("INSTITUIÇÃO");
 		lblInst.setForeground(Color.DARK_GRAY);
 		lblInst.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblInst.setBounds(10, 270, 424, 24);
+		lblInst.setBounds(10, 320, 424, 24);
 		this.add(lblInst);
 		lblInst.setVisible(false);
-		
+
 		JLabel lblSexo = new JLabel("SEXO");
 		lblSexo.setForeground(Color.DARK_GRAY);
 		lblSexo.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblSexo.setBounds(10, 170, 363, 24);
+		lblSexo.setBounds(10, 220, 363, 24);
 		this.add(lblSexo);
-		
+
 		final JRadioButton rdbtnMasc = new JRadioButton("MASCULINO");
 		buttonGroup.add(rdbtnMasc);
 		rdbtnMasc.setForeground(Color.DARK_GRAY);
 		rdbtnMasc.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		rdbtnMasc.setBackground(new Color(32, 178, 170));
-		rdbtnMasc.setBounds(10, 200, 109, 23);
+		rdbtnMasc.setBounds(10, 250, 109, 23);
 		this.add(rdbtnMasc);
-		
+
 		final JRadioButton rdbtnFem = new JRadioButton("FEMININO");
 		buttonGroup.add(rdbtnFem);
 		rdbtnFem.setForeground(Color.DARK_GRAY);
 		rdbtnFem.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		rdbtnFem.setBackground(new Color(32, 178, 170));
-		rdbtnFem.setBounds(123, 201, 109, 23);
+		rdbtnFem.setBounds(123, 251, 109, 23);
 		this.add(rdbtnFem);
-		
+
 		textFieldNome = new JTextField();
 		textFieldNome.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textFieldNome.setBounds(10, 86, 414, 30);
+		textFieldNome.setBounds(10, 136, 414, 30);
 		this.add(textFieldNome);
 		textFieldNome.setColumns(10);
-		
+
 		try {
-			MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");			
+			MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
 			MaskFormatter mascaraData = new MaskFormatter("##/##/####");
-		
-		formattedTextFieldCpf = new JFormattedTextField(mascaraCpf);
-		formattedTextFieldCpf.setFont(new Font("Dialog", Font.PLAIN, 14));
-		formattedTextFieldCpf.setBounds(10, 23, 414, 30);
-		this.add(formattedTextFieldCpf);
-		
-		formattedTextFieldData = new JFormattedTextField(mascaraData);
-		formattedTextFieldData.setFont(new Font("Dialog", Font.PLAIN, 14));
-		formattedTextFieldData.setBounds(10, 140, 414, 30);		
-		this.add(formattedTextFieldData);
-		
+
+			formattedTextFieldCpf = new JFormattedTextField(mascaraCpf);
+			formattedTextFieldCpf.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PessoaDAO dao = new PessoaDAO();
+					PesquisadorDAO pDao = new PesquisadorDAO();
+					PessoaVO pessoa = new PessoaVO();
+					String cpf = obterNumerosCpf(formattedTextFieldCpf.getText());
+					if (dao.pesquisarPorCpf(cpf) != null) {
+						pessoa = dao.pesquisarPorCpf(cpf);
+						textFieldNome.setText(pessoa.getNome());
+						formattedTextFieldData.setText(pessoa.getDataNascimento().format(dateFormat).toString());
+						if (pessoa.getSexo().equalsIgnoreCase("M")) {
+							rdbtnMasc.setSelected(true);
+							rdbtnFem.setSelected(false);
+						} else {
+							rdbtnFem.setSelected(true);
+							rdbtnMasc.setSelected(false);
+						}
+						if (pessoa.isVoluntario()) {
+							chckbxVoluntario.setSelected(true);
+						}
+						if (pDao.pesquisarPorIdPessoa(pessoa.getIdPessoa()) != null) {
+							PesquisadorVO pesquisador = new PesquisadorVO();
+							pesquisador = pDao.pesquisarPorIdPessoa(pessoa.getIdPessoa());
+							chckbxPesq.setSelected(true);
+							textFieldInst.setVisible(true);
+							textFieldInst.setText(pesquisador.getInstituicao());
+						}
+						btnEditarPessoa.setVisible(true);
+						btnSalvarPessoa.setVisible(false);
+					}
+				}
+			});
+			formattedTextFieldCpf.setFont(new Font("Dialog", Font.PLAIN, 14));
+			formattedTextFieldCpf.setBounds(10, 73, 414, 30);
+			this.add(formattedTextFieldCpf);
+
+			formattedTextFieldData = new JFormattedTextField(mascaraData);
+			formattedTextFieldData.setFont(new Font("Dialog", Font.PLAIN, 14));
+			formattedTextFieldData.setBounds(10, 190, 414, 30);
+			this.add(formattedTextFieldData);
+
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 			System.out.println("Causa da exceção: " + e.getMessage());
 		}
-				
-		final JCheckBox chckbxVoluntario = new JCheckBox("VOLUNTÁRIO");
+
+		chckbxVoluntario = new JCheckBox("VOLUNTÁRIO");
 		chckbxVoluntario.setForeground(Color.DARK_GRAY);
 		chckbxVoluntario.setBackground(new Color(32, 178, 170));
 		chckbxVoluntario.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		chckbxVoluntario.setBounds(84, 240, 148, 23);
-		this.add(chckbxVoluntario);		
-		
-		final JCheckBox chckbxPesq = new JCheckBox("PESQUISADOR");		
+		chckbxVoluntario.setBounds(84, 290, 148, 23);
+		this.add(chckbxVoluntario);
+
+		chckbxPesq = new JCheckBox("PESQUISADOR");
 		chckbxPesq.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbxPesq.isSelected()) {
@@ -147,53 +185,53 @@ public class AddPessoa extends JPanel {
 		chckbxPesq.setForeground(Color.DARK_GRAY);
 		chckbxPesq.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		chckbxPesq.setBackground(new Color(32, 178, 170));
-		chckbxPesq.setBounds(243, 240, 148, 23);
-		this.add(chckbxPesq);		
-			
+		chckbxPesq.setBounds(243, 290, 148, 23);
+		this.add(chckbxPesq);
+
 		textFieldInst = new JTextField();
 		textFieldInst.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textFieldInst.setColumns(10);
-		textFieldInst.setBounds(10, 301, 414, 30);
-		this.add(textFieldInst);		
+		textFieldInst.setBounds(10, 351, 414, 30);
+		this.add(textFieldInst);
 		textFieldInst.setVisible(false);
-		
-		JButton btnSalvarPessoa = new JButton("SALVAR");
+
+		btnSalvarPessoa = new JButton("SALVAR");
 		btnSalvarPessoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaVO pessoa = new PessoaVO();
 				PesquisadorVO pesquisador = new PesquisadorVO();
 				pessoa.setNome(textFieldNome.getText());
 				pessoa.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
-				pessoa.setDataNascimento(obterData(formattedTextFieldData.getText()));				
-				
+				pessoa.setDataNascimento(obterData(formattedTextFieldData.getText()));
+
 				if (rdbtnMasc.isSelected()) {
 					sexoSelecionado = "M";
-				}else if (rdbtnFem.isSelected()){
+				} else if (rdbtnFem.isSelected()) {
 					sexoSelecionado = "F";
-				}else {
+				} else {
 					sexoSelecionado = null;
 				}
 				pessoa.setSexo(sexoSelecionado);
-				
+
 				if (chckbxVoluntario.isSelected()) {
 					isVoluntario = true;
 				} else {
 					isVoluntario = false;
 				}
-				pessoa.setVoluntario(isVoluntario);				
-							
+				pessoa.setVoluntario(isVoluntario);
+
 				PessoaController pessoaController = new PessoaController();
 				String mensagem = pessoaController.salvar(pessoa);
 				JOptionPane.showMessageDialog(null, mensagem);
-				
+
 				if (chckbxPesq.isSelected()) {
 					pesquisador.setInstituicao(textFieldInst.getText());
 					pesquisador.setIdPessoa(pessoa.getIdPessoa());
 					pesquisador.setNome(pessoa.getNome());
 					PesquisadorController pesquisadorController = new PesquisadorController();
-					pesquisadorController.salvar(pesquisador);	
+					pesquisadorController.salvar(pesquisador);
 				}
-				
+
 				textFieldNome.setText("");
 				formattedTextFieldCpf.setText("");
 				formattedTextFieldData.setText("");
@@ -203,38 +241,103 @@ public class AddPessoa extends JPanel {
 				chckbxVoluntario.setSelected(false);
 				textFieldInst.setVisible(false);
 				lblInst.setVisible(false);
-				
+
 			}
 
-			private String obterNumerosCpf(String cpf) {
-				String digito = cpf.replace(".", "");
-				String novoCpf = digito.replace("-", "");
-				return novoCpf;				
-			}
-			
-			private boolean validarData(String strDate) {
-				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);				
-			    try {
-			    	LocalDate date = LocalDate.parse(strDate, dateFormatter);
-			        return true;
-			    } catch (DateTimeParseException e) {			    	
-			    	return false;			       
-			    } 
-			}
-			
-			private LocalDate obterData(String dataNascimento) {
-				LocalDate data = null;				
-				if (validarData(dataNascimento)) {
-					data = LocalDate.parse(dataNascimento, dateFormat);
-				}	
-				return data;
-			}
-				
 		});
 		btnSalvarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnSalvarPessoa.setBounds(123, 349, 177, 35);
-		this.add(btnSalvarPessoa);		
+		btnSalvarPessoa.setBounds(133, 404, 177, 35);
+		this.add(btnSalvarPessoa);
+
+		btnEditarPessoa = new JButton("ATUALIZAR");
+		btnEditarPessoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PessoaVO pessoa = new PessoaVO();
+				PesquisadorVO pesquisador = new PesquisadorVO();
+				pessoa.setNome(textFieldNome.getText());
+				pessoa.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
+				pessoa.setDataNascimento(obterData(formattedTextFieldData.getText()));
+
+				if (rdbtnMasc.isSelected()) {
+					sexoSelecionado = "M";
+				} else if (rdbtnFem.isSelected()) {
+					sexoSelecionado = "F";
+				} else {
+					sexoSelecionado = null;
+				}
+				pessoa.setSexo(sexoSelecionado);
+
+				if (chckbxVoluntario.isSelected()) {
+					isVoluntario = true;
+				} else {
+					isVoluntario = false;
+				}
+				pessoa.setVoluntario(isVoluntario);
+
+				PessoaController pessoaController = new PessoaController();
+				String mensagem = pessoaController.atualizar(pessoa);
+				JOptionPane.showMessageDialog(null, mensagem);
+
+				if (chckbxPesq.isSelected()) {
+					pesquisador.setInstituicao(textFieldInst.getText());
+					pesquisador.setIdPessoa(pessoa.getIdPessoa());
+					pesquisador.setNome(pessoa.getNome());
+					PesquisadorController pesquisadorController = new PesquisadorController();
+					pesquisadorController.atualizar(pesquisador);
+				}
+
+				textFieldNome.setText("");
+				formattedTextFieldCpf.setText("");
+				formattedTextFieldData.setText("");
+				rdbtnFem.setSelected(false);
+				rdbtnMasc.setSelected(false);
+				chckbxPesq.setSelected(false);
+				chckbxVoluntario.setSelected(false);
+				textFieldInst.setVisible(false);
+				lblInst.setVisible(false);
+
+			}
+		});
+		btnEditarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnEditarPessoa.setBounds(133, 404, 177, 35);
+		btnEditarPessoa.setVisible(false);
+		add(btnEditarPessoa);
+
+		JLabel lblCadastroDePessoas = new JLabel("Cadastro de pessoas");
+		lblCadastroDePessoas.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCadastroDePessoas.setForeground(Color.WHITE);
+		lblCadastroDePessoas.setFont(new Font("Segoe UI", Font.BOLD, 18));
+		lblCadastroDePessoas.setBounds(10, 0, 177, 42);
+		add(lblCadastroDePessoas);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 39, 203, 12);
+		add(separator);
 
 	}
 
+	private String obterNumerosCpf(String cpf) {
+		String digito = cpf.replace(".", "");
+		String novoCpf = digito.replace("-", "");
+		return novoCpf;
+	}
+
+	private boolean validarData(String strDate) {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+				.withResolverStyle(ResolverStyle.STRICT);
+		try {
+			LocalDate date = LocalDate.parse(strDate, dateFormatter);
+			return true;
+		} catch (DateTimeParseException e) {
+			return false;
+		}
+	}
+
+	private LocalDate obterData(String dataNascimento) {
+		LocalDate data = null;
+		if (validarData(dataNascimento)) {
+			data = LocalDate.parse(dataNascimento, dateFormat);
+		}
+		return data;
+	}
 }

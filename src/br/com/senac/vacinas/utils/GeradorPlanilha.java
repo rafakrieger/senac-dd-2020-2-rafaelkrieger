@@ -1,4 +1,4 @@
-package br.com.senac.model.util;
+package br.com.senac.vacinas.utils;
 
 
 import java.io.File;

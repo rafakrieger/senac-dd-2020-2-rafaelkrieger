@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import br.com.senac.vacinas.model.bo.PessoaBO;
 import br.com.senac.vacinas.model.exception.CpfInvalidoException;
+import br.com.senac.vacinas.model.exception.CpfRepetidoException;
 import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.exception.NomeInvalidoException;
 import br.com.senac.vacinas.model.exception.SexoInvalidoException;
@@ -45,14 +46,61 @@ public class PessoaController {
 			mensagem = excecao.getMessage();
 		}
 		
+		try {
+			bo.conferirCpf(pessoa.getCpf());
+		} catch (CpfRepetidoException excecao) {
+			valido = false;
+			mensagem = excecao.getMessage();
+		}
+		
 		if (valido) {
-			pessoa = bo.salvar(pessoa);
+			bo.salvar(pessoa);
 			mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();		
 		}		
 		
 		return mensagem;		
 	}
-
+	
+	public String atualizar(PessoaVO pessoa) {
+		String mensagem = "";
+		boolean valido = bo.atualizar(pessoa);
+		
+		try {
+			this.validarCPF(pessoa.getCpf());
+		} catch (CpfInvalidoException excecao) {			
+			mensagem = excecao.getMessage();
+			valido = false;
+		}
+		
+		try {
+			this.validarNome(pessoa.getNome());
+		} catch (NomeInvalidoException excecao) {			
+			mensagem = excecao.getMessage();
+			valido = false;
+		}
+		
+		try {
+			this.validarSexo(pessoa.getSexo());				
+		} catch (SexoInvalidoException excecao) {			
+			mensagem = excecao.getMessage();
+			valido = false;
+		} 
+		
+		try {
+			this.validarData(pessoa.getDataNascimento());
+			} catch (DataVaziaException excecao) {			
+			mensagem = excecao.getMessage();
+			valido = false;
+		}		
+		
+		if (valido) {			
+				mensagem = "Atualizado com sucesso!";	
+			} else {
+				mensagem = "Problema ao atualizar";	
+			}	
+		
+		return mensagem;		
+	}
 
 	private void validarData(LocalDate dataNascimento) throws DataVaziaException {
 		if (dataNascimento == null) {
@@ -86,5 +134,6 @@ public class PessoaController {
 			throw new CpfInvalidoException("CPF deve possuir 11 caracteres");
 		}
 	}
+
 
 }

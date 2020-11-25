@@ -31,6 +31,8 @@ import java.time.format.ResolverStyle;
 import java.util.List;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
 
 public class AddVacinacao extends JPanel {
 
@@ -48,7 +50,7 @@ public class AddVacinacao extends JPanel {
 	 * Create the panel.
 	 */
 	public AddVacinacao() {
-		setBounds(100, 100, 450, 450);
+		setBounds(0, 50, 450, 450);
 		this.setBackground(new Color(32, 178, 170));
 		this.setBorder(null);
 		this.setLayout(null);
@@ -56,7 +58,7 @@ public class AddVacinacao extends JPanel {
 		JLabel lblVacina = new JLabel("VACINA");
 		lblVacina.setForeground(Color.DARK_GRAY);
 		lblVacina.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblVacina.setBounds(10, 36, 134, 25);
+		lblVacina.setBounds(10, 72, 134, 25);
 		this.add(lblVacina);
 
 		VacinaDAO vacinaDao = new VacinaDAO();
@@ -93,44 +95,44 @@ public class AddVacinacao extends JPanel {
 		});
 		comboBoxVacina.setSelectedIndex(-1);
 		comboBoxVacina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBoxVacina.setBounds(10, 61, 414, 30);
+		comboBoxVacina.setBounds(10, 97, 414, 30);
 		this.add(comboBoxVacina);
 
 		JLabel lblPessoa = new JLabel("PESSOA");
 		lblPessoa.setForeground(Color.DARK_GRAY);
 		lblPessoa.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblPessoa.setBounds(10, 98, 179, 25);
+		lblPessoa.setBounds(10, 134, 179, 25);
 		this.add(lblPessoa);
 
 		comboBoxPessoa = new JComboBox(pessoas.toArray());
 		comboBoxPessoa.setSelectedIndex(-1);
 		comboBoxPessoa.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBoxPessoa.setBounds(10, 121, 414, 30);
+		comboBoxPessoa.setBounds(10, 157, 414, 30);
 		this.add(comboBoxPessoa);
 
 		comboBoxAvaliacao = new JComboBox(AVALIACAO);
 		comboBoxAvaliacao.setSelectedIndex(-1);
 		comboBoxAvaliacao.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBoxAvaliacao.setBounds(10, 187, 414, 30);
+		comboBoxAvaliacao.setBounds(10, 223, 414, 30);
 		this.add(comboBoxAvaliacao);
 
 		JLabel lblAvaliacao = new JLabel("AVALIAÇÃO");
 		lblAvaliacao.setForeground(Color.DARK_GRAY);
 		lblAvaliacao.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblAvaliacao.setBounds(10, 162, 230, 25);
+		lblAvaliacao.setBounds(10, 198, 230, 25);
 		this.add(lblAvaliacao);
 
 		JLabel lblData = new JLabel("DATA");
 		lblData.setForeground(Color.DARK_GRAY);
 		lblData.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblData.setBounds(10, 228, 230, 25);
+		lblData.setBounds(10, 264, 230, 25);
 		this.add(lblData);
 
 		try {
 			MaskFormatter mascaraData = new MaskFormatter("##/##/####");
 			formattedTextFieldData = new JFormattedTextField(mascaraData);
 			formattedTextFieldData.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			formattedTextFieldData.setBounds(10, 252, 414, 30);
+			formattedTextFieldData.setBounds(10, 288, 414, 30);
 			this.add(formattedTextFieldData);
 
 		} catch (ParseException e) {
@@ -159,8 +161,19 @@ public class AddVacinacao extends JPanel {
 			}
 		});
 		btnSalvarVacinacao.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnSalvarVacinacao.setBounds(64, 324, 296, 38);
+		btnSalvarVacinacao.setBounds(64, 360, 296, 38);
 		this.add(btnSalvarVacinacao);
+		
+		JLabel lblCadastroDeAplicaes = new JLabel("Cadastro de aplicações");
+		lblCadastroDeAplicaes.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCadastroDeAplicaes.setForeground(Color.WHITE);
+		lblCadastroDeAplicaes.setFont(new Font("Segoe UI", Font.BOLD, 18));
+		lblCadastroDeAplicaes.setBounds(10, 0, 203, 42);
+		add(lblCadastroDeAplicaes);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 39, 213, 12);
+		add(separator);
 	}	
 
 	private boolean validarData(String strDate) {

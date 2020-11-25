@@ -1,9 +1,11 @@
 package br.com.senac.vacinas.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,7 +186,10 @@ public class VacinaDAO {
 		vacina.setPesquisador(pesquisadorDAO.pesquisarPorId(vacinaConsultada.getInt("idpesquisador")));
 		vacina.setPaisOrigem(vacinaConsultada.getString("pais_origem"));
 		vacina.setEstagioPesquisa(vacinaConsultada.getInt("estagio_pesquisa"));
-		vacina.setDataInicio(vacinaConsultada.getDate("dt_inicio").toLocalDate());
+
+		Date dataSQL = vacinaConsultada.getDate("dt_inicio");
+		LocalDate dataInicio = dataSQL.toLocalDate();
+		vacina.setDataInicio(dataInicio);
 		
 		return vacina;
 	}

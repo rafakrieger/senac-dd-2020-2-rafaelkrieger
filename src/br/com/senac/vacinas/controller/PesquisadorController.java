@@ -30,4 +30,24 @@ public class PesquisadorController {
 		
 	}
 
+	public String atualizar(PesquisadorVO pesquisador) {
+		String mensagem = "";
+		boolean valido = false;
+		try {
+			this.validarInstituicao(pesquisador.getInstituicao());			
+			valido = bo.atualizar(pesquisador);
+		} catch (InstituicaoInvalidaException excecao) {
+			mensagem = excecao.getMessage();		
+		} 
+		
+		if (valido) {			
+			mensagem = "Atualizado com sucesso!";	
+		} else {
+			mensagem = "Problema ao atualizar";	
+		}	
+		
+		return mensagem;	
+		
+	}
+
 }

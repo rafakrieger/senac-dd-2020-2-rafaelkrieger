@@ -50,14 +50,16 @@ public class PesquisadorDAO {
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " UPDATE PESQUISADOR "
-				   + " SET INSTITUICAO=? "
-				   + " WHERE IDPESQUISADOR=? ";
+				   + " SET NOME=?, INSTITUICAO=? "					  
+				   + " WHERE IDPESQUISADOR=? "; 
 		
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 
 		boolean atualizou = false;
-		try {			
-			query.setString(1, pesquisador.getInstituicao());
+		try {
+			query.setString(1, pesquisador.getNome());
+			query.setString(2, pesquisador.getInstituicao());
+			query.setInt(3, pesquisador.getIdPesquisador());
 			
 			int codigoRetorno = query.executeUpdate();
 			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
@@ -114,6 +116,31 @@ public class PesquisadorDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao consultar pesquisador por id (Id: " + id + ").\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return pesquisador;
+	}
+	
+	public PesquisadorVO pesquisarPorIdPessoa(int id) {
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM PESQUISADOR "
+				   + " WHERE IDPESSOA=? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		PesquisadorVO pesquisador = null;
+		try {
+			query.setInt(1, id);
+			
+			ResultSet rs = query.executeQuery();
+			if(rs.next()) {
+				pesquisador = this.construirDoResultSet(rs);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar pesquisador por id Pessoa.\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);

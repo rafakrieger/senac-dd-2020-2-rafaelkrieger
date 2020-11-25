@@ -1,4 +1,4 @@
-package br.com.senac.seletores;
+package br.com.senac.vacinas.model.seletores;
 
 public class SeletorPessoa {
 	

@@ -1,6 +1,7 @@
 package br.com.senac.vacinas.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -184,7 +185,11 @@ public class VacinacaoDAO {
 		vacinacao.setIdVacinacao(vacinacaoConsultada.getInt("idvacinacao"));
 		vacinacao.setVacina((VacinaVO) vacinacaoConsultada.getObject("idvacina"));
 		vacinacao.setPessoa((PessoaVO) vacinacaoConsultada.getObject("idpessoa"));
-		vacinacao.setDataVacinacao(vacinacaoConsultada.getDate("dt_vacinacao").toLocalDate());
+
+		Date dataSQL = vacinacaoConsultada.getDate("dt_vacinacao");
+		LocalDate dataVacinacao = dataSQL.toLocalDate();
+		vacinacao.setDataVacinacao(dataVacinacao);
+		
 		vacinacao.setAvaliacao(vacinacaoConsultada.getInt("avaliacao"));
 		
 		return vacinacao;
