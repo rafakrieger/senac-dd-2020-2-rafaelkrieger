@@ -12,7 +12,6 @@ import br.com.senac.vacinas.model.exception.SexoInvalidoException;
 import br.com.senac.vacinas.model.seletores.SeletorPessoa;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 
-
 public class PessoaController {
 	
 	private PessoaBO bo = new PessoaBO();

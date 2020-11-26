@@ -105,7 +105,7 @@ public class BuscaPessoa extends JPanel {
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 			System.out.println("Causa da exceção: " + e.getMessage());
-		}
+		}	
 		
 		JButton btnExcluir = new JButton("EXCLUIR");
 		btnExcluir.addActionListener(new ActionListener() {
