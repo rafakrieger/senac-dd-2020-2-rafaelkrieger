@@ -47,7 +47,7 @@ public class Principal extends JFrame {
 		setResizable(false);
 		setTitle("Controle de vacinas   ||   Covid-19");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 600);
+		setBounds(100, 100, 475, 600);
 		setBackground(new Color(32, 178, 170));
 		
 		JMenuBar menuBar = new JMenuBar();

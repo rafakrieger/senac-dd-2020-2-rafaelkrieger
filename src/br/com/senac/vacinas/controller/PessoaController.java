@@ -1,6 +1,7 @@
 package br.com.senac.vacinas.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import br.com.senac.vacinas.model.bo.PessoaBO;
 import br.com.senac.vacinas.model.exception.CpfInvalidoException;
@@ -8,7 +9,9 @@ import br.com.senac.vacinas.model.exception.CpfRepetidoException;
 import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.exception.NomeInvalidoException;
 import br.com.senac.vacinas.model.exception.SexoInvalidoException;
+import br.com.senac.vacinas.model.seletores.SeletorPessoa;
 import br.com.senac.vacinas.model.vo.PessoaVO;
+
 
 public class PessoaController {
 	
@@ -133,6 +136,24 @@ public class PessoaController {
 				|| cpf.length() != 11) {
 			throw new CpfInvalidoException("CPF deve possuir 11 caracteres");
 		}
+	}
+
+	public List<PessoaVO> listarPessoas(SeletorPessoa seletor) {		
+		return bo.listarPessoas(seletor);
+	}
+
+	public String excluir(PessoaVO pessoa) {		
+		String mensagem = "";
+		boolean excluiu = bo.excluir(pessoa);
+		
+		if(excluiu) {
+			mensagem = "Cliente excluído com sucesso!";
+		} else {
+			mensagem = "Erro ao excluir cliente :(";
+		}
+		
+		return mensagem;
+
 	}
 
 

@@ -9,7 +9,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.senac.vacinas.model.seletores.SeletorPessoa;
 import br.com.senac.vacinas.model.vo.PessoaVO;
+
 
 public class PessoaDAO {
 		
@@ -251,6 +253,72 @@ public class PessoaDAO {
 		pessoa.setNome(pessoaConsultada.getString("nome"));		
 		
 		return pessoa;
+	}
+
+
+	public List<PessoaVO> listarComSeletor(SeletorPessoa seletor) {
+		String sql = " SELECT * FROM PESSOA p ";
+
+		if (seletor.temFiltro()) {
+			sql = criarFiltros(seletor, sql);
+		}
+
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		ArrayList<PessoaVO> pessoas = new ArrayList<PessoaVO>();
+
+		try {
+			ResultSet result = prepStmt.executeQuery();
+
+			while (result.next()) {
+				PessoaVO p = construirDoResultSet(result);
+				pessoas.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pessoas;
+	}
+	
+	private String criarFiltros(SeletorPessoa seletor, String sql) {
+
+		// Tem pelo menos UM filtro
+		sql += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getIdPessoa() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.id = " + seletor.getIdPessoa();
+			primeiro = false;
+		}
+
+		if ((seletor.getNome() != null) && (seletor.getNome().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.nome LIKE '%" + seletor.getNome() + "%'";
+			primeiro = false;
+		}
+
+		if ((seletor.getCpf() != null) && (seletor.getCpf().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.cor = '" + seletor.getCpf() + "'";
+			primeiro = false;
+		}
+		
+		if ((seletor.getSexo() != null) && (seletor.getSexo().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.cor = '" + seletor.getSexo() + "'";
+			primeiro = false;
+		}
+		return sql;
+
 	}
 
 }
