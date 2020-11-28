@@ -9,6 +9,8 @@ import br.com.senac.vacinas.model.seletores.SeletorPessoa;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 
 public class PessoaBO {
+	
+	PessoaDAO dao = new PessoaDAO();
 
 	public PessoaVO salvar(PessoaVO pessoa) {
 		PessoaDAO novaPessoa = new PessoaDAO();	
@@ -21,23 +23,30 @@ public class PessoaBO {
 		pessoa.setIdPessoa(idPessoa);
 		return pessoaAtualizada.atualizar(pessoa);	
 	}
+	
+	
 
 	public void conferirCpf(String cpf) throws CpfRepetidoException {
-		PessoaDAO dao = new PessoaDAO();	
 		if (dao.pesquisarPorCpf(cpf) != null) {
 			throw new CpfRepetidoException("CPF já cadastrado");
 		}
 	}
 
 	public List<PessoaVO> listarPessoas(SeletorPessoa seletor) {
-		PessoaDAO dao = new PessoaDAO();	
 		return dao.listarComSeletor(seletor);
 	}
 
 	public boolean excluir(PessoaVO pessoa) {
-		PessoaDAO dao = new PessoaDAO();
 		boolean sucesso = dao.excluir(pessoa.getIdPessoa());
 		return sucesso;
+	}
+
+	public PessoaVO pesquisarPorId(int id) {		
+		return dao.pesquisarPorId(id);
+	}
+
+	public boolean atualizarBusca(PessoaVO pessoa) {
+		return dao.atualizarBusca(pessoa);	
 	}
 
 

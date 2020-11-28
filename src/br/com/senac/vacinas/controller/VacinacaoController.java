@@ -1,10 +1,12 @@
 package br.com.senac.vacinas.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import br.com.senac.vacinas.model.bo.VacinacaoBO;
 import br.com.senac.vacinas.model.exception.CamposVaziosException;
 import br.com.senac.vacinas.model.exception.DataVaziaException;
+import br.com.senac.vacinas.model.seletores.SeletorVacinacao;
 import br.com.senac.vacinas.model.vo.VacinacaoVO;
 
 public class VacinacaoController {
@@ -53,4 +55,38 @@ public class VacinacaoController {
 		
 }
 
+	public List<VacinacaoVO> listarVacinacoes(SeletorVacinacao seletor) {
+		return bo.listarVacinacoes(seletor);
+	}
+
+	public String excluir(VacinacaoVO vacinacao) {
+		String mensagem = "";
+		boolean excluiu = bo.excluir(vacinacao);
+		
+		if(excluiu) {
+			mensagem = "Aplicação excluída com sucesso!";
+		} else {
+			mensagem = "Erro ao excluir aplicação";
+		}
+		
+		return mensagem;
+	}
+
+	public String atualizarBusca(VacinacaoVO vacinacao) {
+		String mensagem = "";
+		boolean atualizou = bo.atualizarBusca(vacinacao);
+			
+		try {
+			this.validarCampos(vacinacao);		
+		} catch (CamposVaziosException excecao) {
+			atualizou = false;
+			mensagem = excecao.getMessage();
+		}
+		
+		if (atualizou) {
+			mensagem = "Atualizado com sucesso!";	
+		}		
+		
+		return mensagem;			
+	}
 }

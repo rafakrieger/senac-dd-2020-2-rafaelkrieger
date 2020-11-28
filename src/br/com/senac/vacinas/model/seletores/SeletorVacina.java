@@ -2,13 +2,14 @@ package br.com.senac.vacinas.model.seletores;
 
 import java.time.LocalDate;
 
+import br.com.senac.vacinas.model.vo.PesquisadorVO;
+
 public class SeletorVacina {
 	
 	private int idVacina;
-	private String pesquisador;
+	private PesquisadorVO pesquisador;
 	private String paisOrigem;
 	private int estagioPesquisa;
-	private LocalDate dataInicio;
 	
 	private int limite;
 	private int pagina;
@@ -24,7 +25,7 @@ public class SeletorVacina {
 			return true;
 		}
 		
-		if((this.pesquisador != null) && (this.pesquisador.trim().length() > 0)) {
+		if (this.pesquisador != null) {
 			return true;
 		}
 		
@@ -34,11 +35,8 @@ public class SeletorVacina {
 		
 		if(this.estagioPesquisa > 0) {
 			return true;
-		}
-		
-		if(this.dataInicio != null) {
-			return true;
-		}
+		}		
+
 		return false;
 	}
 	
@@ -60,11 +58,11 @@ public class SeletorVacina {
 		this.idVacina = idVacina;
 	}
 
-	public String getPesquisador() {
+	public PesquisadorVO getPesquisador() {
 		return pesquisador;
 	}
 
-	public void setPesquisador(String pesquisador) {
+	public void setPesquisador(PesquisadorVO pesquisador) {
 		this.pesquisador = pesquisador;
 	}
 
@@ -84,13 +82,6 @@ public class SeletorVacina {
 		this.estagioPesquisa = estagioPesquisa;
 	}
 
-	public LocalDate getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(LocalDate dataInicio) {
-		this.dataInicio = dataInicio;
-	}
 
 	public int getLimite() {
 		return limite;

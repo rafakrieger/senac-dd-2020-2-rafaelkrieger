@@ -83,6 +83,34 @@ public class PessoaDAO {
 		return atualizou;
 	}
 	
+	public boolean atualizarBusca(PessoaVO pessoa) {
+		Connection conexao = Banco.getConnection();
+		
+		String sql = " UPDATE PESSOA "
+				   + " SET NOME=?, SEXO=?, CPF=? "
+				   + " WHERE IDPESSOA=? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+
+		boolean atualizou = false;
+		try {
+			query.setString(1, pessoa.getNome());			
+			query.setString(2, pessoa.getSexo());
+			query.setString(3, pessoa.getCpf());			
+			query.setInt(4, pessoa.getIdPessoa());
+			
+			int codigoRetorno = query.executeUpdate();
+			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar pessoa.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+				
+		return atualizou;
+	}
 	
 	public boolean excluir(int id) {
 		Connection conexao = Banco.getConnection();
@@ -291,7 +319,7 @@ public class PessoaDAO {
 			if (!primeiro) {
 				sql += " AND ";
 			}
-			sql += "p.id = " + seletor.getIdPessoa();
+			sql += "p.idpessoa = " + seletor.getIdPessoa();
 			primeiro = false;
 		}
 
@@ -307,7 +335,7 @@ public class PessoaDAO {
 			if (!primeiro) {
 				sql += " AND ";
 			}
-			sql += "p.cor = '" + seletor.getCpf() + "'";
+			sql += "p.cpf = '" + seletor.getCpf() + "'";
 			primeiro = false;
 		}
 		
@@ -315,11 +343,14 @@ public class PessoaDAO {
 			if (!primeiro) {
 				sql += " AND ";
 			}
-			sql += "p.cor = '" + seletor.getSexo() + "'";
+			sql += "p.sexo = '" + seletor.getSexo() + "'";
 			primeiro = false;
 		}
 		return sql;
 
 	}
+
+
+
 
 }

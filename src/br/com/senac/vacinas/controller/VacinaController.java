@@ -1,11 +1,13 @@
 package br.com.senac.vacinas.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import br.com.senac.vacinas.model.bo.VacinaBO;
 import br.com.senac.vacinas.model.exception.CamposVaziosException;
 import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.exception.PaisInvalidoException;
+import br.com.senac.vacinas.model.seletores.SeletorVacina;
 import br.com.senac.vacinas.model.vo.VacinaVO;
 
 public class VacinaController {
@@ -44,7 +46,6 @@ public class VacinaController {
 			}	
 			
 			
-			
 			return mensagem;			
 		}
 
@@ -70,5 +71,49 @@ public class VacinaController {
 			}
 		
 	}
+
+		public List<VacinaVO> listarVacinas(SeletorVacina seletor) {
+			return bo.listarVacinas(seletor);
+		}
+
+		public String excluir(VacinaVO vacina) {			
+			String mensagem = "";
+			boolean excluiu = bo.excluir(vacina);
+			
+			if(excluiu) {
+				mensagem = "Vacina excluída com sucesso!";
+			} else {
+				mensagem = "Erro ao excluir vacina";
+			}
+			
+			return mensagem;
+
+		}
+
+		public String atualizarBusca(VacinaVO vacina) {
+			String mensagem = "";
+			boolean atualizou = bo.atualizarBusca(vacina);
+			
+			try {
+				this.validarPais(vacina.getPaisOrigem());
+			} catch (PaisInvalidoException excecao) {
+				atualizou = false;
+				mensagem = excecao.getMessage();				
+			} 
+			
+			try {
+				this.validarCampos(vacina);		
+			} catch (CamposVaziosException excecao) {
+				atualizou = false;
+				mensagem = excecao.getMessage();
+			}
+			
+			
+			if (atualizou) {
+				mensagem = "Atualizado com sucesso!";	
+			}				
+			
+			return mensagem;		
+		}
 		
 }

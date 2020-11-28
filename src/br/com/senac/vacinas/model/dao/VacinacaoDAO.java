@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.senac.vacinas.model.seletores.SeletorVacina;
+import br.com.senac.vacinas.model.seletores.SeletorVacinacao;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 import br.com.senac.vacinas.model.vo.VacinaVO;
 import br.com.senac.vacinas.model.vo.VacinacaoVO;
@@ -54,7 +56,7 @@ public class VacinacaoDAO {
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " UPDATE VACINACAO "
-				   + " SET IDVACINA=?, IDPESSOA, DT_VACINACAO=?, AVALIACAO? "
+				   + " SET IDVACINA=?, IDPESSOA=?, DT_VACINACAO=?, AVALIACAO=? "
 				   + " WHERE IDVACINACAO=? ";
 		
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
@@ -120,7 +122,7 @@ public class VacinacaoDAO {
 				vacinacao = this.construirDoResultSet(rs);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao consultar vacina��o por id (Id: " + id + ").\nCausa: " + e.getMessage());
+			System.out.println("Erro ao consultar vacinação por id (Id: " + id + ").\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -144,7 +146,7 @@ public class VacinacaoDAO {
 				vacinacoes.add(vacinacao);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao consultar vacina��es.\nCausa: " + e.getMessage());
+			System.out.println("Erro ao consultar vacinações.\nCausa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(query);
 			Banco.closeConnection(conexao);
@@ -195,4 +197,96 @@ public class VacinacaoDAO {
 		return vacinacao;
 	}
 
+	public List<VacinacaoVO> listarComSeletor(SeletorVacinacao seletor) {
+		String sql = " SELECT * FROM VACINACAO v ";
+
+		if (seletor.temFiltro()) {
+			sql = criarFiltros(seletor, sql);
+		}
+
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		ArrayList<VacinacaoVO> vacinacoes = new ArrayList<VacinacaoVO>();
+
+		try {
+			ResultSet result = prepStmt.executeQuery();
+
+			while (result.next()) {
+				VacinacaoVO v = construirDoResultSet(result);
+				vacinacoes.add(v);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vacinacoes;
+	}
+	
+	private String criarFiltros(SeletorVacinacao seletor, String sql) {
+
+		sql += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getIdVacinacao() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.idvacinacao = " + seletor.getIdVacinacao();
+			primeiro = false;
+		}
+
+		if (seletor.getAvaliacao() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.avaliacao = " + seletor.getAvaliacao();
+			primeiro = false;
+		}
+
+		if (seletor.getPessoa() != null) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.idpessoa = '" + seletor.getPessoa().getIdPessoa() + "'";
+			primeiro = false;
+		}
+		
+		if (seletor.getVacina() != null) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.idvacina = " + seletor.getVacina().getIdVacina();
+			primeiro = false;
+		}
+		return sql;
+
+	}
+
+	public boolean atualizarBusca(VacinacaoVO vacinacao) {
+		Connection conexao = Banco.getConnection();
+		
+		String sql = " UPDATE VACINACAO "
+				   + " SET IDVACINA=?, IDPESSOA=?, AVALIACAO=? "
+				   + " WHERE IDVACINACAO=? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+
+		boolean atualizou = false;
+		try {
+			query.setInt(1, vacinacao.getVacina().getIdVacina());
+			query.setInt(2, vacinacao.getPessoa().getIdPessoa());
+			query.setInt(3, vacinacao.getAvaliacao());
+			query.setInt(4, vacinacao.getIdVacinacao());
+			
+			int codigoRetorno = query.executeUpdate();
+			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar vacinação.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+				
+		return atualizou;
+	}
 }

@@ -1,9 +1,13 @@
 package br.com.senac.vacinas.model.seletores;
 
+import br.com.senac.vacinas.model.vo.PessoaVO;
+import br.com.senac.vacinas.model.vo.VacinaVO;
 
 public class SeletorVacinacao {
 	
 	private int idVacinacao;
+	private PessoaVO pessoa;
+	private VacinaVO vacina;
 	private int avaliacao;
 	
 	private int limite;
@@ -50,6 +54,22 @@ public class SeletorVacinacao {
 
 	public void setAvaliacao(int avaliacao) {
 		this.avaliacao = avaliacao;
+	}	
+
+	public PessoaVO getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaVO pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public VacinaVO getVacina() {
+		return vacina;
+	}
+
+	public void setVacina(VacinaVO vacina) {
+		this.vacina = vacina;
 	}
 
 	public int getLimite() {
@@ -67,6 +87,7 @@ public class SeletorVacinacao {
 	public void setPagina(int pagina) {
 		this.pagina = pagina;
 	}
+	
 	
 
 }

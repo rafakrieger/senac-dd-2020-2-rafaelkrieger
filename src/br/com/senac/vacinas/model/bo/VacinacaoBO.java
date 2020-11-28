@@ -2,11 +2,13 @@ package br.com.senac.vacinas.model.bo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import br.com.senac.vacinas.model.dao.VacinacaoDAO;
 import br.com.senac.vacinas.model.exception.CamposVaziosException;
 import br.com.senac.vacinas.model.exception.EstagioException;
 import br.com.senac.vacinas.model.exception.VacinacaoException;
+import br.com.senac.vacinas.model.seletores.SeletorVacinacao;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 import br.com.senac.vacinas.model.vo.VacinacaoVO;
 
@@ -41,6 +43,32 @@ public class VacinacaoBO {
 				throw new VacinacaoException("Paciente só pode tomar uma vacina por ano");
 			}
 		}		
+	}
+
+
+	public List<VacinacaoVO> listarVacinacoes(SeletorVacinacao seletor) {
+		return dao.listarComSeletor(seletor);
+	}
+
+
+	public boolean excluir(VacinacaoVO vacinacao) {
+		boolean sucesso = dao.excluir(vacinacao.getIdVacinacao());
+		return sucesso;
+	}
+
+
+	public boolean atualizarBusca(VacinacaoVO vacinacao) {
+		String mensagem = "";
+		boolean atualizou = dao.atualizarBusca(vacinacao);
+			
+		try {
+			this.validarVacinacao(vacinacao.getPessoa());		
+		} catch (VacinacaoException excecao) {
+			atualizou = false;
+			mensagem = excecao.getMessage();
+		}	
+		
+		return atualizou;		
 	}
 
 }

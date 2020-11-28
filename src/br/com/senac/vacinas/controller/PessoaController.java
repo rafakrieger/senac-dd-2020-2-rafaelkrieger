@@ -146,13 +146,51 @@ public class PessoaController {
 		boolean excluiu = bo.excluir(pessoa);
 		
 		if(excluiu) {
-			mensagem = "Cliente excluído com sucesso!";
+			mensagem = "Registro excluído com sucesso!";
 		} else {
-			mensagem = "Erro ao excluir cliente :(";
+			mensagem = "Erro ao excluir";
 		}
 		
 		return mensagem;
 
+	}
+
+	public PessoaVO pesquisarPorId(int id) {		
+		return bo.pesquisarPorId(id);
+	}
+
+	public String atualizarBusca(PessoaVO pessoa) {
+		String mensagem = "";
+		boolean valido = bo.atualizarBusca(pessoa);
+		
+		try {
+			this.validarCPF(pessoa.getCpf());
+		} catch (CpfInvalidoException excecao) {			
+			mensagem = excecao.getMessage();
+			valido = false;
+		}
+		
+		try {
+			this.validarNome(pessoa.getNome());
+		} catch (NomeInvalidoException excecao) {			
+			mensagem = excecao.getMessage();
+			valido = false;
+		}
+		
+		try {
+			this.validarSexo(pessoa.getSexo());				
+		} catch (SexoInvalidoException excecao) {			
+			mensagem = excecao.getMessage();
+			valido = false;
+		} 	
+		
+		if (valido) {			
+				mensagem = "Atualizado com sucesso!";	
+			} else {
+				mensagem = "Problema ao atualizar";	
+			}	
+		
+		return mensagem;		
 	}
 
 

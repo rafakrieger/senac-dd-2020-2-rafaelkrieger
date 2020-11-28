@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
+import br.com.senac.vacinas.model.vo.PessoaVO;
 import br.com.senac.vacinas.model.dao.PesquisadorDAO;
+import br.com.senac.vacinas.model.seletores.SeletorPessoa;
+import br.com.senac.vacinas.model.seletores.SeletorVacina;
 import br.com.senac.vacinas.model.vo.VacinaVO;
 
 public class VacinaDAO {
@@ -194,6 +197,96 @@ public class VacinaDAO {
 		return vacina;
 	}
 
+	public List<VacinaVO> listarComSeletor(SeletorVacina seletor) {
+		String sql = " SELECT * FROM VACINA v ";
+
+		if (seletor.temFiltro()) {
+			sql = criarFiltros(seletor, sql);
+		}
+
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		ArrayList<VacinaVO> vacinas = new ArrayList<VacinaVO>();
+
+		try {
+			ResultSet result = prepStmt.executeQuery();
+
+			while (result.next()) {
+				VacinaVO v = construirDoResultSet(result);
+				vacinas.add(v);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vacinas;
+	}	
 	
+	private String criarFiltros(SeletorVacina seletor, String sql) {
+
+		sql += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getIdVacina() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.idvacina = " + seletor.getIdVacina();
+			primeiro = false;
+		}
+
+		if (seletor.getEstagioPesquisa() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.estagio_pesquisa = " + seletor.getEstagioPesquisa();
+			primeiro = false;
+		}
+
+		if ((seletor.getPaisOrigem() != null) && (seletor.getPaisOrigem().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.pais_origem = '" + seletor.getPaisOrigem() + "'";
+			primeiro = false;
+		}
+		
+		if (seletor.getPesquisador() != null) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "v.idpesquisador = " + seletor.getPesquisador().getIdPesquisador();
+			primeiro = false;
+		}
+		return sql;
+
+	}
+
+	public boolean atualizarBusca(VacinaVO vacina) {
+		Connection conexao = Banco.getConnection();
+		
+		String sql = " UPDATE VACINA "
+				   + " SET IDPESQUISADOR=?, PAIS_ORIGEM=?, ESTAGIO_PESQUISA=? "
+				   + " WHERE IDVACINA=? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+
+		boolean atualizou = false;
+		try {
+			query.setInt(1, vacina.getPesquisador().getIdPesquisador());
+			query.setString(2, vacina.getPaisOrigem());
+			query.setInt(3, vacina.getEstagioPesquisa());
+			query.setInt(4, vacina.getIdVacina());
+			
+			int codigoRetorno = query.executeUpdate();
+			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar vacina.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}				
+		return atualizou;
+	}
 
 }
