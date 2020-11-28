@@ -115,5 +115,9 @@ public class VacinaController {
 			
 			return mensagem;		
 		}
+
+		public int contarVacinas() {			
+			return bo.contarVacinas();
+		}
 		
 }

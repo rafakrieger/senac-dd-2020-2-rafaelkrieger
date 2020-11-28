@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -287,6 +288,30 @@ public class VacinaDAO {
 			Banco.closeConnection(conexao);
 		}				
 		return atualizou;
+	}
+
+	public int contarVacinas() {
+		Connection conexao = Banco.getConnection();		
+		Statement stmt = Banco.getStatement(conexao);		
+		ResultSet resultado = null;		
+		String sql = " SELECT COUNT(IDVACINA) FROM VACINA ";
+
+		int totalVacinas = 0;
+		
+		try {
+			resultado = stmt.executeQuery(sql);
+			if(resultado != null && resultado.next()){
+				totalVacinas = resultado.getInt(1);	
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao contar vacinas.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conexao);
+		}
+		
+		return totalVacinas;
 	}
 
 }

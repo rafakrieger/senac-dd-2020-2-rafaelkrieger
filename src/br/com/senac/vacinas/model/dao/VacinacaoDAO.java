@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -288,5 +289,53 @@ public class VacinacaoDAO {
 		}
 				
 		return atualizou;
+	}
+
+	public int contarAplicacoes() {
+		Connection conexao = Banco.getConnection();		
+		Statement stmt = Banco.getStatement(conexao);		
+		ResultSet resultado = null;		
+		String sql = " SELECT COUNT(IDVACINACAO) FROM VACINACAO ";
+
+		int total = 0;
+		
+		try {
+			resultado = stmt.executeQuery(sql);
+			if(resultado != null && resultado.next()){
+				total = resultado.getInt(1);	
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao contar aplicações.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conexao);
+		}
+		
+		return total;
+	}
+
+	public Double mediaAvaliacao() {
+		Connection conexao = Banco.getConnection();		
+		Statement stmt = Banco.getStatement(conexao);		
+		ResultSet resultado = null;		
+		String sql = " SELECT AVG(AVALIACAO) FROM VACINACAO ";
+
+		double media = 0;
+		
+		try {
+			resultado = stmt.executeQuery(sql);
+			if(resultado != null && resultado.next()){
+				media = resultado.getDouble(1);	
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao calcular média.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conexao);
+		}
+		
+		return media;
 	}
 }

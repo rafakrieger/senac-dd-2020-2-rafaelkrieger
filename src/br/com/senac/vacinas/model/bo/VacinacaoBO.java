@@ -71,4 +71,14 @@ public class VacinacaoBO {
 		return atualizou;		
 	}
 
+
+	public int contarAplicacoes() {		
+		return dao.contarAplicacoes();
+	}
+
+
+	public Double mediaAvaliacao() {
+		return dao.mediaAvaliacao();
+	}
+
 }

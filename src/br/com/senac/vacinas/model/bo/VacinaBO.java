@@ -28,4 +28,8 @@ public class VacinaBO {
 		return dao.atualizarBusca(vacina);	
 	}
 
+	public int contarVacinas() {		
+		return dao.contarVacinas();
+	}
+
 }

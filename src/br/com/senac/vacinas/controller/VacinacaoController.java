@@ -89,4 +89,12 @@ public class VacinacaoController {
 		
 		return mensagem;			
 	}
+
+	public int contarAplicacoes() {		
+		return bo.contarAplicacoes();
+	}
+
+	public Double mediaAvaliacao() {		
+		return bo.mediaAvaliacao();
+	}
 }

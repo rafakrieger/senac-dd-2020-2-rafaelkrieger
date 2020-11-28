@@ -17,6 +17,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+
+import br.com.senac.vacinas.controller.VacinaController;
+import br.com.senac.vacinas.controller.VacinacaoController;
+
 import javax.swing.JSeparator;
 
 public class Principal extends JFrame {
@@ -185,26 +189,28 @@ public class Principal extends JFrame {
 		lblRelatrio.setBounds(12, 0, 261, 68);
 		contentPane.add(lblRelatrio);
 		
-		JLabel lblRelVacinas = new JLabel(DEFAULT_COUNT);
+		VacinaController vacinaController = new VacinaController();
+		JLabel lblRelVacinas = new JLabel(""+vacinaController.contarVacinas());
 		lblRelVacinas.setForeground(Color.WHITE);
 		lblRelVacinas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRelVacinas.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		lblRelVacinas.setBounds(36, 104, 114, 64);
 		contentPane.add(lblRelVacinas);
 		
-		JLabel lblRelMasc = new JLabel(DEFAULT_COUNT);
-		lblRelMasc.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRelMasc.setForeground(Color.WHITE);
-		lblRelMasc.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblRelMasc.setBounds(36, 215, 114, 64);
-		contentPane.add(lblRelMasc);
+		VacinacaoController vacinacaoController = new VacinacaoController();
+		JLabel lblRelAplica = new JLabel(""+vacinacaoController.contarAplicacoes());
+		lblRelAplica.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRelAplica.setForeground(Color.WHITE);
+		lblRelAplica.setFont(new Font("Segoe UI", Font.BOLD, 30));
+		lblRelAplica.setBounds(36, 215, 114, 64);
+		contentPane.add(lblRelAplica);
 		
-		JLabel lblRelVol_1 = new JLabel(DEFAULT_COUNT);
-		lblRelVol_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRelVol_1.setForeground(Color.WHITE);
-		lblRelVol_1.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblRelVol_1.setBounds(36, 322, 114, 64);
-		contentPane.add(lblRelVol_1);
+		JLabel lblRelAvaliacao = new JLabel(""+vacinacaoController.mediaAvaliacao());
+		lblRelAvaliacao.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRelAvaliacao.setForeground(Color.WHITE);
+		lblRelAvaliacao.setFont(new Font("Segoe UI", Font.BOLD, 30));
+		lblRelAvaliacao.setBounds(36, 322, 114, 64);
+		contentPane.add(lblRelAvaliacao);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(12, 56, 203, 12);
