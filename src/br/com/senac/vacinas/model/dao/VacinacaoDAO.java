@@ -185,9 +185,12 @@ public class VacinacaoDAO {
 	
 	private VacinacaoVO construirDoResultSet(ResultSet vacinacaoConsultada) throws SQLException {
 		VacinacaoVO vacinacao = new VacinacaoVO();
-		vacinacao.setIdVacinacao(vacinacaoConsultada.getInt("idvacinacao"));
-		vacinacao.setVacina((VacinaVO) vacinacaoConsultada.getObject("idvacina"));
-		vacinacao.setPessoa((PessoaVO) vacinacaoConsultada.getObject("idpessoa"));
+		VacinaDAO vacinaDao = new VacinaDAO();
+		PessoaDAO pessoaDao = new PessoaDAO();
+		
+		vacinacao.setIdVacinacao(vacinacaoConsultada.getInt("idvacinacao"));				
+		vacinacao.setVacina(vacinaDao.pesquisarPorId(vacinacaoConsultada.getInt("idvacina")));
+		vacinacao.setPessoa(pessoaDao.pesquisarPorId(vacinacaoConsultada.getInt("idpessoa")));
 
 		Date dataSQL = vacinacaoConsultada.getDate("dt_vacinacao");
 		LocalDate dataVacinacao = dataSQL.toLocalDate();

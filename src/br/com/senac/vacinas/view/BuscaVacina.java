@@ -101,11 +101,18 @@ public class BuscaVacina extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				VacinaController controlador = new VacinaController();
 				SeletorVacina seletor = new SeletorVacina();
+				
+				if (comboBoxPesq.getSelectedIndex() >= 0) {
+					seletor.setPesquisador((PesquisadorVO) comboBoxPesq.getSelectedItem());
+				}
+				if (comboBoxPais.getSelectedIndex() >= 0) {
+					seletor.setPaisOrigem(comboBoxPais.getSelectedItem().toString());
 
-				seletor.setPesquisador((PesquisadorVO) comboBoxPesq.getSelectedItem());
-				seletor.setPaisOrigem(comboBoxPais.getSelectedItem().toString());
-				String estagio = comboBoxEstagio.getSelectedItem().toString();
-				seletor.setEstagioPesquisa(Integer.parseInt(estagio));
+				}
+				if (comboBoxEstagio.getSelectedIndex() >= 0) {
+					seletor.setEstagioPesquisa(comboBoxEstagio.getSelectedIndex()+1);
+
+				}
 
 				List<VacinaVO> vacinas = controlador.listarVacinas(seletor);
 				atualizarTabelaVacinas(vacinas);
@@ -181,6 +188,8 @@ public class BuscaVacina extends JPanel {
 				comboBoxPais.setSelectedIndex(-1);
 				comboBoxEstagio.setSelectedIndex(-1);
 				comboBoxPesq.setSelectedIndex(-1);
+				limparTabela();
+
 			}
 		});
 		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));

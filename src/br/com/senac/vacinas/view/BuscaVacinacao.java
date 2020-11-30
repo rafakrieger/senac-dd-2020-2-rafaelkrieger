@@ -185,6 +185,7 @@ public class BuscaVacinacao extends JPanel {
 				comboBoxVacina.setSelectedIndex(-1);
 				comboBoxPessoa.setSelectedIndex(-1);
 				comboBoxAvaliacao.setSelectedIndex(-1);
+				limparTabela();
 			}
 		});
 		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
