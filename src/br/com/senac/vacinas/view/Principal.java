@@ -22,6 +22,7 @@ import br.com.senac.vacinas.controller.VacinaController;
 import br.com.senac.vacinas.controller.VacinacaoController;
 
 import javax.swing.JSeparator;
+import javax.swing.JButton;
 
 public class Principal extends JFrame {
 
@@ -55,6 +56,16 @@ public class Principal extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(contentPane);
+
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-home-32.png")));
+		menuBar.add(btnNewButton);
 		
 		JMenu mnPessoas = new JMenu("Pessoas");
 		mnPessoas.setIcon(new ImageIcon(Principal.class.getResource("/br/com/senac/vacinas/utils/icons/icons8-fila.png")));
