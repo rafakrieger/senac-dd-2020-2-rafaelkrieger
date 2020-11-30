@@ -208,7 +208,7 @@ public class BuscaVacina extends JPanel {
 				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
 					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
 
-					PessoaController controller = new PessoaController();
+					VacinaController controller = new VacinaController();
 					//String mensagem = controller.gerarPlanilha(produtosConsultados, caminho);
 
 					//JOptionPane.showMessageDialog(null, mensagem);

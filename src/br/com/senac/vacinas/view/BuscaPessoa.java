@@ -231,7 +231,26 @@ public class BuscaPessoa extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 42, 213, 12);
 		add(separator);
-		
+		JButton btnNewButton = new JButton("Imprimir");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser janelaArquivos = new JFileChooser();
+
+				int opcaoSelecionada = janelaArquivos.showSaveDialog(null);
+
+				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
+
+					PessoaController controller = new PessoaController();
+					//String mensagem = controller.gerarPlanilha(produtosConsultados, caminho);
+
+					//JOptionPane.showMessageDialog(null, mensagem);
+				}
+			}
+		});
+		btnNewButton.setBounds(340, 19, 89, 23);
+		add(btnNewButton);
+
 
 	}
 

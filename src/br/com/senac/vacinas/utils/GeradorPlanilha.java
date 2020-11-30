@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import br.com.senac.vacinas.model.vo.PessoaVO;
 import br.com.senac.vacinas.model.vo.VacinaVO;
 
 
@@ -66,6 +67,57 @@ public class GeradorPlanilha {
 		}
 
 	}
+	
+	
+	
+	
+	////////////////////////////// Gerador para Pessoas //////////////
+	
+	
+	
+	public String gerarPlanilhaPessoas(String caminhoArquivo, List<PessoaVO> pessoas) {
+		// Criar a planilha (Workbook)
+		XSSFWorkbook planilha = new XSSFWorkbook();
+
+		// Criar uma aba (Sheet)
+		XSSFSheet aba = planilha.createSheet("Pessoas");
+
+		int linhaAtual = 0;
+
+		// Criar o cabeÃ§alho (header)
+		String[] nomesColunas = { "#", "Nome", "Data Nascimento", "Sexo", "cpf", "Voluntário" };
+		criarCabecalho(nomesColunas, aba, linhaAtual);
+
+		// Preencher as linhas com os produtos
+		criarLinhasPessoas(pessoas, aba, linhaAtual);
+
+		// Salvar o arquivo gerado no disco
+		return salvarNoDisco(planilha, caminhoArquivo, ".xlsx");
+	}
+
+	private void criarLinhasPessoas(List<PessoaVO> pessoas, XSSFSheet aba, int posicaoLinhaAtual) {
+		for (PessoaVO p : pessoas) {
+			// criar uma nova linha na planilha
+			XSSFRow linhaAtual = aba.createRow(posicaoLinhaAtual);
+
+			// Preencher as cÃ©lulas com os atributos do Produto p
+			linhaAtual.createCell(0).setCellValue(p.getIdPessoa());
+			linhaAtual.createCell(1).setCellValue(p.getNome());
+			linhaAtual.createCell(2).setCellValue(p.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			linhaAtual.createCell(3).setCellValue(p.getSexo());
+			linhaAtual.createCell(4).setCellValue(p.getCpf());
+			linhaAtual.createCell(5).setCellValue(p.isVoluntario());
+			
+			
+			// Converter para Date
+			// linhaAtual.createCell(4).setCellValue(new Date(p.get));
+
+			posicaoLinhaAtual++;
+		}
+
+	}
+	
+	////// Final gerador para pessoas /////////////////
 
 	private void criarCabecalho(String[] nomesColunas, XSSFSheet aba, int posicaoLinhaAtual) {
 		Row linhaAtual = aba.createRow(posicaoLinhaAtual);

@@ -49,5 +49,10 @@ public class PessoaBO {
 		return dao.atualizarBusca(pessoa);	
 	}
 
+	public void gerarPlanilha(List<PessoaVO> pessoas, String caminhoEscolhido) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
