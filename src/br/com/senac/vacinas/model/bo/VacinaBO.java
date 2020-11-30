@@ -32,4 +32,9 @@ public class VacinaBO {
 		return dao.contarVacinas();
 	}
 
+	public void gerarPlanilha(List<VacinaVO> vacinas, String caminhoEscolhido) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

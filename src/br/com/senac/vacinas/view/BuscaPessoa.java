@@ -13,6 +13,7 @@ import br.com.senac.vacinas.controller.PessoaController;
 import br.com.senac.vacinas.model.seletores.SeletorPessoa;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.PessoaVO;
+import br.com.senac.vacinas.utils.GeradorPlanilha;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -32,6 +33,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
@@ -228,6 +231,7 @@ public class BuscaPessoa extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 42, 213, 12);
 		add(separator);
+		
 
 	}
 

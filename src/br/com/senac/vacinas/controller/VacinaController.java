@@ -9,8 +9,15 @@ import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.exception.PaisInvalidoException;
 import br.com.senac.vacinas.model.seletores.SeletorVacina;
 import br.com.senac.vacinas.model.vo.VacinaVO;
+import br.com.senac.vacinas.utils.GeradorPlanilha;
+
+
+
 
 public class VacinaController {
+	
+	public static final String TIPO_RELATORIO_XLS = "xls";
+	public static final String TIPO_RELATORIO_PDF = "pdf";
 	
 	private VacinaBO bo = new VacinaBO();
 
@@ -118,6 +125,21 @@ public class VacinaController {
 
 		public int contarVacinas() {			
 			return bo.contarVacinas();
+		}
+		
+		public void gerarRelatorio(List<VacinaVO> vacinas, String caminhoEscolhido, String tipoRelatorio) {
+			if (tipoRelatorio.equals(TIPO_RELATORIO_XLS)) {
+				bo.gerarPlanilha(vacinas, caminhoEscolhido);
+			}
+		}
+
+		public List<VacinaVO> listarProdutos(SeletorVacina seletor) {
+			return bo.listarVacinas(seletor);
+		}
+		
+		public String gerarPlanilha(List<VacinaVO> vacinasConsultadas, String caminho) {
+			GeradorPlanilha geradorExcel = new GeradorPlanilha();
+			return geradorExcel.gerarPlanilhaVacinas(caminho, vacinasConsultadas);
 		}
 		
 }
