@@ -81,4 +81,10 @@ public class VacinacaoBO {
 		return dao.mediaAvaliacao();
 	}
 
+
+	public void gerarPlanilhaVacinacao(List<VacinacaoVO> vacinacao, String caminhoEscolhido) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -16,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.senac.vacinas.model.vo.PessoaVO;
 import br.com.senac.vacinas.model.vo.VacinaVO;
+import br.com.senac.vacinas.model.vo.VacinacaoVO;
 
 
 public class GeradorPlanilha {
@@ -67,14 +68,8 @@ public class GeradorPlanilha {
 		}
 
 	}
-	
-	
-	
-	
+		
 	////////////////////////////// Gerador para Pessoas //////////////
-	
-	
-	
 	public String gerarPlanilhaPessoas(String caminhoArquivo, List<PessoaVO> pessoas) {
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
@@ -118,6 +113,48 @@ public class GeradorPlanilha {
 	}
 	
 	////// Final gerador para pessoas /////////////////
+	
+	
+	
+//////////////////////////////Gerador para Vacinacao //////////////
+	public String gerarPlanilhaVacinacao(String caminhoArquivo, List<VacinacaoVO> vacinacoes) {
+		// Criar a planilha (Workbook)
+		XSSFWorkbook planilha = new XSSFWorkbook();
+		
+		// Criar uma aba (Sheet)
+		XSSFSheet aba = planilha.createSheet("Vacinações");
+		
+		int linhaAtual = 0;
+		
+		// Criar o cabeÃ§alho (header)
+		String[] nomesColunas = { "#", "Vacina", "Pessoa", "Data Vacinacao", "valiacao"};
+		criarCabecalho(nomesColunas, aba, linhaAtual);
+		
+		// Preencher as linhas com os produtos
+		criarLinhasVacinacoes(vacinacoes, aba, linhaAtual);
+		
+		// Salvar o arquivo gerado no disco
+		return salvarNoDisco(planilha, caminhoArquivo, ".xlsx");
+		}
+		
+	private void criarLinhasVacinacoes(List<VacinacaoVO> vacinacoes, XSSFSheet aba, int posicaoLinhaAtual) {
+		for (VacinacaoVO v : vacinacoes) {
+		// criar uma nova linha na planilha
+		XSSFRow linhaAtual = aba.createRow(posicaoLinhaAtual);
+		
+		// Preencher as cÃ©lulas com os atributos do Produto p
+		linhaAtual.createCell(0).setCellValue(v.getIdVacinacao());
+		linhaAtual.createCell(1).setCellValue(v.getVacina().getIdVacina());
+		linhaAtual.createCell(2).setCellValue(v.getPessoa().getNome());
+		linhaAtual.createCell(3).setCellValue(v.getDataVacinacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		linhaAtual.createCell(4).setCellValue(v.getAvaliacao());
+		
+		posicaoLinhaAtual++;
+		}
+
+}
+
+////// Final gerador para Vacinacao /////////////////
 
 	private void criarCabecalho(String[] nomesColunas, XSSFSheet aba, int posicaoLinhaAtual) {
 		Row linhaAtual = aba.createRow(posicaoLinhaAtual);

@@ -201,6 +201,7 @@ public class PessoaController {
 			bo.gerarPlanilha(pessoas, caminhoEscolhido);
 		}
 	}
+	
 
 	public List<PessoaVO> listarPessoas(SeletorPessoa seletor) {
 		return bo.listarPessoas(seletor);

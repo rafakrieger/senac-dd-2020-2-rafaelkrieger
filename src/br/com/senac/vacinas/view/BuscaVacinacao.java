@@ -29,6 +29,7 @@ import java.awt.Font;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -202,6 +203,27 @@ public class BuscaVacinacao extends JPanel {
 		lblConsultaDeAplicaes.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		lblConsultaDeAplicaes.setBounds(10, 11, 210, 31);
 		add(lblConsultaDeAplicaes);
+		
+		JButton btnNewButton = new JButton("Imprimir");
+		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser janelaArquivos = new JFileChooser();
+
+				int opcaoSelecionada = janelaArquivos.showSaveDialog(null);
+
+				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
+
+					VacinacaoController controller = new VacinacaoController();
+					String mensagem = controller.gerarPlanilha(vacinacoesConsultadas, caminho);
+
+					JOptionPane.showMessageDialog(null, mensagem);
+				}
+			}
+		});
+		btnNewButton.setBounds(340, 19, 89, 23);
+		add(btnNewButton);
 		
 
 	}

@@ -6,10 +6,16 @@ import java.util.List;
 import br.com.senac.vacinas.model.bo.VacinacaoBO;
 import br.com.senac.vacinas.model.exception.CamposVaziosException;
 import br.com.senac.vacinas.model.exception.DataVaziaException;
+import br.com.senac.vacinas.model.seletores.SeletorVacina;
 import br.com.senac.vacinas.model.seletores.SeletorVacinacao;
+import br.com.senac.vacinas.model.vo.VacinaVO;
 import br.com.senac.vacinas.model.vo.VacinacaoVO;
+import br.com.senac.vacinas.utils.GeradorPlanilha;
 
 public class VacinacaoController {
+	
+	public static final String TIPO_RELATORIO_XLS = "xls";
+	public static final String TIPO_RELATORIO_PDF = "pdf";
 	
 	private VacinacaoBO bo = new VacinacaoBO();
 
@@ -97,4 +103,21 @@ public class VacinacaoController {
 	public Double mediaAvaliacao() {		
 		return bo.mediaAvaliacao();
 	}
+	
+	public void gerarRelatorio(List<VacinacaoVO> vacinacao, String caminhoEscolhido, String tipoRelatorio) {
+		if (tipoRelatorio.equals(TIPO_RELATORIO_XLS)) {
+			bo.gerarPlanilhaVacinacao(vacinacao, caminhoEscolhido);
+		}
+	}
+	
+
+	public List<VacinacaoVO> listarVacinacao(SeletorVacinacao seletor) {
+		return bo.listarVacinacoes(seletor);
+	}
+	
+	public String gerarPlanilha(List<VacinacaoVO> vacinacaoConsultadas, String caminho) {
+		GeradorPlanilha geradorExcel = new GeradorPlanilha();
+		return geradorExcel.gerarPlanilhaVacinacao(caminho, vacinacaoConsultadas);
+	}
+	
 }

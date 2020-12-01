@@ -10,6 +10,7 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.senac.vacinas.controller.PesquisadorController;
 import br.com.senac.vacinas.controller.PessoaController;
+import br.com.senac.vacinas.controller.VacinacaoController;
 import br.com.senac.vacinas.model.seletores.SeletorPessoa;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.PessoaVO;
@@ -231,7 +232,9 @@ public class BuscaPessoa extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 42, 213, 12);
 		add(separator);
+		
 		JButton btnNewButton = new JButton("Imprimir");
+		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser janelaArquivos = new JFileChooser();
@@ -242,15 +245,14 @@ public class BuscaPessoa extends JPanel {
 					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
 
 					PessoaController controller = new PessoaController();
-					//String mensagem = controller.gerarPlanilha(produtosConsultados, caminho);
+					String mensagem = controller.gerarPlanilha(pessoasConsultadas, caminho);
 
-					//JOptionPane.showMessageDialog(null, mensagem);
+					JOptionPane.showMessageDialog(null, mensagem);
 				}
 			}
 		});
 		btnNewButton.setBounds(340, 19, 89, 23);
 		add(btnNewButton);
-
 
 	}
 
