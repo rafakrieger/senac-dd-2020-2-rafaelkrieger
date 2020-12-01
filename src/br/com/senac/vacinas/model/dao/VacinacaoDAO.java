@@ -18,8 +18,7 @@ import br.com.senac.vacinas.model.vo.VacinacaoVO;
 
 public class VacinacaoDAO {
 	
-	public VacinacaoVO inserir(VacinacaoVO vacinacao) {
-		
+	public VacinacaoVO inserir(VacinacaoVO vacinacao) {		
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " INSERT INTO VACINACAO (IDVACINA, IDPESSOA, DT_VACINACAO, AVALIACAO) " 

@@ -50,7 +50,7 @@ public class BuscaVacina extends JPanel {
 	
 	/**
 	 * Create the panel.
-	 */
+	 */	
 	
 	public BuscaVacina() {
 		

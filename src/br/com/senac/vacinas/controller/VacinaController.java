@@ -79,10 +79,7 @@ public class VacinaController {
 		
 	}
 
-		public List<VacinaVO> listarVacinas(SeletorVacina seletor) {
-			return bo.listarVacinas(seletor);
-		}
-
+		
 		public String excluir(VacinaVO vacina) {			
 			String mensagem = "";
 			boolean excluiu = bo.excluir(vacina);
@@ -132,8 +129,9 @@ public class VacinaController {
 				bo.gerarPlanilha(vacinas, caminhoEscolhido);
 			}
 		}
+		
 
-		public List<VacinaVO> listarProdutos(SeletorVacina seletor) {
+		public List<VacinaVO> listarVacinas(SeletorVacina seletor) {
 			return bo.listarVacinas(seletor);
 		}
 		

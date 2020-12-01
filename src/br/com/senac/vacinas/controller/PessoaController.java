@@ -10,9 +10,15 @@ import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.exception.NomeInvalidoException;
 import br.com.senac.vacinas.model.exception.SexoInvalidoException;
 import br.com.senac.vacinas.model.seletores.SeletorPessoa;
+import br.com.senac.vacinas.model.seletores.SeletorVacina;
 import br.com.senac.vacinas.model.vo.PessoaVO;
+import br.com.senac.vacinas.model.vo.VacinaVO;
+import br.com.senac.vacinas.utils.GeradorPlanilha;
 
 public class PessoaController {
+	
+	public static final String TIPO_RELATORIO_XLS = "xls";
+	public static final String TIPO_RELATORIO_PDF = "pdf";
 	
 	private PessoaBO bo = new PessoaBO();
 
@@ -137,10 +143,7 @@ public class PessoaController {
 		}
 	}
 
-	public List<PessoaVO> listarPessoas(SeletorPessoa seletor) {		
-		return bo.listarPessoas(seletor);
-	}
-
+	
 	public String excluir(PessoaVO pessoa) {		
 		String mensagem = "";
 		boolean excluiu = bo.excluir(pessoa);
@@ -193,5 +196,18 @@ public class PessoaController {
 		return mensagem;		
 	}
 
+	public void gerarRelatorio(List<PessoaVO> pessoas, String caminhoEscolhido, String tipoRelatorio) {
+		if (tipoRelatorio.equals(TIPO_RELATORIO_XLS)) {
+			bo.gerarPlanilha(pessoas, caminhoEscolhido);
+		}
+	}
 
+	public List<PessoaVO> listarPessoas(SeletorPessoa seletor) {
+		return bo.listarPessoas(seletor);
+	}
+	
+	public String gerarPlanilha(List<PessoaVO> pessoasConsultadas, String caminho) {
+		GeradorPlanilha geradorExcel = new GeradorPlanilha();
+		return geradorExcel.gerarPlanilhaPessoas(caminho, pessoasConsultadas);
+	}
 }
