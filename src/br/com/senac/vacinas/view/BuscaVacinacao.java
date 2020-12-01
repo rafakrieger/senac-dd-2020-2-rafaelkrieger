@@ -54,6 +54,7 @@ public class BuscaVacinacao extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
 	public BuscaVacinacao() {
 		
 		setBounds(0, 60, 450, 500);

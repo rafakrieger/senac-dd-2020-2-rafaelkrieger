@@ -51,6 +51,7 @@ public class BuscaVacina extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
 	public BuscaVacina() {
 		
 		setBounds(0, 60, 450, 500);
@@ -208,6 +209,7 @@ public class BuscaVacina extends JPanel {
 		add(separator);
 		
 		JButton btnNewButton = new JButton("Imprimir");
+		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser janelaArquivos = new JFileChooser();
@@ -217,10 +219,10 @@ public class BuscaVacina extends JPanel {
 				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
 					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
 
-					PessoaController controller = new PessoaController();
-					//String mensagem = controller.gerarPlanilha(produtosConsultados, caminho);
+					VacinaController controller = new VacinaController();
+					String mensagem = controller.gerarPlanilha(vacinasConsultadas, caminho);
 
-					//JOptionPane.showMessageDialog(null, mensagem);
+					JOptionPane.showMessageDialog(null, mensagem);
 				}
 			}
 		});
