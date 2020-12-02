@@ -1,93 +1,85 @@
-package br.com.senac.vacinas.model.seletores;
+package br.com.senac.vacinas.model.vo;
 
-import br.com.senac.vacinas.model.vo.PessoaVO;
-import br.com.senac.vacinas.model.vo.VacinaVO;
+import java.time.LocalDate;
 
-public class SeletorVacinacao {
+public class PessoaVO {
 	
-	private int idVacinacao;
-	private PessoaVO pessoa;
-	private VacinaVO vacina;
-	private int avaliacao;
+	private int idPessoa;
+	private String nome;
+	private LocalDate dataNascimento;
+	private String sexo;
+	private String cpf;
+	private boolean voluntario;
 	
-	private int limite;
-	private int pagina;
-	
-	public SeletorVacinacao() {
+	public PessoaVO() {
 		super();
-		this.limite = 0;
-		this.pagina = -1;
+	}
+
+	public PessoaVO(int idPessoa, String nome, LocalDate dataNascimento, String sexo, String cpf, boolean voluntario) {
+		super();
+		this.idPessoa = idPessoa;
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
+		this.cpf = cpf;
+		this.voluntario = voluntario;
+	}
+
+	public int getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(int idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public boolean isVoluntario() {
+		return voluntario;
+	}
+
+	public void setVoluntario(boolean voluntario) {
+		this.voluntario = voluntario;
+	}
+
+	@Override
+	public String toString() {
+		return this.getNome();
 	}
 	
-	public boolean temFiltro() {
-		if(this.idVacinacao > 0) {
-			return true;
-		}
-		
-		if(this.avaliacao > 0) {
-			return true;
-		}
-		return false;
-	}
+
 	
 	
-	
-	public boolean temPaginacao() {
-		return ((this.limite > 0) && (this.pagina > -1));
-	}
-	
-	public int getOffset() {
-		return (this.limite * (this.pagina - 1));
-	}
-
-	public int getIdVacinacao() {
-		return idVacinacao;
-	}
-
-	public void setIdVacinacao(int idVacinacao) {
-		this.idVacinacao = idVacinacao;
-	}
-
-	public int getAvaliacao() {
-		return avaliacao;
-	}
-
-	public void setAvaliacao(int avaliacao) {
-		this.avaliacao = avaliacao;
-	}	
-
-	public PessoaVO getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(PessoaVO pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public VacinaVO getVacina() {
-		return vacina;
-	}
-
-	public void setVacina(VacinaVO vacina) {
-		this.vacina = vacina;
-	}
-
-	public int getLimite() {
-		return limite;
-	}
-
-	public void setLimite(int limite) {
-		this.limite = limite;
-	}
-
-	public int getPagina() {
-		return pagina;
-	}
-
-	public void setPagina(int pagina) {
-		this.pagina = pagina;
-	}
-	
-	
-
 }
+
