@@ -37,4 +37,8 @@ public class VacinaBO {
 		
 	}
 
+	public List<VacinaVO> pesquisarTodos() {
+		return dao.pesquisarTodos();
+	}
+
 }
