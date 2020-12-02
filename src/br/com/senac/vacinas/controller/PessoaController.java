@@ -210,4 +210,20 @@ public class PessoaController {
 		GeradorPlanilha geradorExcel = new GeradorPlanilha();
 		return geradorExcel.gerarPlanilhaPessoas(caminho, pessoasConsultadas);
 	}
+
+	public PessoaVO pesquisarPorCpf(String cpf) {		
+		return bo.pesquisarPorCpf(cpf);
+	}
+
+	public List<PessoaVO> pesquisarTodos() {
+		return bo.pesquisarTodos();
+	}
+
+	public List<PessoaVO> pesquisarPesquisadores() {
+		return bo.pesquisarPesquisadores();
+	}
+
+	public List<PessoaVO> pesquisarVoluntarios() {
+		return bo.pesquisarVoluntarios();
+	}
 }

@@ -143,6 +143,9 @@ public class BuscaPessoa extends JPanel {
 		this.limparTabela();
 		tablerResultado.setBounds(10, 266, 430, 204);
 		tablerResultado.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablerResultado.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tablerResultado.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tablerResultado.getColumnModel().getColumn(3).setPreferredWidth(30);
 		this.add(tablerResultado);
 
 		JButton btnpPesquisar = new JButton("PESQUISAR");
@@ -166,7 +169,9 @@ public class BuscaPessoa extends JPanel {
 
 				List<PessoaVO> pessoas = controlador.listarPessoas(seletor);
 				atualizarTabelaPessoas(pessoas);
-
+				tablerResultado.getColumnModel().getColumn(0).setPreferredWidth(20);
+				tablerResultado.getColumnModel().getColumn(1).setPreferredWidth(200);
+				tablerResultado.getColumnModel().getColumn(3).setPreferredWidth(30);
 			}
 		});
 
@@ -231,7 +236,10 @@ public class BuscaPessoa extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 42, 213, 12);
 		add(separator);
+		
+		
 		JButton btnNewButton = new JButton("Imprimir");
+		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser janelaArquivos = new JFileChooser();
@@ -242,9 +250,9 @@ public class BuscaPessoa extends JPanel {
 					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
 
 					PessoaController controller = new PessoaController();
-					//String mensagem = controller.gerarPlanilha(produtosConsultados, caminho);
+					String mensagem = controller.gerarPlanilha(pessoasConsultadas, caminho);
 
-					//JOptionPane.showMessageDialog(null, mensagem);
+					JOptionPane.showMessageDialog(null, mensagem);
 				}
 			}
 		});
@@ -253,6 +261,8 @@ public class BuscaPessoa extends JPanel {
 
 
 	}
+	
+	
 
 	private String obterNumerosCpf(String cpf) {
 		String digito = cpf.replace(".", "");
@@ -266,18 +276,21 @@ public class BuscaPessoa extends JPanel {
 
 		this.limparTabela();
 
-		DefaultTableModel modelo = (DefaultTableModel) tablerResultado.getModel();
+		DefaultTableModel modelo = (DefaultTableModel) tablerResultado.getModel();		
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		for (PessoaVO pessoa : pessoas) {
+			String dataFormatada = pessoa.getDataNascimento().format(formatter);
 			String[] novaLinha = new String[] { pessoa.getIdPessoa() + "", pessoa.getNome(), pessoa.getCpf(),
-					pessoa.getSexo() + "", };
+					pessoa.getSexo(), dataFormatada};
 			modelo.addRow(novaLinha);
 		}
 
 	}
 
 	private void limparTabela() {
-		tablerResultado.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "CPF", "Sexo" }, },
-				new String[] { "#", "Nome", "CPF", "Sexo" }));
+		tablerResultado.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "CPF", "Sexo", "Nascimento" }, },
+				new String[] { "#", "Nome", "CPF", "Sexo", "Nascimento" }));
 	}
 }

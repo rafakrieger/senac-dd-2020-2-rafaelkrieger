@@ -75,7 +75,7 @@ public class PessoaVO {
 
 	@Override
 	public String toString() {
-		return nome;
+		return this.getNome();
 	}
 	
 

@@ -8,6 +8,7 @@ import br.com.senac.vacinas.model.exception.CamposVaziosException;
 import br.com.senac.vacinas.model.exception.DataVaziaException;
 import br.com.senac.vacinas.model.seletores.SeletorVacinacao;
 import br.com.senac.vacinas.model.vo.VacinacaoVO;
+import br.com.senac.vacinas.utils.GeradorPlanilha;
 
 public class VacinacaoController {
 	
@@ -74,14 +75,7 @@ public class VacinacaoController {
 
 	public String atualizarBusca(VacinacaoVO vacinacao) {
 		String mensagem = "";
-		boolean atualizou = bo.atualizarBusca(vacinacao);
-			
-		try {
-			this.validarCampos(vacinacao);		
-		} catch (CamposVaziosException excecao) {
-			atualizou = false;
-			mensagem = excecao.getMessage();
-		}
+		boolean atualizou = bo.atualizarBusca(vacinacao);			
 		
 		if (atualizou) {
 			mensagem = "Atualizado com sucesso!";	
@@ -96,5 +90,10 @@ public class VacinacaoController {
 
 	public Double mediaAvaliacao() {		
 		return bo.mediaAvaliacao();
+	}
+
+	public String gerarPlanilha(List<VacinacaoVO> vacinacoesConsultadas, String caminho) {
+		GeradorPlanilha geradorExcel = new GeradorPlanilha();
+		return geradorExcel.gerarPlanilhaVacinacao(caminho, vacinacoesConsultadas);
 	}
 }

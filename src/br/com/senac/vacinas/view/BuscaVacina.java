@@ -34,6 +34,7 @@ import java.time.format.DateTimeFormatter;
 
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 
@@ -44,7 +45,7 @@ public class BuscaVacina extends JPanel {
 	private JComboBox comboBoxPesq;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	private JTable tableResultadoVacinas;
-	private static final String[] PAISES = {"China", "Rússia"};
+	private static final String[] PAISES = {"China", "Rússia", "EUA", "Alemanha", "Reino Unido", "Brasil", "França", "Outros"};
 	private static final String[] ESTAGIO = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
 	private List<VacinaVO> vacinasConsultadas;
 	
@@ -117,6 +118,10 @@ public class BuscaVacina extends JPanel {
 
 				List<VacinaVO> vacinas = controlador.listarVacinas(seletor);
 				atualizarTabelaVacinas(vacinas);
+				tableResultadoVacinas.getColumnModel().getColumn(0).setPreferredWidth(20);
+				tableResultadoVacinas.getColumnModel().getColumn(1).setPreferredWidth(100);
+				tableResultadoVacinas.getColumnModel().getColumn(2).setPreferredWidth(200);
+				tableResultadoVacinas.getColumnModel().getColumn(3).setPreferredWidth(50);
 			}
 		});
 		btnPesquisarVacina.setFont(new Font("Segoe UI", Font.BOLD, 11));
@@ -152,6 +157,12 @@ public class BuscaVacina extends JPanel {
 		
 		tableResultadoVacinas = new JTable();
 		tableResultadoVacinas.setBounds(10, 270, 430, 204);
+		this.limparTabela();
+		tableResultadoVacinas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableResultadoVacinas.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tableResultadoVacinas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tableResultadoVacinas.getColumnModel().getColumn(2).setPreferredWidth(200);
+		tableResultadoVacinas.getColumnModel().getColumn(3).setPreferredWidth(50);
 		this.add(tableResultadoVacinas);
 		
 		JButton btnEditar = new JButton("EDITAR");
@@ -163,10 +174,17 @@ public class BuscaVacina extends JPanel {
 				String id = tableResultadoVacinas.getModel().getValueAt(selRow, 0).toString();
 
 				vacina.setIdVacina(Integer.parseInt(id));
-				vacina.setPesquisador((PesquisadorVO) comboBoxPesq.getSelectedItem());
-				vacina.setPaisOrigem(comboBoxPais.getSelectedItem().toString());
-				String estagio = comboBoxEstagio.getSelectedItem().toString();
-				vacina.setEstagioPesquisa(Integer.parseInt(estagio));
+				
+				if (comboBoxPesq.getSelectedIndex() >= 0) {
+					vacina.setPesquisador((PesquisadorVO) comboBoxPesq.getSelectedItem());				}
+				if (comboBoxPais.getSelectedIndex() >= 0) {
+					vacina.setPaisOrigem(comboBoxPais.getSelectedItem().toString());
+
+				}
+				if (comboBoxEstagio.getSelectedIndex() >= 0) {
+					vacina.setEstagioPesquisa(comboBoxEstagio.getSelectedIndex()+1);
+
+				}			
 
 				VacinaController vacinaController = new VacinaController();
 				String mensagem = vacinaController.atualizarBusca(vacina);
@@ -241,18 +259,20 @@ public class BuscaVacina extends JPanel {
 
 		DefaultTableModel modelo = (DefaultTableModel) tableResultadoVacinas.getModel();
 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		for (VacinaVO vacina: vacinas) {
+			String dataFormatada = vacina.getDataInicio().format(formatter);
 			String[] novaLinha = new String[] { vacina.getIdVacina()+ "", vacina.getPaisOrigem(), vacina.getPesquisador().toString(),
-					vacina.getEstagioPesquisa() + "", };
+					vacina.getEstagioPesquisa() + "", dataFormatada };
 			modelo.addRow(novaLinha);
 		}
 
 	}
 
 	private void limparTabela() {
-		tableResultadoVacinas.setModel(new DefaultTableModel(new String[][] { { "#", "País", "Pesquisador", "Estágio" }, },
-				new String[] { "#", "País", "Pesquisador", "Estágio" }));
+		tableResultadoVacinas.setModel(new DefaultTableModel(new String[][] { { "#", "País", "Pesquisador", "Estágio", "Data de início" }, },
+				new String[] { "#", "País", "Pesquisador", "Estágio", "Data de início" }));
 
 }
 }

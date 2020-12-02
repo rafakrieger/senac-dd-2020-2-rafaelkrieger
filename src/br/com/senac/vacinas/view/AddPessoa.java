@@ -1,7 +1,6 @@
 package br.com.senac.vacinas.view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,27 +9,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import br.com.senac.vacinas.controller.PesquisadorController;
 import br.com.senac.vacinas.controller.PessoaController;
-import br.com.senac.vacinas.model.dao.PesquisadorDAO;
-import br.com.senac.vacinas.model.dao.PessoaDAO;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.PessoaVO;
-import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 
@@ -119,12 +112,12 @@ public class AddPessoa extends JPanel {
 			formattedTextFieldCpf = new JFormattedTextField(mascaraCpf);
 			formattedTextFieldCpf.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PessoaDAO dao = new PessoaDAO();
-					PesquisadorDAO pDao = new PesquisadorDAO();
+					PessoaController controller = new PessoaController();
+					PesquisadorController pController = new PesquisadorController();
 					PessoaVO pessoa = new PessoaVO();
 					String cpf = obterNumerosCpf(formattedTextFieldCpf.getText());
-					if (dao.pesquisarPorCpf(cpf) != null) {
-						pessoa = dao.pesquisarPorCpf(cpf);
+					if (controller.pesquisarPorCpf(cpf) != null) {
+						pessoa = controller.pesquisarPorCpf(cpf);
 						textFieldNome.setText(pessoa.getNome());
 						formattedTextFieldData.setText(pessoa.getDataNascimento().format(dateFormat).toString());
 						if (pessoa.getSexo().equalsIgnoreCase("M")) {
@@ -137,9 +130,9 @@ public class AddPessoa extends JPanel {
 						if (pessoa.isVoluntario()) {
 							chckbxVoluntario.setSelected(true);
 						}
-						if (pDao.pesquisarPorIdPessoa(pessoa.getIdPessoa()) != null) {
+						if (pController.pesquisarPorIdPessoa(pessoa.getIdPessoa()) != null) {
 							PesquisadorVO pesquisador = new PesquisadorVO();
-							pesquisador = pDao.pesquisarPorIdPessoa(pessoa.getIdPessoa());
+							pesquisador = pController.pesquisarPorIdPessoa(pessoa.getIdPessoa());
 							chckbxPesq.setSelected(true);
 							textFieldInst.setVisible(true);
 							textFieldInst.setText(pesquisador.getInstituicao());

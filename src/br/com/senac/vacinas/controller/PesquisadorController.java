@@ -1,5 +1,7 @@
 package br.com.senac.vacinas.controller;
 
+import java.util.List;
+
 import br.com.senac.vacinas.model.bo.PesquisadorBO;
 import br.com.senac.vacinas.model.exception.InstituicaoInvalidaException;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
@@ -48,6 +50,14 @@ public class PesquisadorController {
 		
 		return mensagem;	
 		
+	}
+
+	public PesquisadorVO pesquisarPorIdPessoa(int idPessoa) {		
+		return bo.pesquisarPorIdPessoa(idPessoa);
+	}
+
+	public List<PesquisadorVO> pesquisarTodos() {		
+		return bo.pesquisarTodos();
 	}
 
 }
