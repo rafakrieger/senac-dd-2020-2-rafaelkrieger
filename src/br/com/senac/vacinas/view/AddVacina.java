@@ -1,9 +1,7 @@
 package br.com.senac.vacinas.view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -16,14 +14,13 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
 
+import br.com.senac.vacinas.controller.PesquisadorController;
 import br.com.senac.vacinas.controller.VacinaController;
-import br.com.senac.vacinas.model.dao.PesquisadorDAO;
 import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.VacinaVO;
 import javax.swing.SwingConstants;
@@ -35,7 +32,7 @@ public class AddVacina extends JPanel {
 	private JComboBox comboBoxEstagio;
 	private JComboBox comboBoxPesq;
 	private JFormattedTextField formattedTextFieldData;
-	private static final String[] PAISES = {"China", "Rússia", "EUA", "Alemanha", "Reino Unido", "Brasil", "Outros"};
+	private static final String[] PAISES = {"China", "Rússia", "EUA", "Alemanha", "Reino Unido", "Brasil", "França", "Outros"};
 	private static final String[] ESTAGIO = {"1 - Inicial", "2 - Testes", "3 - Aplicação em massa"};
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");	
 
@@ -73,8 +70,8 @@ public class AddVacina extends JPanel {
 		comboBoxEstagio.setBounds(10, 157, 414, 30);
 		this.add(comboBoxEstagio);
 		
-		PesquisadorDAO dao = new PesquisadorDAO();
-		List<PesquisadorVO> pesquisadores = dao.pesquisarTodos();
+		PesquisadorController controller = new PesquisadorController();
+		List<PesquisadorVO> pesquisadores = controller.pesquisarTodos();
 		comboBoxPesq = new JComboBox(pesquisadores.toArray());
 		comboBoxPesq.setSelectedIndex(-1);
 		comboBoxPesq.setFont(new Font("Segoe UI", Font.PLAIN, 14));
