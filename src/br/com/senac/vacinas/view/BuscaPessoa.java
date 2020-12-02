@@ -294,3 +294,4 @@ public class BuscaPessoa extends JPanel {
 				new String[] { "#", "Nome", "CPF", "Sexo", "Nascimento" }));
 	}
 }
+

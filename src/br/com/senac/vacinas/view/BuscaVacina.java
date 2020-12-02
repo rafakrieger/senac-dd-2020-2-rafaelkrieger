@@ -276,3 +276,4 @@ public class BuscaVacina extends JPanel {
 
 }
 }
+
