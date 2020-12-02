@@ -12,6 +12,7 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -216,7 +217,8 @@ public class Principal extends JFrame {
 		lblRelAplica.setBounds(36, 215, 114, 64);
 		contentPane.add(lblRelAplica);
 		
-		JLabel lblRelAvaliacao = new JLabel(""+vacinacaoController.mediaAvaliacao());
+		DecimalFormat df = new DecimalFormat("0.00");
+		JLabel lblRelAvaliacao = new JLabel(""+df.format(vacinacaoController.mediaAvaliacao()));
 		lblRelAvaliacao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRelAvaliacao.setForeground(Color.WHITE);
 		lblRelAvaliacao.setFont(new Font("Segoe UI", Font.BOLD, 30));
