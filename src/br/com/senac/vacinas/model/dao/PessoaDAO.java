@@ -351,6 +351,32 @@ public class PessoaDAO {
 	}
 
 
+	public PessoaVO pesquisarPorNome(String nome) {
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM PESSOA "
+				   + " WHERE NOME=? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		PessoaVO pessoa = null;
+		try {
+			query.setString(1, nome);
+			
+			ResultSet rs = query.executeQuery();
+			if(rs.next()) {
+				pessoa = this.construirDoResultSet(rs);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar pessoa por nome.\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return pessoa;
+	}
+
+
 
 
 }
