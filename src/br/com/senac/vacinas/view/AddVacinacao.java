@@ -1,6 +1,5 @@
 package br.com.senac.vacinas.view;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -9,18 +8,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
 
+import br.com.senac.vacinas.controller.PessoaController;
+import br.com.senac.vacinas.controller.VacinaController;
 import br.com.senac.vacinas.controller.VacinacaoController;
-import br.com.senac.vacinas.model.dao.PesquisadorDAO;
-import br.com.senac.vacinas.model.dao.PessoaDAO;
 import br.com.senac.vacinas.model.vo.VacinacaoVO;
-import br.com.senac.vacinas.model.dao.VacinaDAO;
 import br.com.senac.vacinas.model.vo.VacinaVO;
-import br.com.senac.vacinas.model.vo.PesquisadorVO;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -43,8 +39,8 @@ public class AddVacinacao extends JPanel {
 	private static final String[] AVALIACAO = { "1 - Péssima", "2 - Ruim", "3 - Regular", "4 - Boa", "5 - Ótima" };
 	private JFormattedTextField formattedTextFieldData;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-	PessoaDAO pessoaDao = new PessoaDAO();
-	private List<PessoaVO> pessoas = pessoaDao.pesquisarTodos();
+	PessoaController pessoaController = new PessoaController();
+	private List<PessoaVO> pessoas = pessoaController.pesquisarTodos();
 
 	/**
 	 * Create the panel.
@@ -61,8 +57,8 @@ public class AddVacinacao extends JPanel {
 		lblVacina.setBounds(10, 72, 134, 25);
 		this.add(lblVacina);
 
-		VacinaDAO vacinaDao = new VacinaDAO();
-		List<VacinaVO> vacinas = vacinaDao.pesquisarTodos();
+		VacinaController vacinaController = new VacinaController();
+		List<VacinaVO> vacinas = vacinaController.pesquisarTodos();
 		comboBoxVacina = new JComboBox(vacinas.toArray());
 		comboBoxVacina.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -74,19 +70,19 @@ public class AddVacinacao extends JPanel {
 				}
 				if (estagio == 1) {
 					comboBoxPessoa.removeAllItems();
-					pessoas = pessoaDao.pesquisarPesquisadores();
+					pessoas = pessoaController.pesquisarPesquisadores();
 					for (PessoaVO person : pessoas) {
 						comboBoxPessoa.addItem(person);
 					}
 				} else if (estagio == 2) {
 					comboBoxPessoa.removeAllItems();
-					pessoas = pessoaDao.pesquisarVoluntarios();
+					pessoas = pessoaController.pesquisarVoluntarios();
 					for (PessoaVO person : pessoas) {
 						comboBoxPessoa.addItem(person);
 					}
 				} else if (estagio == 3) {
 					comboBoxPessoa.removeAllItems();
-					pessoas = pessoaDao.pesquisarTodos();
+					pessoas = pessoaController.pesquisarTodos();
 					for (PessoaVO person : pessoas) {
 						comboBoxPessoa.addItem(person);
 					}
