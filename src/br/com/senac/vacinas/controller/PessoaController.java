@@ -201,7 +201,6 @@ public class PessoaController {
 			bo.gerarPlanilha(pessoas, caminhoEscolhido);
 		}
 	}
-	
 
 	public List<PessoaVO> listarPessoas(SeletorPessoa seletor) {
 		return bo.listarPessoas(seletor);
@@ -210,5 +209,21 @@ public class PessoaController {
 	public String gerarPlanilha(List<PessoaVO> pessoasConsultadas, String caminho) {
 		GeradorPlanilha geradorExcel = new GeradorPlanilha();
 		return geradorExcel.gerarPlanilhaPessoas(caminho, pessoasConsultadas);
+	}
+
+	public PessoaVO pesquisarPorCpf(String cpf) {		
+		return bo.pesquisarPorCpf(cpf);
+	}
+
+	public List<PessoaVO> pesquisarTodos() {
+		return bo.pesquisarTodos();
+	}
+
+	public List<PessoaVO> pesquisarPesquisadores() {
+		return bo.pesquisarPesquisadores();
+	}
+
+	public List<PessoaVO> pesquisarVoluntarios() {
+		return bo.pesquisarVoluntarios();
 	}
 }
