@@ -23,6 +23,7 @@
 
 ![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/AddPessoa.jpg)
 
+- [x] Ao entrar com CPF, pesquisa se já existe registro e permite atualizar cadastro
 - [x] Campo "Instituição" só aparece caso o checkbox "Pesquisador" esteja selecionado
 
 ### :female_detective: Consulta de Pessoas
@@ -33,8 +34,8 @@
 
 ![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/AddVacina.jpg)
 
-- [x] Combobox via banco de dados para selecionar estágio e pesquisador
-- [x] Combobox via array Java para selecionar país de origem
+- [x] Combo Box via banco de dados para selecionar estágio e pesquisador
+- [x] Combo Box via array Java para selecionar país de origem
 
 ### :mag_right: Consulta de Vacinas
 
@@ -45,8 +46,9 @@
 
 ![Cadastro de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/AddVacinacao.jpg)
 
-- [x] Combobox via banco de dados para selecionar vacina e pessoa
-- [x] Combobox via array Java para selecionar avaliação
+- [x] Regra de negócio de aplicação da vacina conforme a fase é verificada na seleção do Combo Box
+- [x] Combo Box via banco de dados para selecionar vacina e pessoa
+- [x] Combo Box via array Java para selecionar avaliação
 
 ### :mag_right: Consulta de Aplicações
 
