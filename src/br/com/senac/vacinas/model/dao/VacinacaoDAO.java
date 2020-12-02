@@ -230,13 +230,6 @@ public class VacinacaoDAO {
 		sql += " WHERE ";
 		boolean primeiro = true;
 
-		if (seletor.getIdVacinacao() > 0) {
-			if (!primeiro) {
-				sql += " AND ";
-			}
-			sql += "v.idvacinacao = " + seletor.getIdVacinacao();
-			primeiro = false;
-		}
 
 		if (seletor.getAvaliacao() > 0) {
 			if (!primeiro) {
@@ -245,23 +238,29 @@ public class VacinacaoDAO {
 			sql += "v.avaliacao = " + seletor.getAvaliacao();
 			primeiro = false;
 		}
-
-		if (seletor.getPessoa() != null) {
+		if ((seletor.getDataInicio() != null) && (seletor.getDataFim() != null)) {			
 			if (!primeiro) {
 				sql += " AND ";
 			}
-			sql += "v.idpessoa = '" + seletor.getPessoa().getIdPessoa() + "'";
+			sql += " v.dt_vacinacao BETWEEN '" + seletor.getDataInicio() + "' AND '" + seletor.getDataFim() + "'";
+			primeiro = false;
+			
+		} else if (seletor.getDataInicio() != null) {			
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += " v.dt_vacinacao >= '" + seletor.getDataInicio() + "'";
+			primeiro = false;
+			
+		} else if (seletor.getDataFim() != null) {			
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += " v.dt_vacinacao <= '" + seletor.getDataFim() + "'";
 			primeiro = false;
 		}
 		
-		if (seletor.getVacina() != null) {
-			if (!primeiro) {
-				sql += " AND ";
-			}
-			sql += "v.idvacina = " + seletor.getVacina().getIdVacina();
-			primeiro = false;
-		}
-		return sql;
+		return sql;		
 
 	}
 
@@ -269,17 +268,15 @@ public class VacinacaoDAO {
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " UPDATE VACINACAO "
-				   + " SET IDVACINA=?, IDPESSOA=?, AVALIACAO=? "
+				   + " AVALIACAO=? "
 				   + " WHERE IDVACINACAO=? ";
 		
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 
 		boolean atualizou = false;
 		try {
-			query.setInt(1, vacinacao.getVacina().getIdVacina());
-			query.setInt(2, vacinacao.getPessoa().getIdPessoa());
-			query.setInt(3, vacinacao.getAvaliacao());
-			query.setInt(4, vacinacao.getIdVacinacao());
+			query.setInt(1, vacinacao.getAvaliacao());
+			query.setInt(2, vacinacao.getIdVacinacao());
 			
 			int codigoRetorno = query.executeUpdate();
 			atualizou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
