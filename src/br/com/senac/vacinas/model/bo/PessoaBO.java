@@ -54,5 +54,21 @@ public class PessoaBO {
 		
 	}
 
+	public PessoaVO pesquisarPorCpf(String cpf) {		
+		return dao.pesquisarPorCpf(cpf);
+	}
+
+	public List<PessoaVO> pesquisarTodos() {		
+		return dao.pesquisarTodos();
+	}
+
+	public List<PessoaVO> pesquisarPesquisadores() {
+		return dao.pesquisarPesquisadores();
+	}
+
+	public List<PessoaVO> pesquisarVoluntarios() {
+		return dao.pesquisarVoluntarios();
+	}
+
 
 }
