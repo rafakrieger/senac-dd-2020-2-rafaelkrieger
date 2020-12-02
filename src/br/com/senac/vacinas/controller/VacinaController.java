@@ -103,15 +103,7 @@ public class VacinaController {
 			} catch (PaisInvalidoException excecao) {
 				atualizou = false;
 				mensagem = excecao.getMessage();				
-			} 
-			
-			try {
-				this.validarCampos(vacina);		
-			} catch (CamposVaziosException excecao) {
-				atualizou = false;
-				mensagem = excecao.getMessage();
-			}
-			
+			} 		
 			
 			if (atualizou) {
 				mensagem = "Atualizado com sucesso!";	
@@ -138,6 +130,10 @@ public class VacinaController {
 		public String gerarPlanilha(List<VacinaVO> vacinasConsultadas, String caminho) {
 			GeradorPlanilha geradorExcel = new GeradorPlanilha();
 			return geradorExcel.gerarPlanilhaVacinas(caminho, vacinasConsultadas);
+		}
+
+		public List<VacinaVO> pesquisarTodos() {
+			return bo.pesquisarTodos();
 		}
 		
 }
