@@ -79,7 +79,12 @@
 > https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger.git
 
 # Em sua IDE converta o projeto para Maven
+
+# OU baixe e execute o arquivo JAR: 
+> https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/VACINAS_Altieste_Gustavo_Rafael.jar
 ```
+
+
 
 #### :file_cabinet: Banco de dados
 > Em seu MySQL rode este script abaixo:
