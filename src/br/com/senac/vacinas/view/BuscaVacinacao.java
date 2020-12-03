@@ -121,13 +121,17 @@ public class BuscaVacinacao extends JPanel {
 
 		JButton btnEditar = new JButton("EDITAR");
 		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
+			public void actionPerformed(ActionEvent e) {				
 				VacinacaoVO vacinacao = new VacinacaoVO();
+				String id = null;
 				int selRow = tableResultado.getSelectedRow();
-				String id = tableResultado.getModel().getValueAt(selRow, 0).toString();
-
-				vacinacao.setIdVacinacao(Integer.parseInt(id));
+				if (selRow >= 0) {
+					id = tableResultado.getModel().getValueAt(selRow, 0).toString();
+				}
+				
+				if (id != null) {
+					vacinacao.setIdVacinacao(Integer.parseInt(id));
+				}
 
 				if (comboBoxAvaliacao.getSelectedIndex() >= 0) {
 					vacinacao.setAvaliacao(comboBoxAvaliacao.getSelectedIndex() + 1);					
@@ -214,8 +218,6 @@ public class BuscaVacinacao extends JPanel {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 			System.out.println("Causa da exceção: " + e.getMessage());
 		}
-		
-		
 
 		
 		JLabel lblDataInicio = new JLabel("DATA INICIAL");

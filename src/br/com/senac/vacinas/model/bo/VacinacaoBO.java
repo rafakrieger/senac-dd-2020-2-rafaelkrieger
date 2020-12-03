@@ -58,17 +58,7 @@ public class VacinacaoBO {
 
 
 	public boolean atualizarBusca(VacinacaoVO vacinacao) {
-		String mensagem = "";
-		boolean atualizou = dao.atualizarBusca(vacinacao);
-			
-		try {
-			this.validarVacinacao(vacinacao.getPessoa());		
-		} catch (VacinacaoException excecao) {
-			atualizou = false;
-			mensagem = excecao.getMessage();
-		}	
-		
-		return atualizou;		
+		return dao.atualizarBusca(vacinacao);
 	}
 
 

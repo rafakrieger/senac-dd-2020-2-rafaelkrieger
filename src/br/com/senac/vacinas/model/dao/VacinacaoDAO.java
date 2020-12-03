@@ -268,7 +268,7 @@ public class VacinacaoDAO {
 		Connection conexao = Banco.getConnection();
 		
 		String sql = " UPDATE VACINACAO "
-				   + " AVALIACAO=? "
+				   + " SET AVALIACAO=? "
 				   + " WHERE IDVACINACAO=? ";
 		
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);

@@ -288,7 +288,8 @@ public class AddPessoa extends JPanel {
 				chckbxVoluntario.setSelected(false);
 				textFieldInst.setVisible(false);
 				lblInst.setVisible(false);
-
+				btnEditarPessoa.setVisible(false);
+				btnSalvarPessoa.setVisible(true);
 			}
 		});
 		btnEditarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));

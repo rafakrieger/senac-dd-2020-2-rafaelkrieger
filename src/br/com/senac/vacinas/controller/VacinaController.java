@@ -103,11 +103,13 @@ public class VacinaController {
 			} catch (PaisInvalidoException excecao) {
 				atualizou = false;
 				mensagem = excecao.getMessage();				
-			} 		
+			} 			
 			
 			if (atualizou) {
 				mensagem = "Atualizado com sucesso!";	
-			}				
+			} else {
+				mensagem = "Nenhum registro selecionado";	
+			}			
 			
 			return mensagem;		
 		}

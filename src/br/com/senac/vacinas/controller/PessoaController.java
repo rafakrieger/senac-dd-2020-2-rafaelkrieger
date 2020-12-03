@@ -16,184 +16,181 @@ import br.com.senac.vacinas.model.vo.VacinaVO;
 import br.com.senac.vacinas.utils.GeradorPlanilha;
 
 public class PessoaController {
-	
+
 	public static final String TIPO_RELATORIO_XLS = "xls";
 	public static final String TIPO_RELATORIO_PDF = "pdf";
-	
+
 	private PessoaBO bo = new PessoaBO();
 
 	public String salvar(PessoaVO pessoa) {
 		String mensagem = "";
 		boolean valido = true;
-		
+
 		try {
-			this.validarCPF(pessoa.getCpf());			
+			this.validarCPF(pessoa.getCpf());
 		} catch (CpfInvalidoException excecao) {
 			valido = false;
 			mensagem = excecao.getMessage();
 		}
-		
+
 		try {
 			this.validarNome(pessoa.getNome());
 		} catch (NomeInvalidoException excecao) {
 			valido = false;
 			mensagem = excecao.getMessage();
 		}
-		
+
 		try {
-			this.validarSexo(pessoa.getSexo());				
+			this.validarSexo(pessoa.getSexo());
 		} catch (SexoInvalidoException excecao) {
 			valido = false;
 			mensagem = excecao.getMessage();
-		} 
-		
+		}
+
 		try {
 			this.validarData(pessoa.getDataNascimento());
 		} catch (DataVaziaException excecao) {
 			valido = false;
 			mensagem = excecao.getMessage();
 		}
-		
+
 		try {
 			bo.conferirCpf(pessoa.getCpf());
 		} catch (CpfRepetidoException excecao) {
 			valido = false;
 			mensagem = excecao.getMessage();
 		}
-		
+
 		if (valido) {
 			bo.salvar(pessoa);
-			mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();		
-		}		
-		
-		return mensagem;		
+			mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();
+		}
+
+		return mensagem;
 	}
-	
+
 	public String atualizar(PessoaVO pessoa) {
 		String mensagem = "";
-		boolean valido = bo.atualizar(pessoa);
-		
+		boolean valido = true;
+
 		try {
 			this.validarCPF(pessoa.getCpf());
-		} catch (CpfInvalidoException excecao) {			
+		} catch (CpfInvalidoException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
 		}
-		
+
 		try {
 			this.validarNome(pessoa.getNome());
-		} catch (NomeInvalidoException excecao) {			
+		} catch (NomeInvalidoException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
 		}
-		
+
 		try {
-			this.validarSexo(pessoa.getSexo());				
-		} catch (SexoInvalidoException excecao) {			
+			this.validarSexo(pessoa.getSexo());
+		} catch (SexoInvalidoException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
-		} 
-		
+		}
+
 		try {
 			this.validarData(pessoa.getDataNascimento());
-			} catch (DataVaziaException excecao) {			
+		} catch (DataVaziaException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
-		}		
-		
-		if (valido) {			
-				mensagem = "Atualizado com sucesso!";	
+		}
+
+		if (valido) {
+			if (bo.atualizar(pessoa)) {
+				mensagem = "Atualizado com sucesso!";
 			} else {
-				mensagem = "Problema ao atualizar";	
-			}	
-		
-		return mensagem;		
+				mensagem = "Problema ao atualizar";
+			}
+		}
+		return mensagem;
 	}
 
 	private void validarData(LocalDate dataNascimento) throws DataVaziaException {
-		if (dataNascimento == null) {
+		if (dataNascimento == null || dataNascimento.isAfter(LocalDate.now())) {
 			throw new DataVaziaException("Data inválida");
 		}
 	}
-
 
 	private void validarSexo(String sexo) throws SexoInvalidoException {
 		if (sexo == null) {
 			throw new SexoInvalidoException("Preencher sexo");
 		}
-		
+
 	}
 
 	private void validarNome(String nome) throws NomeInvalidoException {
-		if (nome == null || nome.isEmpty()
-				|| nome.length() < 3) {
+		if (nome == null || nome.isEmpty() || nome.length() < 3) {
 			throw new NomeInvalidoException("Nome deve possuir ao menos 3 caracteres");
 		}
-		
+
 		if (nome.indexOf(" ") < 0) {
 			throw new NomeInvalidoException("Digite nome e sobrenome");
 		}
-		
+
 	}
 
 	private void validarCPF(String cpf) throws CpfInvalidoException {
-		if(cpf == null || cpf.isEmpty()
-				|| cpf.length() != 11) {
+		if (cpf == null || cpf.isEmpty() || cpf.length() != 11) {
 			throw new CpfInvalidoException("CPF deve possuir 11 caracteres");
 		}
 	}
 
-	
-	public String excluir(PessoaVO pessoa) {		
+	public String excluir(PessoaVO pessoa) {
 		String mensagem = "";
 		boolean excluiu = bo.excluir(pessoa);
-		
-		if(excluiu) {
+
+		if (excluiu) {
 			mensagem = "Registro excluído com sucesso!";
 		} else {
 			mensagem = "Erro ao excluir";
 		}
-		
+
 		return mensagem;
 
 	}
 
-	public PessoaVO pesquisarPorId(int id) {		
+	public PessoaVO pesquisarPorId(int id) {
 		return bo.pesquisarPorId(id);
 	}
 
 	public String atualizarBusca(PessoaVO pessoa) {
 		String mensagem = "";
 		boolean valido = bo.atualizarBusca(pessoa);
-		
+
 		try {
 			this.validarCPF(pessoa.getCpf());
-		} catch (CpfInvalidoException excecao) {			
+		} catch (CpfInvalidoException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
 		}
-		
+
 		try {
 			this.validarNome(pessoa.getNome());
-		} catch (NomeInvalidoException excecao) {			
+		} catch (NomeInvalidoException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
 		}
-		
+
 		try {
-			this.validarSexo(pessoa.getSexo());				
-		} catch (SexoInvalidoException excecao) {			
+			this.validarSexo(pessoa.getSexo());
+		} catch (SexoInvalidoException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
-		} 	
-		
-		if (valido) {			
-				mensagem = "Atualizado com sucesso!";	
-			} else {
-				mensagem = "Problema ao atualizar";	
-			}	
-		
-		return mensagem;		
+		}
+
+		if (valido) {
+			mensagem = "Atualizado com sucesso!";
+		} else {
+			mensagem = "Problema ao atualizar";
+		}
+
+		return mensagem;
 	}
 
 	public void gerarRelatorio(List<PessoaVO> pessoas, String caminhoEscolhido, String tipoRelatorio) {
@@ -205,13 +202,13 @@ public class PessoaController {
 	public List<PessoaVO> listarPessoas(SeletorPessoa seletor) {
 		return bo.listarPessoas(seletor);
 	}
-	
+
 	public String gerarPlanilha(List<PessoaVO> pessoasConsultadas, String caminho) {
 		GeradorPlanilha geradorExcel = new GeradorPlanilha();
 		return geradorExcel.gerarPlanilhaPessoas(caminho, pessoasConsultadas);
 	}
 
-	public PessoaVO pesquisarPorCpf(String cpf) {		
+	public PessoaVO pesquisarPorCpf(String cpf) {
 		return bo.pesquisarPorCpf(cpf);
 	}
 

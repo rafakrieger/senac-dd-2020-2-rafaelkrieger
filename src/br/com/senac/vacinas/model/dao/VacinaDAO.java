@@ -273,7 +273,11 @@ public class VacinaDAO {
 
 		boolean atualizou = false;
 		try {
-			query.setInt(1, vacina.getPesquisador().getIdPesquisador());
+			if (vacina.getPesquisador() != null) {
+				query.setInt(1, vacina.getPesquisador().getIdPesquisador());
+			} else {
+				query.setInt(1, 0);
+			}
 			query.setString(2, vacina.getPaisOrigem());
 			query.setInt(3, vacina.getEstagioPesquisa());
 			query.setInt(4, vacina.getIdVacina());

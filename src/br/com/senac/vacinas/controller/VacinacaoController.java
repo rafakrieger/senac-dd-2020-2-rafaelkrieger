@@ -79,7 +79,9 @@ public class VacinacaoController {
 		
 		if (atualizou) {
 			mensagem = "Atualizado com sucesso!";	
-		}		
+		} else {
+			mensagem = "Nenhum registro selecionado";	
+		}
 		
 		return mensagem;			
 	}

@@ -183,10 +183,15 @@ public class BuscaPessoa extends JPanel {
 		btnpEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaVO pessoa = new PessoaVO();
+				String id = null;
 				int selRow = tablerResultado.getSelectedRow();
-				String id = tablerResultado.getModel().getValueAt(selRow, 0).toString();
-
-				pessoa.setIdPessoa(Integer.parseInt(id));
+				if (selRow >= 0) {
+					id = tablerResultado.getModel().getValueAt(selRow, 0).toString();
+				}
+				
+				if (id != null) {
+					pessoa.setIdPessoa(Integer.parseInt(id));
+				}
 				pessoa.setNome(textFieldNome.getText());
 				pessoa.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
 				if (rdbtnMasc.isSelected()) {
