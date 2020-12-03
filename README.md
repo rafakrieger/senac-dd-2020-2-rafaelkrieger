@@ -15,47 +15,45 @@
 
 ### Tela principal
 
-![Tela principal](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/principal.jpg)
+![Tela principal](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/Principal.jpg)
 
 - [X] Painel inicial com dashboard de resumos de relatórios
 
 ### :man_in_tuxedo: Cadastro de Pessoas
 
-![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/addpessoas.jpg)
+![Cadastro de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/AddPessoa.jpg)
 
+- [x] Ao entrar com CPF, pesquisa se já existe registro e permite atualizar cadastro
 - [x] Campo "Instituição" só aparece caso o checkbox "Pesquisador" esteja selecionado
 
 ### :female_detective: Consulta de Pessoas
 
-![Consulta de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/consulta-pessoas.jpg)
-
-- [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
+![Consulta de Pessoas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/BuscaPessoa.jpg)
 
 ### :pill: Cadastro de Vacinas
 
-![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/addvacinas.jpg)
+![Cadastro de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/AddVacina.jpg)
 
-- [x] Combobox via banco de dados para selecionar estágio e pesquisador
-- [x] Combobox via array Java para selecionar país de origem
+- [x] Combo Box via banco de dados para selecionar estágio e pesquisador
+- [x] Combo Box via array Java para selecionar país de origem
 
 ### :mag_right: Consulta de Vacinas
 
-![Consulta de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/consulta-vacinas.jpg)
+![Consulta de Vacinas](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/BuscaVacina.jpg)
 
-- [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
 ### :syringe: Cadastro de Aplicações
 
-![Cadastro de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/addvacinacao.jpg)
+![Cadastro de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/AddVacinacao.jpg)
 
-- [x] Combobox via banco de dados para selecionar vacina e pessoa
-- [x] Combobox via array Java para selecionar avaliação
+- [x] Regra de negócio de aplicação da vacina conforme a fase é verificada na seleção do Combo Box
+- [x] Combo Box via banco de dados para selecionar vacina e pessoa
+- [x] Combo Box via array Java para selecionar avaliação
 
 ### :mag_right: Consulta de Aplicações
 
-![Consulta de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/consulta-aplicacoes.jpg)
+![Consulta de Aplicações](https://github.com/rafakrieger/senac-dd-2020-2-rafaelkrieger/blob/master/src/br/com/senac/vacinas/utils/images/BuscaVacinacao.jpg)
 
-- [x] Após pesquisar com filtros, será possível editar ou excluir o registro. Versão final terá botão para salvar em XLS.
 
 ## :page_with_curl: Regras de Negócio
 
@@ -87,46 +85,73 @@
 > Em seu MySQL rode este script abaixo:
 ```bash
     SET SQL_SAFE_UPDATES = 0;
-    DROP DATABASE IF EXISTS DBVACINA;
-    CREATE DATABASE DBVACINA;
-    USE DBVACINA;
+DROP DATABASE IF EXISTS DBVACINA;
+CREATE DATABASE DBVACINA;
+USE DBVACINA;
 
-    CREATE TABLE PESSOA (
-      IDPESSOA INT NOT NULL AUTO_INCREMENT
-        , NOME VARCHAR (100) NOT NULL
-        , DT_NASCIMENTO DATE
-        , SEXO ENUM ('M', 'F')
-        , CPF VARCHAR (11)
-        , VOLUNTARIO BOOLEAN
-        , PRIMARY KEY (IDPESSOA)
-    );
+CREATE TABLE PESSOA (
+	IDPESSOA INT NOT NULL AUTO_INCREMENT
+    , NOME VARCHAR (100) NOT NULL
+    , DT_NASCIMENTO DATE
+    , SEXO ENUM ('M', 'F')
+    , CPF VARCHAR (11)
+    , VOLUNTARIO BOOLEAN
+    , PRIMARY KEY (IDPESSOA)
+);
 
-    CREATE TABLE PESQUISADOR (
-      IDPESQUISADOR INT NOT NULL AUTO_INCREMENT
-        , NOME VARCHAR (100)
-        , IDPESSOA INT
-        , INSTITUICAO VARCHAR (256)
-        , PRIMARY KEY (IDPESQUISADOR)
-    );
+CREATE TABLE PESQUISADOR (
+	IDPESQUISADOR INT NOT NULL AUTO_INCREMENT
+    , NOME VARCHAR (100)
+    , IDPESSOA INT
+    , INSTITUICAO VARCHAR (256)
+    , PRIMARY KEY (IDPESQUISADOR)
+);
 
-    CREATE TABLE VACINA (
-      IDVACINA INT NOT NULL AUTO_INCREMENT
-        , IDPESQUISADOR INT NOT NULL
-        , PAIS_ORIGEM VARCHAR(45)
-        , ESTAGIO_PESQUISA ENUM ('1', '2', '3')
-      , DT_INICIO DATE     
-        , PRIMARY KEY (IDVACINA)
-        , FOREIGN KEY (IDPESQUISADOR) REFERENCES PESQUISADOR (IDPESQUISADOR)
-    );
+CREATE TABLE VACINA (
+	IDVACINA INT NOT NULL AUTO_INCREMENT
+    , IDPESQUISADOR INT NOT NULL
+    , PAIS_ORIGEM VARCHAR(45)
+    , ESTAGIO_PESQUISA ENUM ('1', '2', '3')
+	, DT_INICIO DATE     
+    , PRIMARY KEY (IDVACINA)
+    , FOREIGN KEY (IDPESQUISADOR) REFERENCES PESQUISADOR (IDPESQUISADOR)
+);
 
-    CREATE TABLE VACINACAO (
-      IDVACINACAO INT NOT NULL AUTO_INCREMENT
-        , IDVACINA INT NOT NULL
-        , IDPESSOA INT NOT NULL
-        , DT_VACINACAO DATE
-        , AVALIACAO ENUM ('1', '2', '3', '4', '5')
-        , PRIMARY KEY (IDVACINACAO)
-        , FOREIGN KEY (IDVACINA) REFERENCES VACINA (IDVACINA)
-        , FOREIGN KEY (IDPESSOA) REFERENCES PESSOA (IDPESSOA)
-    );
+CREATE TABLE VACINACAO (
+	IDVACINACAO INT NOT NULL AUTO_INCREMENT
+    , IDVACINA INT NOT NULL
+    , IDPESSOA INT NOT NULL
+    , DT_VACINACAO DATE
+    , AVALIACAO ENUM ('1', '2', '3', '4', '5')
+    , PRIMARY KEY (IDVACINACAO)
+    , FOREIGN KEY (IDVACINA) REFERENCES VACINA (IDVACINA)
+    , FOREIGN KEY (IDPESSOA) REFERENCES PESSOA (IDPESSOA)
+);
+
+INSERT INTO PESSOA VALUES (1, "Diego Armando Maradona", '1960-10-30', "M", "02134567890", 1);
+INSERT INTO PESSOA VALUES (2, "Romário de Souza Faria", '1966-01-29', "M", "03134567880", 0);
+INSERT INTO PESSOA VALUES (3, "Marta Vieira da Silva", '1986-02-19', "F", "00558234306", 1);
+INSERT INTO PESSOA VALUES (4, "Edmundo Alves de Souza", '1971-04-02', "M", "55134767880", 0);
+INSERT INTO PESSOA VALUES (5, "Cristiane de Souza Silva", '1985-05-15', "F", "99134767880", 1);
+INSERT INTO PESSOA VALUES (6, "Antônio Reis Júnior", '1975-01-30', "M", "19982000304", 1);
+INSERT INTO PESSOA VALUES (7, "Hannibal Lecter", '1960-10-30', "M", "00100200304", 0);
+INSERT INTO PESSOA VALUES (8, "Ivo Pitanguy", '1960-10-30', "M", "00100200304", 0);
+
+INSERT INTO PESQUISADOR VALUES (1, "Antônio Reis Júnior", 6, "Fiocruz");
+INSERT INTO PESQUISADOR VALUES (2, "Hannibal Lecter", 7, "Harvard");
+INSERT INTO PESQUISADOR VALUES (3, "Ivo Pitanguy", 8, "USP");
+
+INSERT INTO VACINA VALUES (1, 1, "Brasil", 1, '2020-08-31');
+INSERT INTO VACINA VALUES (2, 1, "França", 2, '2020-09-15');
+INSERT INTO VACINA VALUES (3, 2, "China", 3, '2020-06-05');
+INSERT INTO VACINA VALUES (4, 2, "Rússia", 1, '2020-07-20');
+INSERT INTO VACINA VALUES (5, 3, "EUA", 2, '2020-10-23');
+
+INSERT INTO VACINACAO VALUES (1, 1, 6, '2020-10-12', 4);
+INSERT INTO VACINACAO VALUES (2, 2, 1, '2020-10-10', 3);
+INSERT INTO VACINACAO VALUES (3, 3, 2, '2020-11-19', 4);
+INSERT INTO VACINACAO VALUES (4, 3, 4, '2020-09-02', 3);
+INSERT INTO VACINACAO VALUES (5, 4, 7, '2020-08-18', 3);
+INSERT INTO VACINACAO VALUES (6, 5, 5, '2020-12-01', 4);
+INSERT INTO VACINACAO VALUES (7, 5, 3, '2020-11-02', 5);
 ```
