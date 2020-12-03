@@ -40,8 +40,8 @@ public class VacinacaoController {
 		return mensagem;			
 	}
 	
-	private void validarData(LocalDate dataInicio) throws DataVaziaException {
-		if (dataInicio == null) {
+	private void validarData(LocalDate data) throws DataVaziaException {
+		if (data == null || data.isAfter(LocalDate.now())) {
 			throw new DataVaziaException("Data inválida");
 		}
 }

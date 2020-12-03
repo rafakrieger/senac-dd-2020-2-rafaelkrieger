@@ -57,7 +57,7 @@ public class VacinaController {
 		}
 
 		private void validarData(LocalDate dataInicio) throws DataVaziaException {
-			if (dataInicio == null) {
+			if (dataInicio == null || dataInicio.isAfter(LocalDate.now())) {
 				throw new DataVaziaException("Data inválida");
 			}
 	}
