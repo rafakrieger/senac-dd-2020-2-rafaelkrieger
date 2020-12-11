@@ -40,6 +40,9 @@ public class AddPessoa extends JPanel {
 	private JCheckBox chckbxPesq;
 	private JButton btnEditarPessoa;
 	private JButton btnSalvarPessoa;
+	private JRadioButton rdbtnFem;
+	private JRadioButton rdbtnMasc;
+	private JLabel lblInst;
 	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
 	/**
@@ -70,7 +73,7 @@ public class AddPessoa extends JPanel {
 		lbDataNasc.setBounds(10, 165, 363, 24);
 		this.add(lbDataNasc);
 
-		final JLabel lblInst = new JLabel("INSTITUIÇÃO");
+		lblInst = new JLabel("INSTITUIÇÃO");
 		lblInst.setForeground(Color.DARK_GRAY);
 		lblInst.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblInst.setBounds(10, 320, 424, 24);
@@ -83,7 +86,7 @@ public class AddPessoa extends JPanel {
 		lblSexo.setBounds(10, 220, 363, 24);
 		this.add(lblSexo);
 
-		final JRadioButton rdbtnMasc = new JRadioButton("MASCULINO");
+		rdbtnMasc = new JRadioButton("MASCULINO");
 		buttonGroup.add(rdbtnMasc);
 		rdbtnMasc.setForeground(Color.DARK_GRAY);
 		rdbtnMasc.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -91,7 +94,7 @@ public class AddPessoa extends JPanel {
 		rdbtnMasc.setBounds(10, 250, 109, 23);
 		this.add(rdbtnMasc);
 
-		final JRadioButton rdbtnFem = new JRadioButton("FEMININO");
+		rdbtnFem = new JRadioButton("FEMININO");
 		buttonGroup.add(rdbtnFem);
 		rdbtnFem.setForeground(Color.DARK_GRAY);
 		rdbtnFem.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -223,17 +226,7 @@ public class AddPessoa extends JPanel {
 					pesquisador.setNome(pessoa.getNome());
 					PesquisadorController pesquisadorController = new PesquisadorController();
 					pesquisadorController.salvar(pesquisador);
-				}
-
-				textFieldNome.setText("");
-				formattedTextFieldCpf.setText("");
-				formattedTextFieldData.setText("");
-				rdbtnFem.setSelected(false);
-				rdbtnMasc.setSelected(false);
-				chckbxPesq.setSelected(false);
-				chckbxVoluntario.setSelected(false);
-				textFieldInst.setVisible(false);
-				lblInst.setVisible(false);
+				}				
 
 			}
 
@@ -278,18 +271,6 @@ public class AddPessoa extends JPanel {
 					PesquisadorController pesquisadorController = new PesquisadorController();
 					pesquisadorController.atualizar(pesquisador);
 				}
-
-				textFieldNome.setText("");
-				formattedTextFieldCpf.setText("");
-				formattedTextFieldData.setText("");
-				rdbtnFem.setSelected(false);
-				rdbtnMasc.setSelected(false);
-				chckbxPesq.setSelected(false);
-				chckbxVoluntario.setSelected(false);
-				textFieldInst.setVisible(false);
-				lblInst.setVisible(false);
-				btnEditarPessoa.setVisible(false);
-				btnSalvarPessoa.setVisible(true);
 			}
 		});
 		btnEditarPessoa.setFont(new Font("Dialog", Font.BOLD, 14));
@@ -307,12 +288,34 @@ public class AddPessoa extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 39, 203, 12);
 		add(separator);
+		
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldNome.setText("");
+				formattedTextFieldCpf.setText("");
+				formattedTextFieldData.setText("");
+				rdbtnFem.setSelected(false);
+				rdbtnMasc.setSelected(false);
+				chckbxPesq.setSelected(false);
+				chckbxVoluntario.setSelected(false);
+				textFieldInst.setVisible(false);
+				lblInst.setVisible(false);
+				btnEditarPessoa.setVisible(false);
+				btnSalvarPessoa.setVisible(true);
+			}
+		});
+		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnLimpar.setBounds(334, 39, 89, 23);
+		add(btnLimpar);
 
 	}
 
 	private String obterNumerosCpf(String cpf) {
 		String digito = cpf.replace(".", "");
-		String novoCpf = digito.replace("-", "");
+		String espaco = digito.replace("-", "");
+		String novoCpf = espaco.replace(" ", "");
+		
 		return novoCpf;
 	}
 
@@ -333,5 +336,19 @@ public class AddPessoa extends JPanel {
 			data = LocalDate.parse(dataNascimento, dateFormat);
 		}
 		return data;
+	}
+	
+	public void limpar() {
+		textFieldNome.setText("");
+		formattedTextFieldCpf.setText("");
+		formattedTextFieldData.setText("");
+		rdbtnFem.setSelected(false);
+		rdbtnMasc.setSelected(false);
+		chckbxPesq.setSelected(false);
+		chckbxVoluntario.setSelected(false);
+		textFieldInst.setVisible(false);
+		lblInst.setVisible(false);
+		btnEditarPessoa.setVisible(false);
+		btnSalvarPessoa.setVisible(true);
 	}
 }

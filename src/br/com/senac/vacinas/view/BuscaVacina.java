@@ -197,12 +197,7 @@ public class BuscaVacina extends JPanel {
 
 				VacinaController vacinaController = new VacinaController();
 				String mensagem = vacinaController.atualizarBusca(vacina);
-				JOptionPane.showMessageDialog(null, mensagem);
-
-				comboBoxPais.setSelectedIndex(-1);
-				comboBoxEstagio.setSelectedIndex(-1);
-				comboBoxPesq.setSelectedIndex(-1);
-				limparTabela();
+				JOptionPane.showMessageDialog(null, mensagem);				
 
 			}
 		});

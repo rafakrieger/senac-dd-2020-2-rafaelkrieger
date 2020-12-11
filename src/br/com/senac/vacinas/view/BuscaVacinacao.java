@@ -140,11 +140,7 @@ public class BuscaVacinacao extends JPanel {
 					VacinacaoController vacinacaoController = new VacinacaoController();
 					String mensagem = vacinacaoController.atualizarBusca(vacinacao);
 					JOptionPane.showMessageDialog(null, mensagem);
-
-					formattedTextFieldDataInicio.setText("");
-					formattedTextFieldDataFim.setText("");
-					comboBoxAvaliacao.setSelectedIndex(-1);
-					limparTabela();
+					
 				}			
 		});
 		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 11));

@@ -149,10 +149,7 @@ public class AddVacinacao extends JPanel {
 				String mensagem = vacinacaoController.salvar(vacinacao);
 				JOptionPane.showMessageDialog(null, mensagem);
 				
-				comboBoxVacina.setSelectedIndex(-1);
-				comboBoxPessoa.setSelectedIndex(-1);
-				comboBoxAvaliacao.setSelectedIndex(-1);
-				formattedTextFieldData.setText("");
+				
 				
 			}
 		});
@@ -170,6 +167,19 @@ public class AddVacinacao extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 39, 213, 12);
 		add(separator);
+		
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxVacina.setSelectedIndex(-1);
+				comboBoxPessoa.setSelectedIndex(-1);
+				comboBoxAvaliacao.setSelectedIndex(-1);
+				formattedTextFieldData.setText("");
+			}
+		});
+		btnLimpar.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btnLimpar.setBounds(334, 54, 89, 23);
+		add(btnLimpar);
 	}	
 
 	private boolean validarData(String strDate) {

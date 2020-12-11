@@ -23,8 +23,7 @@ public class PessoaBO {
 		pessoa.setIdPessoa(idPessoa);
 		return pessoaAtualizada.atualizar(pessoa);	
 	}
-	
-	
+
 
 	public void conferirCpf(String cpf) throws CpfRepetidoException {
 		if (dao.pesquisarPorCpf(cpf) != null) {

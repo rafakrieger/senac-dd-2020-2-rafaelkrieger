@@ -125,9 +125,6 @@ public class BuscaPessoa extends JPanel {
 				String mensagem = pessoaController.excluir(pessoa);
 				JOptionPane.showMessageDialog(null, mensagem);
 
-				textFieldNome.setText("");
-				formattedTextFieldCpf.setText("");
-				buttonGroup.clearSelection();
 				limparTabela();
 
 			}
@@ -207,10 +204,6 @@ public class BuscaPessoa extends JPanel {
 				String mensagem = pessoaController.atualizarBusca(pessoa);
 				JOptionPane.showMessageDialog(null, mensagem);
 
-				textFieldNome.setText("");
-				formattedTextFieldCpf.setText("");
-				buttonGroup.clearSelection();
-				limparTabela();
 			}
 		});
 		btnpEditar.setFont(new Font("Segoe UI", Font.BOLD, 11));
@@ -265,13 +258,14 @@ public class BuscaPessoa extends JPanel {
 		add(btnNewButton);
 
 
-	}
-	
+	}	
 	
 
 	private String obterNumerosCpf(String cpf) {
 		String digito = cpf.replace(".", "");
-		String novoCpf = digito.replace("-", "");
+		String espaco = digito.replace("-", "");
+		String novoCpf = espaco.replace(" ", "");
+		
 		return novoCpf;
 	}
 
@@ -284,6 +278,8 @@ public class BuscaPessoa extends JPanel {
 		DefaultTableModel modelo = (DefaultTableModel) tablerResultado.getModel();		
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		
 
 		for (PessoaVO pessoa : pessoas) {
 			String dataFormatada = pessoa.getDataNascimento().format(formatter);
@@ -297,6 +293,16 @@ public class BuscaPessoa extends JPanel {
 	private void limparTabela() {
 		tablerResultado.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "CPF", "Sexo", "Nascimento" }, },
 				new String[] { "#", "Nome", "CPF", "Sexo", "Nascimento" }));
+	}
+
+
+
+	public void limpar() {
+		textFieldNome.setText("");
+		formattedTextFieldCpf.setText("");
+		buttonGroup.clearSelection();
+		limparTabela();
+		
 	}
 }
 

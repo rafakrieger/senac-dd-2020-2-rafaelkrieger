@@ -14,6 +14,8 @@ import br.com.senac.vacinas.model.seletores.SeletorVacina;
 import br.com.senac.vacinas.model.vo.PessoaVO;
 import br.com.senac.vacinas.model.vo.VacinaVO;
 import br.com.senac.vacinas.utils.GeradorPlanilha;
+import br.com.senac.vacinas.view.AddPessoa;
+import br.com.senac.vacinas.view.BuscaPessoa;
 
 public class PessoaController {
 
@@ -61,7 +63,7 @@ public class PessoaController {
 			mensagem = excecao.getMessage();
 		}
 
-		if (valido) {
+		if (valido) {			
 			bo.salvar(pessoa);
 			mensagem = "Salvo com sucesso! Id gerado: " + pessoa.getIdPessoa();
 		}
@@ -101,7 +103,7 @@ public class PessoaController {
 			valido = false;
 		}
 
-		if (valido) {
+		if (valido) {			
 			if (bo.atualizar(pessoa)) {
 				mensagem = "Atualizado com sucesso!";
 			} else {
@@ -161,7 +163,7 @@ public class PessoaController {
 
 	public String atualizarBusca(PessoaVO pessoa) {
 		String mensagem = "";
-		boolean valido = bo.atualizarBusca(pessoa);
+		boolean valido = true;
 
 		try {
 			this.validarCPF(pessoa.getCpf());
@@ -182,14 +184,15 @@ public class PessoaController {
 		} catch (SexoInvalidoException excecao) {
 			mensagem = excecao.getMessage();
 			valido = false;
-		}
+		}		
 
-		if (valido) {
-			mensagem = "Atualizado com sucesso!";
-		} else {
-			mensagem = "Problema ao atualizar";
+		if (valido) {			
+			if (bo.atualizarBusca(pessoa)) {
+				mensagem = "Atualizado com sucesso!";
+			} else {
+				mensagem = "Problema ao atualizar";
+			}
 		}
-
 		return mensagem;
 	}
 
