@@ -22,10 +22,10 @@ import br.com.senac.vacinas.model.vo.VacinacaoVO;
 public class GeradorPlanilha {
 
 
-	public String gerarPlanilhaVacinas(String caminhoArquivo, List<VacinaVO> vacinas) {
+	public String gerarPlanilhaVacinas(String caminhoArquivo, List<VacinaVO> vacinas, String titulo) {
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
-		XSSFSheet aba = planilha.createSheet("Vacinas");
+		XSSFSheet aba = planilha.createSheet("Vacinas - "+titulo);
 
 		int linhaAtual = 0;
 
@@ -38,6 +38,8 @@ public class GeradorPlanilha {
 	}
 
 	private void criarLinhasVacinas(List<VacinaVO> vacinas, XSSFSheet aba, int posicaoLinhaAtual) {
+		posicaoLinhaAtual++;
+		
 		for (VacinaVO v : vacinas) {
 			XSSFRow linhaAtual = aba.createRow(posicaoLinhaAtual);
 
@@ -45,22 +47,18 @@ public class GeradorPlanilha {
 			linhaAtual.createCell(1).setCellValue(v.getPesquisador().getNome());
 			linhaAtual.createCell(2).setCellValue(v.getPaisOrigem());
 			linhaAtual.createCell(3).setCellValue(v.getEstagioPesquisa());
-			linhaAtual.createCell(4).setCellValue(v.getDataInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-			
-			
+			linhaAtual.createCell(4).setCellValue(v.getDataInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));			
 
 			posicaoLinhaAtual++;
 		}
 
-	}
+	}	
 	
 	
-	
-	
-	public String gerarPlanilhaPessoas(String caminhoArquivo, List<PessoaVO> pessoas) {
+	public String gerarPlanilhaPessoas(String caminhoArquivo, List<PessoaVO> pessoas, String titulo) {
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
-		XSSFSheet aba = planilha.createSheet("Pessoas");
+		XSSFSheet aba = planilha.createSheet("Pessoas - "+titulo);
 
 		int linhaAtual = 0;
 
@@ -73,26 +71,25 @@ public class GeradorPlanilha {
 	}
 
 	private void criarLinhasPessoas(List<PessoaVO> pessoas, XSSFSheet aba, int posicaoLinhaAtual) {
+		posicaoLinhaAtual++;
+
 		for (PessoaVO p : pessoas) {
 			XSSFRow linhaAtual = aba.createRow(posicaoLinhaAtual);
 
 			linhaAtual.createCell(0).setCellValue(p.getIdPessoa());
 			linhaAtual.createCell(1).setCellValue(p.getNome());
-			linhaAtual.createCell(2).setCellValue(p.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			linhaAtual.createCell(2).setCellValue(p.getCpf());
 			linhaAtual.createCell(3).setCellValue(p.getSexo());
-			linhaAtual.createCell(4).setCellValue(p.getCpf());
-			linhaAtual.createCell(5).setCellValue(p.isVoluntario());
-			
-
+			linhaAtual.createCell(4).setCellValue(p.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));			
 			posicaoLinhaAtual++;
 		}
 
 	}
 	
-	public String gerarPlanilhaVacinacao(String caminhoArquivo, List<VacinacaoVO> vacinacao) {
+	public String gerarPlanilhaVacinacao(String caminhoArquivo, List<VacinacaoVO> vacinacao, String titulo) {
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
-		XSSFSheet aba = planilha.createSheet("Pessoas");
+		XSSFSheet aba = planilha.createSheet("Vacinação - "+titulo);
 
 		int linhaAtual = 0;
 
@@ -105,6 +102,8 @@ public class GeradorPlanilha {
 	}
 
 	private void criarLinhasVacinacao(List<VacinacaoVO> vacinacao, XSSFSheet aba, int posicaoLinhaAtual) {
+		posicaoLinhaAtual++;
+		
 		for (VacinacaoVO v : vacinacao) {
 			XSSFRow linhaAtual = aba.createRow(posicaoLinhaAtual);
 
@@ -113,8 +112,7 @@ public class GeradorPlanilha {
 			linhaAtual.createCell(2).setCellValue(v.getPessoa().getNome());
 			linhaAtual.createCell(3).setCellValue(v.getDataVacinacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 			linhaAtual.createCell(4).setCellValue(v.getAvaliacao());			
-			
-			
+						
 			posicaoLinhaAtual++;
 		}
 

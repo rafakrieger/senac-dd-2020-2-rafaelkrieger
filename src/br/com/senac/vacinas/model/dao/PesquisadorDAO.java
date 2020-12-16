@@ -21,9 +21,9 @@ public class PesquisadorDAO {
 		ResultSet resultado = null;
 
 		try {			
-			query.setString(1, pesquisador.getInstituicao());
+			query.setString(1, pesquisador.getInstituicao().toUpperCase());
 			query.setInt(2, pesquisador.getIdPessoa());
-			query.setString(3, pesquisador.getNome());
+			query.setString(3, pesquisador.getNome().toUpperCase());
 			
 			int codigoRetorno = query.executeUpdate();
 			if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO) {

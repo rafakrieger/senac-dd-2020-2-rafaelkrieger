@@ -129,9 +129,9 @@ public class VacinaController {
 			return bo.listarVacinas(seletor);
 		}
 		
-		public String gerarPlanilha(List<VacinaVO> vacinasConsultadas, String caminho) {
+		public String gerarPlanilha(List<VacinaVO> vacinasConsultadas, String caminho, String titulo) {
 			GeradorPlanilha geradorExcel = new GeradorPlanilha();
-			return geradorExcel.gerarPlanilhaVacinas(caminho, vacinasConsultadas);
+			return geradorExcel.gerarPlanilhaVacinas(caminho, vacinasConsultadas, titulo);
 		}
 
 		public List<VacinaVO> pesquisarTodos() {

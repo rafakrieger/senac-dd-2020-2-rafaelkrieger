@@ -66,7 +66,7 @@ public class VacinaVO {
 
 	@Override
 	public String toString() {
-		return "" + idVacina;
+		return "" + idVacina + " - "+ paisOrigem + " - ESTÁGIO "+ estagioPesquisa;
 	}
 
 	

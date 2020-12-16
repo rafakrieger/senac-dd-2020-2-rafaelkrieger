@@ -13,14 +13,17 @@ public class PesquisadorController {
 	public String salvar(PesquisadorVO pesquisador) {
 		String mensagem = "";
 		
-		try {
-			this.validarInstituicao(pesquisador.getInstituicao());			
-			pesquisador = bo.salvar(pesquisador);
-		} catch (InstituicaoInvalidaException excecao) {
-			mensagem = excecao.getMessage();		
-		} 
-		
-		mensagem = "Salvo com sucesso! Id gerado: " + pesquisador.getIdPesquisador();
+		if (pesquisador.getIdPessoa() != 0) {
+			try {
+				this.validarInstituicao(pesquisador.getInstituicao());			
+				pesquisador = bo.salvar(pesquisador);
+			} catch (InstituicaoInvalidaException excecao) {
+				mensagem = excecao.getMessage();		
+			} 
+			
+			mensagem = "Salvo com sucesso! Id gerado: " + pesquisador.getIdPesquisador();
+			
+		}		
 		
 		return mensagem;		
 	}

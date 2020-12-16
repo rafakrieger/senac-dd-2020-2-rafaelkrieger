@@ -94,8 +94,8 @@ public class VacinacaoController {
 		return bo.mediaAvaliacao();
 	}
 
-	public String gerarPlanilha(List<VacinacaoVO> vacinacoesConsultadas, String caminho) {
+	public String gerarPlanilha(List<VacinacaoVO> vacinacoesConsultadas, String caminho, String titulo) {
 		GeradorPlanilha geradorExcel = new GeradorPlanilha();
-		return geradorExcel.gerarPlanilhaVacinacao(caminho, vacinacoesConsultadas);
+		return geradorExcel.gerarPlanilhaVacinacao(caminho, vacinacoesConsultadas, titulo);
 	}
 }

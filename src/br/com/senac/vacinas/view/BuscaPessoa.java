@@ -140,9 +140,10 @@ public class BuscaPessoa extends JPanel {
 		this.limparTabela();
 		tablerResultado.setBounds(10, 266, 430, 204);
 		tablerResultado.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablerResultado.getColumnModel().getColumn(0).setPreferredWidth(20);
-		tablerResultado.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tablerResultado.getColumnModel().getColumn(3).setPreferredWidth(30);
+		tablerResultado.getColumnModel().getColumn(0).setPreferredWidth(10);
+		tablerResultado.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tablerResultado.getColumnModel().getColumn(3).setPreferredWidth(10);
+		tablerResultado.getColumnModel().getColumn(4).setPreferredWidth(45);
 		this.add(tablerResultado);
 
 		JButton btnpPesquisar = new JButton("PESQUISAR");
@@ -165,10 +166,16 @@ public class BuscaPessoa extends JPanel {
 				seletor.setCpf(obterNumerosCpf(formattedTextFieldCpf.getText()));
 
 				List<PessoaVO> pessoas = controlador.listarPessoas(seletor);
-				atualizarTabelaPessoas(pessoas);
-				tablerResultado.getColumnModel().getColumn(0).setPreferredWidth(20);
-				tablerResultado.getColumnModel().getColumn(1).setPreferredWidth(200);
-				tablerResultado.getColumnModel().getColumn(3).setPreferredWidth(30);
+				try {
+					atualizarTabelaPessoas(pessoas);
+				} catch (ParseException e1) {
+					JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+					System.out.println("Causa da exceção: " + e1.getMessage());
+				}
+				tablerResultado.getColumnModel().getColumn(0).setPreferredWidth(10);
+				tablerResultado.getColumnModel().getColumn(1).setPreferredWidth(150);
+				tablerResultado.getColumnModel().getColumn(3).setPreferredWidth(10);
+				tablerResultado.getColumnModel().getColumn(4).setPreferredWidth(45);
 			}
 		});
 
@@ -240,6 +247,17 @@ public class BuscaPessoa extends JPanel {
 		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String titulo = "";
+				if (textFieldNome.getText().length() != 0) {
+					titulo = "Pesquisa por nome "+textFieldNome.getText().toUpperCase();
+				} else if (obterNumerosCpf(formattedTextFieldCpf.getText()).length() == 11) {
+					titulo = "Pesquisa por CPF "+formattedTextFieldCpf.getText();
+				} else if (rdbtnFem.isSelected() || rdbtnMasc.isSelected()) {
+					titulo = "Pesquisa por sexo";
+				} else {
+					titulo = "Pesquisar todos";
+				}				
+				
 				JFileChooser janelaArquivos = new JFileChooser();
 
 				int opcaoSelecionada = janelaArquivos.showSaveDialog(null);
@@ -248,7 +266,7 @@ public class BuscaPessoa extends JPanel {
 					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
 
 					PessoaController controller = new PessoaController();
-					String mensagem = controller.gerarPlanilha(pessoasConsultadas, caminho);
+					String mensagem = controller.gerarPlanilha(pessoasConsultadas, caminho, titulo);
 
 					JOptionPane.showMessageDialog(null, mensagem);
 				}
@@ -269,7 +287,7 @@ public class BuscaPessoa extends JPanel {
 		return novoCpf;
 	}
 
-	protected void atualizarTabelaPessoas(List<PessoaVO> pessoas) {
+	protected void atualizarTabelaPessoas(List<PessoaVO> pessoas) throws ParseException {
 
 		pessoasConsultadas = pessoas;
 
@@ -283,12 +301,18 @@ public class BuscaPessoa extends JPanel {
 
 		for (PessoaVO pessoa : pessoas) {
 			String dataFormatada = pessoa.getDataNascimento().format(formatter);
-			String[] novaLinha = new String[] { pessoa.getIdPessoa() + "", pessoa.getNome(), pessoa.getCpf(),
-					pessoa.getSexo(), dataFormatada};
+			String[] novaLinha = new String[] { pessoa.getIdPessoa() + "", pessoa.getNome(), 
+					formatarCpf(pessoa.getCpf(), "###.###.###-##"), pessoa.getSexo(), dataFormatada};
 			modelo.addRow(novaLinha);
 		}
 
 	}
+	
+	private String formatarCpf(String cpf, String mascara) throws ParseException {
+        MaskFormatter mf = new MaskFormatter(mascara);
+        mf.setValueContainsLiteralCharacters(false);
+        return mf.valueToString(cpf);
+    }
 
 	private void limparTabela() {
 		tablerResultado.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "CPF", "Sexo", "Nascimento" }, },

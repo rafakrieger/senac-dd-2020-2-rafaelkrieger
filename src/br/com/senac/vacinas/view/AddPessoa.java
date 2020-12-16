@@ -61,7 +61,7 @@ public class AddPessoa extends JPanel {
 		lblNome.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		this.add(lblNome);
 
-		JLabel lblCpf = new JLabel("CPF");
+		JLabel lblCpf = new JLabel("CPF (Tecle ENTER para buscar)");
 		lblCpf.setForeground(Color.DARK_GRAY);
 		lblCpf.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblCpf.setBounds(10, 50, 375, 24);
@@ -118,7 +118,7 @@ public class AddPessoa extends JPanel {
 					PessoaController controller = new PessoaController();
 					PesquisadorController pController = new PesquisadorController();
 					PessoaVO pessoa = new PessoaVO();
-					String cpf = obterNumerosCpf(formattedTextFieldCpf.getText());
+					String cpf = obterNumerosCpf(formattedTextFieldCpf.getText());					
 					if (controller.pesquisarPorCpf(cpf) != null) {
 						pessoa = controller.pesquisarPorCpf(cpf);
 						textFieldNome.setText(pessoa.getNome());

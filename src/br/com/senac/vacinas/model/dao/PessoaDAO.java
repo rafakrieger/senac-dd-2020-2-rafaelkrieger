@@ -25,9 +25,9 @@ public class PessoaDAO {
 		ResultSet resultado = null;
 
 		try {
-			query.setString(1, novaPessoa.getNome());
+			query.setString(1, novaPessoa.getNome().toUpperCase());
 			query.setDate(2, java.sql.Date.valueOf(novaPessoa.getDataNascimento()));
-			query.setString(3, novaPessoa.getSexo());
+			query.setString(3, novaPessoa.getSexo().toUpperCase());
 			query.setString(4, novaPessoa.getCpf());
 			query.setBoolean(5, novaPessoa.isVoluntario());
 			

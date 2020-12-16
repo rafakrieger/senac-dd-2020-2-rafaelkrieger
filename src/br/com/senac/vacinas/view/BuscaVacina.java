@@ -234,6 +234,17 @@ public class BuscaVacina extends JPanel {
 		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String titulo = "";
+				if (comboBoxPais.getSelectedIndex() >= 0) {
+					titulo = "Pesquisa por país "+comboBoxPais.getSelectedItem().toString().toUpperCase();
+				} else if (comboBoxEstagio.getSelectedIndex() >= 0) {
+					titulo = "Pesquisa por estágio "+comboBoxEstagio.getSelectedIndex() + 1;
+				} else if (comboBoxPesq.getSelectedIndex() >= 0) {
+					titulo = "Pesquisa por pesquisador "+comboBoxPesq.getSelectedItem();
+				} else {
+					titulo = "Pesquisar todos";
+				}				
+				
 				JFileChooser janelaArquivos = new JFileChooser();
 
 				int opcaoSelecionada = janelaArquivos.showSaveDialog(null);
@@ -242,7 +253,7 @@ public class BuscaVacina extends JPanel {
 					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
 
 					VacinaController controller = new VacinaController();
-					String mensagem = controller.gerarPlanilha(vacinasConsultadas, caminho);
+					String mensagem = controller.gerarPlanilha(vacinasConsultadas, caminho, titulo);
 
 					JOptionPane.showMessageDialog(null, mensagem);
 				}

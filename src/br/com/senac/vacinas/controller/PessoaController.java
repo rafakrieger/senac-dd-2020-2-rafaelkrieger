@@ -206,9 +206,9 @@ public class PessoaController {
 		return bo.listarPessoas(seletor);
 	}
 
-	public String gerarPlanilha(List<PessoaVO> pessoasConsultadas, String caminho) {
+	public String gerarPlanilha(List<PessoaVO> pessoasConsultadas, String caminho, String titulo) {
 		GeradorPlanilha geradorExcel = new GeradorPlanilha();
-		return geradorExcel.gerarPlanilhaPessoas(caminho, pessoasConsultadas);
+		return geradorExcel.gerarPlanilhaPessoas(caminho, pessoasConsultadas, titulo);
 	}
 
 	public PessoaVO pesquisarPorCpf(String cpf) {

@@ -73,6 +73,7 @@ public class PessoaVO {
 		this.voluntario = voluntario;
 	}
 
+
 	@Override
 	public String toString() {
 		return this.getNome();
